@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WJ ERP - What Good Looks Like</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-1: #f4f4f4;
+    --gray-2: #e0e0e0;
+    --gray-3: #9e9e9e;
+    --gray-4: #555;
+    --gray-5: #333;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --green-text: #166534;
+    --red-bg: #fef2f2;
+    --red-border: #fca5a5;
+    --red-text: #991b1b;
+    --amber-bg: #fffbeb;
+    --amber-border: #fde68a;
+    --amber-text: #92400e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  header {
+    background: var(--black);
+    color: var(--white);
+    padding: 48px 64px 40px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: #aaa;
+    max-width: 580px;
+    line-height: 1.5;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 52px 40px 80px;
+  }
+
+  .section-block {
+    margin-bottom: 56px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .section-block h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+
+  .section-intro {
+    font-size: 14px;
+    color: var(--gray-4);
+    margin-bottom: 24px;
+    max-width: 680px;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--gray-2);
+    margin: 0 0 52px;
+  }
+
+  /* Ideal state table */
+  .ideal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .ideal-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    font-weight: 600;
+    border-bottom: 2px solid var(--gray-2);
+  }
+
+  .ideal-table td {
+    padding: 14px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--gray-2);
+  }
+
+  .ideal-table td:first-child {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--gray-5);
+    width: 160px;
+    white-space: nowrap;
+  }
+
+  .ideal-table td.ideal {
+    background: var(--green-bg);
+    color: var(--green-text);
+    border-left: 3px solid var(--green-border);
+  }
+
+  .ideal-table td.broken {
+    background: var(--red-bg);
+    color: var(--red-text);
+    border-left: 3px solid var(--red-border);
+  }
+
+  /* Failure modes */
+  .failure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .f-card {
+    border-radius: 6px;
+    padding: 20px 22px;
+    border: 1px solid var(--gray-2);
+  }
+
+  .f-card.critical {
+    background: var(--red-bg);
+    border-color: var(--red-border);
+  }
+
+  .f-card.moderate {
+    background: var(--amber-bg);
+    border-color: var(--amber-border);
+  }
+
+  .f-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .f-card.critical h3 { color: var(--red-text); }
+  .f-card.moderate h3 { color: var(--amber-text); }
+
+  .f-card p {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin-bottom: 8px;
+  }
+
+  .f-card .fix {
+    font-size: 12px;
+    color: var(--gray-5);
+    border-top: 1px solid var(--gray-2);
+    padding-top: 8px;
+    margin-top: 4px;
+  }
+
+  .f-card.critical .fix { border-color: var(--red-border); }
+  .f-card.moderate .fix { border-color: var(--amber-border); }
+
+  /* Edge cases */
+  .edge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  .e-card {
+    border: 1px solid var(--gray-2);
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+
+  .e-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .e-card p {
+    font-size: 13px;
+    color: var(--gray-4);
+  }
+
+  /* Accounting explainer */
+  .explainer-block {
+    background: var(--gray-1);
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-bottom: 20px;
+  }
+
+  .explainer-block h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .explainer-block p {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin-bottom: 8px;
+  }
+
+  .explainer-block p:last-child { margin-bottom: 0; }
+
+  /* Diagnostic questions */
+  .q-list {
+    list-style: none;
+    padding: 0;
+    counter-reset: q;
+  }
+
+  .q-list li {
+    counter-increment: q;
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-2);
+  }
+
+  .q-list li:last-child { border-bottom: none; }
+
+  .q-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-3);
+    min-width: 20px;
+    padding-top: 2px;
+  }
+
+  .q-body strong {
+    font-size: 13px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .q-body span {
+    font-size: 12px;
+    color: var(--gray-4);
+  }
+
+  footer {
+    text-align: center;
+    padding: 28px;
+    font-size: 11px;
+    color: var(--gray-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--gray-2);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Warren James - VP of Technology</div>
+  <h1>ERP: What Good Looks Like</h1>
+  <div class="subtitle">A framework for evaluating the current Odoo state and defining what a trustworthy system looks like for Warren James specifically - across 70 creator stores, a live Shopify sync, and a finance team that needs to close cleanly every month.</div>
+</header>
+
+<main>
+
+  <!-- IDEAL STATE -->
+  <div class="section-block">
+    <div class="section-label">Benchmark</div>
+    <h2>Ideal State vs. Likely Current State</h2>
+    <p class="section-intro">The goal isn't a perfect ERP - it's a trusted one. These are the eight areas where "trust" either exists or breaks down, and what each looks like when it's working versus when it isn't.</p>
+
+    <table class="ideal-table">
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>Ideal State</th>
+          <th>Broken State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Inventory accuracy</td>
+          <td class="ideal">Odoo is the single number. Shopify displays what Odoo says. No reconciliation needed.</td>
+          <td class="broken">Shopify and Odoo show different counts. Team manually checks which is right before making decisions.</td>
+        </tr>
+        <tr>
+          <td>Order flow</td>
+          <td class="ideal">Every Shopify order appears in Odoo within minutes. Fulfillment state stays in sync automatically.</td>
+          <td class="broken">Orders appear late or with wrong status. Someone checks for stuck orders daily and manually fixes them.</td>
+        </tr>
+        <tr>
+          <td>Financial close</td>
+          <td class="ideal">Month-end close takes 1-2 days. Revenue in Odoo matches Shopify payouts with explainable variance only.</td>
+          <td class="broken">Month-end takes a week. Finance exports from Shopify, exports from Odoo, reconciles in Excel.</td>
+        </tr>
+        <tr>
+          <td>Purchasing</td>
+          <td class="ideal">Purchase orders in Odoo flow to vendor, goods receipt auto-updates inventory, landed cost captured cleanly.</td>
+          <td class="broken">POs managed in email or spreadsheet. Goods receipt entered manually. Landed cost guessed or ignored.</td>
+        </tr>
+        <tr>
+          <td>Reporting</td>
+          <td class="ideal">Leadership pulls one number. It's right. No caveat of "well, that's the Shopify number, Odoo says something different."</td>
+          <td class="broken">Every report comes with an asterisk. Leadership has learned not to trust it and asks for manual confirmation.</td>
+        </tr>
+        <tr>
+          <td>Multi-store management</td>
+          <td class="ideal">70 stores in one Odoo instance. Inventory per store, roll-up reporting across all. One place to look.</td>
+          <td class="broken">Some stores share an Odoo company, others are siloed. Cross-store reporting requires manual aggregation.</td>
+        </tr>
+        <tr>
+          <td>Data discipline</td>
+          <td class="ideal">Required fields enforced. Naming conventions followed. No notes fields being used as a database.</td>
+          <td class="broken">Free-text fields everywhere. Same vendor entered three different ways. Reports can't aggregate correctly.</td>
+        </tr>
+        <tr>
+          <td>Failure visibility</td>
+          <td class="ideal">When the Shopify sync fails, someone gets a Slack alert within minutes. Root cause is logged.</td>
+          <td class="broken">Sync fails silently. Discovered days later when inventory is wrong and nobody knows why.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- HOW THE ACCOUNTING LAYER WORKS -->
+  <div class="section-block">
+    <div class="section-label">Accounting Layer</div>
+    <h2>How Odoo Handles the Commerce Flow</h2>
+    <p class="section-intro">In a DTC eCommerce context, Odoo's accounting module is mostly an internal ledger - not a customer-facing invoicing system. Understanding how the flow works (and where it breaks) matters for diagnosing financial close problems.</p>
+
+    <div class="explainer-block">
+      <h3>The happy path</h3>
+      <p>Customer pays Shopify at checkout - they never receive a formal invoice. In Odoo's data model, the Shopify order syncs in as a Sales Order. Odoo auto-generates an invoice and immediately marks it paid. It exists as an accounting record, not a customer document. The relevant question is whether Odoo's books match what Shopify actually collected.</p>
+    </div>
+
+    <div class="explainer-block">
+      <h3>Returns - where most implementations break</h3>
+      <p>The correct flow: return processed in Shopify triggers a credit note (reverse invoice) in Odoo, which cancels the original invoice and restocks inventory automatically. If the connector doesn't handle this cleanly, inventory counts drift and open invoices accumulate that should be closed.</p>
+      <p>At 70 creator stores running drops, return spikes are common post-launch. A broken returns flow at this scale isn't an edge case - it's a recurring source of inventory and accounting noise.</p>
+    </div>
+
+    <div class="explainer-block">
+      <h3>Chargebacks - the hardest edge case</h3>
+      <p>A hard payment decline never creates a Shopify order, so Odoo never sees it. Chargebacks are different - they happen after the order ships and the invoice is already closed as paid in Odoo. The cash then gets clawed back by the bank. Unless the Shopify-Odoo sync handles chargebacks explicitly, you're left with paid invoices on the books for revenue that no longer exists. Someone is reconciling that manually. Shopify Payments holds (fraud flags) create the same mismatch.</p>
+      <p>A mature integration handles the happy path. A well-implemented one handles returns, chargebacks, partial refunds, and payment holds too - with each case logged and visible.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- FAILURE MODES -->
+  <div class="section-block">
+    <div class="section-label">Diagnostics</div>
+    <h2>The Most Common Failure Modes</h2>
+    <p class="section-intro">These are the patterns that cause trust in an ERP to collapse - and the fixes are usually more organizational than technical.</p>
+
+    <div class="failure-grid">
+      <div class="f-card critical">
+        <h3>Silent sync failures</h3>
+        <p>The Shopify connector runs on a schedule or webhook. When it fails, there's often no alert. Inventory drifts, orders go missing, nobody notices until the problem has compounded.</p>
+        <div class="fix">Fix: monitoring on every sync run, Slack alert on failure, retry logic with logging. Failure should be loud, not silent.</div>
+      </div>
+      <div class="f-card critical">
+        <h3>No source-of-truth rule</h3>
+        <p>Both Shopify and Odoo think they're authoritative for inventory. When they disagree, the connector picks one - often arbitrarily, because nobody documented the rule at implementation.</p>
+        <div class="fix">Fix: establish and enforce explicitly - Odoo is authoritative, Shopify is display-only. Lock inventory editing in Shopify for staff.</div>
+      </div>
+      <div class="f-card moderate">
+        <h3>Bypassing Odoo "just this once"</h3>
+        <p>Someone adjusts inventory directly in Shopify to solve an immediate problem. Odoo and Shopify are now out of sync. This becomes habitual when people don't trust Odoo - which makes them trust it even less.</p>
+        <div class="fix">Fix: all inventory adjustments through Odoo only. Document the rule, enforce it, and make Odoo the easier path.</div>
+      </div>
+      <div class="f-card moderate">
+        <h3>Chart of accounts misconfiguration</h3>
+        <p>Set up wrong at implementation and never corrected. Revenue hits the wrong account, reports don't map to how the business actually works, and finance has learned to distrust anything Odoo produces.</p>
+        <div class="fix">Fix: reconcile with finance, remap accounts, correct historical entries where necessary. This is a one-time fix with compounding returns.</div>
+      </div>
+      <div class="f-card moderate">
+        <h3>Implementation data never cleaned</h3>
+        <p>Vendors entered multiple ways, product names inconsistent, missing required fields. Reports that should aggregate can't, because the underlying records don't share a common key.</p>
+        <div class="fix">Fix: data quality sprint before any new reporting investment. Reports are only as good as the data behind them.</div>
+      </div>
+      <div class="f-card moderate">
+        <h3>No implementation documentation</h3>
+        <p>The person who made the configuration decisions is gone. Why certain fields map where they do, what custom logic exists, what was intentional vs. temporary - that context exists only in someone's memory.</p>
+        <div class="fix">Fix: document the current state as-found before touching anything. This becomes the baseline for all future decisions.</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- DIAGNOSTIC QUESTIONS -->
+  <div class="section-block">
+    <div class="section-label">Discovery</div>
+    <h2>The Questions That Reveal the Real State</h2>
+    <p class="section-intro">These are the questions that distinguish surface-level familiarity from real diagnostic understanding of an ERP implementation.</p>
+
+    <ul class="q-list">
+      <li>
+        <div class="q-num">01</div>
+        <div class="q-body">
+          <strong>Where do people go when they can't trust what Odoo shows?</strong>
+          <span>The answer reveals which teams have given up on the system and what parallel processes have developed to compensate. Every spreadsheet someone maintains outside of Odoo is a symptom.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">02</div>
+        <div class="q-body">
+          <strong>What does a month-end close actually look like right now, step by step?</strong>
+          <span>Time spent on reconciliation is a direct measure of how broken the integration is. More than a day is a red flag. More than three days means finance has essentially given up on Odoo as a source of truth.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">03</div>
+        <div class="q-body">
+          <strong>How are returns handled - does that flow back into Odoo automatically, or is it a manual process?</strong>
+          <span>Returns are almost always the weakest link. If they're not flowing back automatically, inventory counts are structurally wrong and there's no clean way to reconcile them over time.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">04</div>
+        <div class="q-body">
+          <strong>How are chargebacks handled - does Odoo get updated, or does finance deal with that separately?</strong>
+          <span>If chargebacks are handled outside Odoo, there are paid invoices on the books for revenue that no longer exists. This is a manual reconciliation problem that grows with volume.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">05</div>
+        <div class="q-body">
+          <strong>When the Shopify sync fails, how does anyone find out?</strong>
+          <span>If the answer isn't "we get an alert immediately," it's "we find out when the numbers are wrong days later." Silent failure is the root cause of most ERP trust breakdown.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">06</div>
+        <div class="q-body">
+          <strong>Is there anything that was configured during implementation that you now know was the wrong call?</strong>
+          <span>Often the most valuable answer on a discovery call. Reveals known debt that nobody has had the mandate to fix - and signals where the highest-leverage early work probably is.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology</footer>
+
+</body>
+</html>

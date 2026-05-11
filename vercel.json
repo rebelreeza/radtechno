@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/warrenjames", "destination": "/warrenjames/index.html" }
+  ]
+}

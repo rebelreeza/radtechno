@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WJ VP of Technology - Memo to Saurabh</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-1: #f4f4f4;
+    --gray-2: #e0e0e0;
+    --gray-3: #9e9e9e;
+    --gray-4: #555;
+    --gray-5: #333;
+    --accent: #1a1a1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* Header */
+  header {
+    background: var(--black);
+    color: var(--white);
+    padding: 52px 72px 44px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 14px;
+  }
+
+  header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    color: #aaa;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
+  /* Main content */
+  main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 56px 40px 80px;
+  }
+
+  /* Section */
+  .memo-section {
+    margin-bottom: 52px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .memo-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.2px;
+  }
+
+  .memo-section p {
+    color: var(--gray-5);
+    margin-bottom: 14px;
+  }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--gray-2);
+    margin: 0 0 52px;
+  }
+
+  /* Assessment cards */
+  .assessment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .a-card {
+    border: 1px solid var(--gray-2);
+    border-radius: 6px;
+    padding: 20px 22px;
+  }
+
+  .a-card.full {
+    grid-column: 1 / -1;
+  }
+
+  .a-card-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .a-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .a-card p {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin: 0;
+  }
+
+  .a-card.risk {
+    border-color: #fca5a5;
+    background: #fff5f5;
+  }
+
+  .a-card.risk .a-card-label { color: #dc2626; }
+
+  /* Plan timeline */
+  .timeline {
+    margin-top: 20px;
+    border-left: 2px solid var(--gray-2);
+    padding-left: 28px;
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 32px;
+  }
+
+  .tl-item:last-child { margin-bottom: 0; }
+
+  .tl-dot {
+    position: absolute;
+    left: -35px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--black);
+  }
+
+  .tl-timing {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .tl-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .tl-desc {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin-bottom: 10px;
+  }
+
+  .tl-bullets {
+    list-style: none;
+    padding: 0;
+  }
+
+  .tl-bullets li {
+    font-size: 13px;
+    color: var(--gray-5);
+    padding: 4px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+
+  .tl-bullets li::before {
+    content: '-';
+    position: absolute;
+    left: 0;
+    color: var(--gray-3);
+  }
+
+  /* Vision cards */
+  .vision-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .v-card {
+    border: 1px solid var(--gray-2);
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+
+  .v-card.featured {
+    grid-column: 1 / -1;
+    background: var(--black);
+    color: var(--white);
+    border-color: var(--black);
+  }
+
+  .v-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .v-card.featured .v-label { color: #555; }
+
+  .v-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .v-card p {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin: 0;
+  }
+
+  .v-card.featured p { color: #aaa; }
+  .v-card.featured h3 { font-size: 16px; }
+
+  /* Questions */
+  .q-list {
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+    counter-reset: q;
+  }
+
+  .q-list li {
+    counter-increment: q;
+    display: flex;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--gray-2);
+  }
+
+  .q-list li:last-child { border-bottom: none; }
+
+  .q-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gray-3);
+    min-width: 20px;
+    padding-top: 2px;
+  }
+
+  .q-body strong {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .q-body span {
+    font-size: 13px;
+    color: var(--gray-4);
+  }
+
+  /* Collab section */
+  .collab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .collab-card {
+    background: var(--gray-1);
+    border-radius: 6px;
+    padding: 18px 20px;
+  }
+
+  .collab-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .collab-card p {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin: 0;
+  }
+
+  /* Close */
+  .close-block {
+    background: var(--black);
+    color: var(--white);
+    border-radius: 8px;
+    padding: 36px 40px;
+    margin-top: 52px;
+  }
+
+  .close-block h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.2px;
+  }
+
+  .close-block p {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 0;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  /* Ideal state table */
+  .ideal-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 24px;
+  }
+
+  .ideal-table th {
+    text-align: left;
+    padding: 9px 12px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    font-weight: 600;
+    border-bottom: 2px solid var(--gray-2);
+  }
+
+  .ideal-table td {
+    padding: 12px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--gray-2);
+  }
+
+  .ideal-table td:first-child {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--gray-5);
+    width: 150px;
+    white-space: nowrap;
+  }
+
+  .ideal-table td.ideal {
+    background: #f0fdf4;
+    color: #166534;
+    border-left: 3px solid #bbf7d0;
+  }
+
+  .ideal-table td.broken {
+    background: #fef2f2;
+    color: #991b1b;
+    border-left: 3px solid #fca5a5;
+  }
+
+  /* Supporting docs */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+  }
+
+  .doc-link {
+    display: block;
+    border: 1px solid var(--gray-2);
+    border-radius: 6px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s;
+  }
+
+  .doc-link:hover { border-color: var(--black); }
+
+  .doc-link-label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .doc-link h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .doc-link p {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin: 0;
+  }
+
+  .doc-arrow {
+    float: right;
+    color: var(--gray-3);
+    font-size: 16px;
+    margin-top: -2px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 32px;
+    font-size: 11px;
+    color: var(--gray-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-top: 1px solid var(--gray-2);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Warren James - VP of Technology</div>
+  <h1>Where My Head Is At</h1>
+  <div class="subtitle">A working document for Saurabh - what I understand, what I'd do, and what I want to think through with you before day one.</div>
+</header>
+
+<main>
+
+  <!-- CURRENT STATE -->
+  <div class="memo-section">
+    <div class="section-label">Current State</div>
+    <h2>What I Think Is True Right Now</h2>
+    <p>Based on everything I've learned so far, here's my honest read of where things stand. I'm sharing this because I want you to correct me where I'm wrong - I'd rather surface a wrong assumption now than act on it later.</p>
+
+    <div class="assessment-grid">
+      <div class="a-card">
+        <div class="a-card-label">Odoo</div>
+        <h3>Functional but not trusted</h3>
+        <p>The system is running, but the team is probably maintaining parallel spreadsheets for anything important. The Shopify connector is almost certainly where trust broke down - silent sync failures that nobody caught until the numbers didn't match.</p>
+      </div>
+
+      <div class="a-card">
+        <div class="a-card-label">Shopify</div>
+        <h3>70 stores, unknown consistency</h3>
+        <p>Each store likely has its own app stack, its own structure, and its own workarounds. There's probably significant overlap in paid tooling and significant variation in how drops are coordinated. The full picture doesn't exist anywhere yet.</p>
+      </div>
+
+      <div class="a-card">
+        <div class="a-card-label">Knowledge</div>
+        <h3>Concentrated risk</h3>
+        <p>The decisions made during the Odoo implementation - which fields map where, why certain things were configured a certain way - exist mostly in memory, not documentation. When the previous tech lead left, a lot of institutional context left with them.</p>
+      </div>
+
+      <div class="a-card">
+        <div class="a-card-label">Automation</div>
+        <h3>High potential, low current baseline</h3>
+        <p>The team is probably doing manually what could be automated - request triage, order routing, campaign coordination across stores. That's not a criticism - it's where some of the earliest leverage likely lives, and the tooling to address it is relatively lightweight.</p>
+      </div>
+
+      <div class="a-card risk full">
+        <div class="a-card-label">The Real Risk</div>
+        <h3>Speed of the business outpacing the infrastructure holding it together</h3>
+        <p>Creators move at the speed of social media. A drop that goes viral on a Tuesday needs the ops infrastructure to handle it by Wednesday. Right now, the reliability of that infrastructure is unclear - and at 70 stores, a systemic failure isn't a one-store problem.</p>
+      </div>
+    </div>
+
+    <table class="ideal-table">
+      <thead>
+        <tr>
+          <th>ERP Area</th>
+          <th>What good looks like</th>
+          <th>What broken looks like</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Inventory accuracy</td>
+          <td class="ideal">Odoo is the single number. Shopify displays what Odoo says. No reconciliation needed.</td>
+          <td class="broken">Shopify and Odoo show different counts. Team manually checks which is right before making decisions.</td>
+        </tr>
+        <tr>
+          <td>Order flow</td>
+          <td class="ideal">Every Shopify order appears in Odoo within minutes. Fulfillment state stays in sync automatically.</td>
+          <td class="broken">Orders appear late or with wrong status. Someone checks for stuck orders daily and manually fixes them.</td>
+        </tr>
+        <tr>
+          <td>Financial close</td>
+          <td class="ideal">Month-end close takes 1-2 days. Revenue in Odoo matches Shopify payouts with explainable variance only.</td>
+          <td class="broken">Month-end takes a week. Finance exports from Shopify, exports from Odoo, reconciles in Excel.</td>
+        </tr>
+        <tr>
+          <td>Failure visibility</td>
+          <td class="ideal">When the sync fails, someone gets a Slack alert within minutes. Root cause is logged.</td>
+          <td class="broken">Sync fails silently. Discovered days later when inventory is wrong and nobody knows why.</td>
+        </tr>
+        <tr>
+          <td>Reporting</td>
+          <td class="ideal">Leadership pulls one number. It's right. No caveat of "well, that's the Shopify number."</td>
+          <td class="broken">Every report comes with an asterisk. Leadership has learned not to trust it.</td>
+        </tr>
+        <tr>
+          <td>Multi-store view</td>
+          <td class="ideal">70 stores in one instance. Inventory per store, roll-up reporting across all. One place to look.</td>
+          <td class="broken">Some stores share an Odoo company, others are siloed. Cross-store reporting requires manual aggregation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PLAN -->
+  <div class="memo-section">
+    <div class="section-label">The Plan</div>
+    <h2>Four Phases - One Direction</h2>
+    <p>Stabilize the foundation fast, build leverage into it, then compound. The sequencing is intentional - later phases depend on earlier ones being solid.</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-timing">Days 1 - 30 · Phase 1</div>
+        <div class="tl-title">Orient - Understand before acting</div>
+        <div class="tl-desc">The output of month one is a ranked list of what's actually broken - not a change log. I won't fix anything that isn't causing live operational damage.</div>
+        <ul class="tl-bullets">
+          <li>Sit with ops, finance, and merch - ask "where do you go when you can't trust Odoo?"</li>
+          <li>Pull a sample of orders and trace them end-to-end through Shopify and Odoo - find where states diverge</li>
+          <li>Map every manual reconciliation happening at month-end</li>
+          <li>Full Shopify audit: plan types, app overlap, store structure consistency, sync behavior</li>
+          <li>SaaS and vendor audit - most companies this size carry $15-40K/month in redundant tooling</li>
+          <li>Ship one high-visibility AI automation early to prove the pattern - not to impress, to establish the template</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-timing">Months 2 - 3 · Phase 2</div>
+        <div class="tl-title">Stabilize - Make Odoo trustworthy</div>
+        <div class="tl-desc">This is the unglamorous work that makes everything else possible. The goal: a week goes by with no "the inventory numbers are wrong" conversation.</div>
+        <ul class="tl-bullets">
+          <li>Fix the Shopify sync - monitoring, alerting, and conflict resolution documented</li>
+          <li>Clean the data sources that are producing unreliable reports (not the reports themselves)</li>
+          <li>Automate the 3 most painful manual handoffs identified in Phase 1</li>
+          <li>Stand up the data pipeline to BigQuery - so Phase 3 has clean data to work with</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-timing">Months 4 - 6 · Phase 3</div>
+        <div class="tl-title">Leverage - Build on a stable base</div>
+        <div class="tl-desc">With a reliable foundation, shift from fixing to building. AI workflows embedded in how teams actually operate, not just demos.</div>
+        <ul class="tl-bullets">
+          <li>AI embedded in every team's workflow - ops triage, creative briefs, inventory forecasting</li>
+          <li>Campaign tracking discipline across all 70 stores - UTM tagging, Shopify Flow, consistent attribution</li>
+          <li>Creator store "fingerprints" - encode what makes each store's audience unique as structured data</li>
+          <li>Shopify store consolidation where it makes sense - fewer redundant apps, consistent drop infrastructure</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-timing">Months 7 - 9 · Phase 4</div>
+        <div class="tl-title">Compound - Build competitive advantage</div>
+        <div class="tl-desc">The things in this phase require clean data and working infrastructure underneath them - which is why the earlier phases have to come first.</div>
+        <ul class="tl-bullets">
+          <li>Cross-store campaign intelligence - when Store A has a breakout drop, automatically identify which other stores have the most similar audience profile and generate tailored briefs</li>
+          <li>Purchasing leverage - 15 stores buying from the same manufacturer should negotiate as one buyer</li>
+          <li>Internal AI tools built on top of clean data and the workflow patterns established in Phase 3</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BIGGER PICTURE -->
+  <div class="memo-section">
+    <div class="section-label">Bigger Picture</div>
+    <h2>Where This Leads</h2>
+    <p>The 6-9 month work is about stabilizing the foundation. But the reason to build it carefully is what it unlocks. These are the outcomes that justify the investment - none of them are possible without clean data and reliable infrastructure underneath.</p>
+
+    <div class="vision-row">
+      <div class="v-card featured">
+        <div class="v-label">Flagship Opportunity</div>
+        <h3>Cross-Store Campaign Pattern Matching</h3>
+        <p>WJ manages ~70 creator stores - more launch data than any individual creator will accumulate on their own. After every successful drop, leverage agentic AI to extract what drove performance: audience trust index, product category, price band, scarcity mechanics, sell-through velocity. When Store A has a breakout launch, the system could identify the 4-5 stores with the most similar fingerprint and generate tailored campaign briefs for each. Over time this could become a proprietary playbook library that compounds with every new launch - the kind of institutional intelligence that's hard to replicate without the same data history.</p>
+      </div>
+
+      <div class="v-card">
+        <div class="v-label">New Revenue Line</div>
+        <h3>Creator-Owned Apps</h3>
+        <p>Hank Green's Focus Friend hit #1 on the App Store in 2025 with a tiny team - the distribution came entirely from his audience, not paid acquisition. WJ's creator roster has the same distribution potential, and most creators have no product or tech expertise to act on it. That gap could be a material opportunity enabled by a tech org with app-building capability and product judgment.</p>
+      </div>
+
+      <div class="v-card">
+        <div class="v-label">Operations</div>
+        <h3>Launch Command Center</h3>
+        <p>Coordinating a drop across inventory, fulfillment, Shopify, and creator comms is typically a manual high-stress event. With the right automation layer, that could look more like a pre-staged, orchestrated workflow - inventory positioned ahead of time, Launchpad queued, notifications handled automatically.</p>
+      </div>
+
+      <div class="v-card">
+        <div class="v-label">Finance</div>
+        <h3>Real-Time Portfolio View</h3>
+        <p>With clean Odoo data flowing into BigQuery, a live portfolio view across all 70 stores - revenue, inventory, margin - becomes achievable without anyone manually pulling and reconciling exports.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- OPEN QUESTIONS -->
+  <div class="memo-section">
+    <div class="section-label">Open Questions</div>
+    <h2>What I Want to Hear From You</h2>
+    <p>These aren't things I can answer from the outside. The faster I get your read on these, the faster I can build a plan that's actually grounded in reality.</p>
+
+    <ul class="q-list">
+      <li>
+        <div class="q-num">01</div>
+        <div class="q-body">
+          <strong>What does Odoo actually feel like to the team right now?</strong>
+          <span>Not the intended state - the lived experience. Do people trust it enough to make decisions from it, or is it a system of record that nobody actually uses?</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">02</div>
+        <div class="q-body">
+          <strong>Where is the biggest operational pain point right now - the one that costs the most time or creates the most internal friction?</strong>
+          <span>I have hypotheses from the outside. You'll know the answer immediately. That's where I'd want to focus first.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">03</div>
+        <div class="q-body">
+          <strong>What did the previous tech lead own that nobody has picked up since they left?</strong>
+          <span>This tells me where the acute gaps are versus the chronic ones - and which problems have already been quietly absorbed by other people.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">04</div>
+        <div class="q-body">
+          <strong>What's your instinct on Shopify Plus - is that a conversation worth having, or is the cost a non-starter?</strong>
+          <span>Some of the longer-term leverage (checkout extensibility, multi-store admin) requires it. Worth knowing early whether that's in the picture or not.</span>
+        </div>
+      </li>
+      <li>
+        <div class="q-num">05</div>
+        <div class="q-body">
+          <strong>What would make you feel like this was unambiguously working at the 90-day mark?</strong>
+          <span>Not the full roadmap - just the signal that would tell you the right person is in the seat. I want to design month one around that signal.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <!-- HOW WE WORK -->
+  <div class="memo-section">
+    <div class="section-label">Collaboration</div>
+    <h2>How I'd Work With You</h2>
+
+    <div class="collab-grid">
+      <div class="collab-card">
+        <h3>Weekly sync - short by default</h3>
+        <p>30 minutes, structured: what shipped, what's blocked, what's coming. I'll send a brief ahead of time so we're not using the meeting to catch up.</p>
+      </div>
+      <div class="collab-card">
+        <h3>Decisions to you, not recommendations</h3>
+        <p>When I need a call from you, I'll bring a clear recommendation with the tradeoffs laid out - not a list of options. Your time is for deciding, not deliberating.</p>
+      </div>
+      <div class="collab-card">
+        <h3>No surprises</h3>
+        <p>If something breaks or I find something unexpected, you hear it from me first - before it surfaces in a meeting or from a team member. Early signal, not managed perception.</p>
+      </div>
+      <div class="collab-card">
+        <h3>You're a technical partner in this</h3>
+        <p>I'll keep you close enough to the technology that you can have an informed opinion - not buried in it, but not kept at arm's length either. That makes the whole thing go faster.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- WHAT I BRING -->
+  <div class="memo-section">
+    <div class="section-label">What I Bring</div>
+    <h2>Beyond Building Workflows</h2>
+    <p>The technical execution is table stakes. What I think this role actually requires - and where I'd differentiate - is the combination of strategic thinking, organizational leadership, and hands-on delivery operating at the same time.</p>
+
+    <div class="collab-grid">
+      <div class="collab-card">
+        <h3>Strategic product thinking</h3>
+        <p>I've led product from zero to shipped across multiple domains - not just feature delivery but the harder work of deciding what to build, what to buy, what to kill, and what sequencing actually makes business sense. That judgment is what keeps a tech roadmap from becoming a list of interesting projects.</p>
+      </div>
+      <div class="collab-card">
+        <h3>Cross-functional leadership</h3>
+        <p>Tech decisions at WJ touch ops, finance, creative, and creator relationships simultaneously. I'm comfortable owning the room in those conversations - not as the person who explains the tech, but as a peer who understands the tradeoffs each function is navigating and can drive alignment across them.</p>
+      </div>
+      <div class="collab-card">
+        <h3>Vendor accountability and negotiation</h3>
+        <p>ERP implementations, Shopify connectors, SaaS contracts - these relationships have real commercial leverage that often goes unused. I know how to hold vendors to commitments, escalate when support is falling short, and negotiate from an informed position rather than just accepting the default.</p>
+      </div>
+      <div class="collab-card">
+        <h3>I'm a doer</h3>
+        <p>I don't hand off and wait. When something needs to move fast, I'll be in the configuration, in the code, or in the vendor call myself. The strategic thinking and the rolling-up-sleeves are not separate modes - they run in parallel, which is what this stage of WJ needs.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SUPPORTING DOCS -->
+  <div class="memo-section">
+    <div class="section-label">Supporting Detail</div>
+    <h2>Dive Deeper</h2>
+    <p>These documents expand on the thinking above - the full execution plan, an ERP diagnostic framework, and a survey of AI opportunities across the business.</p>
+
+    <div class="docs-grid">
+      <a class="doc-link" href="roadmap.html">
+        <span class="doc-arrow">→</span>
+        <div class="doc-link-label">Full Plan</div>
+        <h3>6-9 Month Execution Roadmap</h3>
+        <p>Phase-by-phase breakdown with specific deliverables, decision rules, and success criteria across ERP, Shopify, automation, and data.</p>
+      </a>
+      <a class="doc-link" href="erp.html">
+        <span class="doc-arrow">→</span>
+        <div class="doc-link-label">ERP Framework</div>
+        <h3>What Good Looks Like - ERP</h3>
+        <p>Ideal state vs. broken state across eight areas, common failure modes, how the accounting layer works in a DTC context, and the diagnostic questions that reveal actual system health.</p>
+      </a>
+      <a class="doc-link" href="ai-use-cases.html">
+        <span class="doc-arrow">→</span>
+        <div class="doc-link-label">Strategic Vision</div>
+        <h3>AI Opportunities Across the Business</h3>
+        <p>A survey of where AI can drive measurable business outcomes at WJ - from campaign intelligence and creator onboarding to inventory forecasting and vendor negotiation.</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- CLOSE -->
+  <div class="close-block">
+    <h2>Ready to Start</h2>
+    <p>Everything in this document was put together before day one - which means it will be wrong in some places. That's fine. The point is to show up with a real perspective, not a blank slate. Tell me what I've got wrong and we'll sharpen it together. I can move fast once I'm in the building.</p>
+  </div>
+
+</main>
+
+<footer>Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology</footer>
+
+</body>
+</html>

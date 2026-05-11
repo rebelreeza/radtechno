@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warren James  -  Strategic AI Use Cases</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06080F;
+    --surface: #0C1018;
+    --surface2: #121820;
+    --border: rgba(255,255,255,0.055);
+    --text: #D4CFC8;
+    --muted: #4A5568;
+    --dim: #252D3A;
+
+    --gold: #C9A84C;
+    --gold-bg: rgba(201,168,76,0.07);
+    --gold-border: rgba(201,168,76,0.22);
+
+    /* Category colors */
+    --c1: #F472B6; /* pink  -  audience intelligence */
+    --c1-bg: rgba(244,114,182,0.07);
+    --c1-border: rgba(244,114,182,0.22);
+
+    --c2: #38BDF8; /* sky  -  campaign intelligence */
+    --c2-bg: rgba(56,189,248,0.07);
+    --c2-border: rgba(56,189,248,0.22);
+
+    --c3: #A78BFA; /* violet  -  creator intelligence */
+    --c3-bg: rgba(167,139,250,0.07);
+    --c3-border: rgba(167,139,250,0.22);
+
+    --c4: #34D399; /* emerald  -  product intelligence */
+    --c4-bg: rgba(52,211,153,0.07);
+    --c4-border: rgba(52,211,153,0.22);
+
+    --c5: #FB923C; /* orange  -  revenue intelligence */
+    --c5-bg: rgba(251,146,60,0.07);
+    --c5-border: rgba(251,146,60,0.22);
+
+    --c6: #E879F9; /* fuchsia  -  creator growth */
+    --c6-bg: rgba(232,121,249,0.07);
+    --c6-border: rgba(232,121,249,0.22);
+
+    --c7: #FCD34D; /* amber  -  risk & ops */
+    --c7-bg: rgba(252,211,77,0.07);
+    --c7-border: rgba(252,211,77,0.22);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    padding: 2.5rem 2rem;
+  }
+
+  .page { max-width: 940px; margin: 0 auto; }
+
+  /* HEADER */
+  .hdr {
+    text-align: center;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .hdr::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+  .hdr h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .hdr h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hdr-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    margin-top: 0.5rem;
+  }
+  .hdr-desc {
+    max-width: 560px;
+    margin: 1rem auto 0;
+    font-size: 0.88rem;
+    color: #64748B;
+    line-height: 1.7;
+  }
+
+  /* STICKY NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6,8,15,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem 0;
+    margin: 0 -2rem 2.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .nav-links a:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
+
+  /* CATEGORY SECTION */
+  .cat-section {
+    margin-bottom: 3rem;
+    scroll-margin-top: 70px;
+  }
+
+  .cat-hdr {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-icon {
+    width: 36px; height: 36px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .cat-title-wrap { flex: 1; }
+  .cat-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+  .cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .cat-desc {
+    font-size: 0.8rem;
+    color: #4A5568;
+    font-style: italic;
+    margin-left: auto;
+    max-width: 280px;
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  /* USE CASE CARDS */
+  .uc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .uc-card {
+    border-radius: 6px;
+    padding: 1.2rem 1.3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .uc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px; height: 60px;
+    border-radius: 0 6px 0 60px;
+    opacity: 0.06;
+  }
+
+  .uc-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+    opacity: 0.6;
+  }
+  .uc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .uc-what {
+    font-size: 0.82rem;
+    color: #94A3B8;
+    line-height: 1.6;
+    margin-bottom: 0.65rem;
+  }
+
+  .uc-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 0.65rem;
+  }
+
+  .uc-outcome-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.2rem;
+  }
+  .uc-outcome {
+    font-size: 0.8rem;
+    color: #CBD5E1;
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .uc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.65rem;
+  }
+  .uc-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    padding: 0.12rem 0.4rem;
+    border-radius: 2px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* WIDE CARD - spans full width */
+  .uc-card-wide {
+    grid-column: 1 / -1;
+  }
+
+  /* HORIZON CARD - special featured format */
+  .uc-card-featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .uc-card-featured .uc-feat-left { }
+  .uc-card-featured .uc-feat-right {
+    border-left: 1px solid rgba(255,255,255,0.06);
+    padding-left: 1.5rem;
+  }
+  .uc-feat-right-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    margin-bottom: 0.5rem;
+  }
+  .uc-steps { list-style: none; }
+  .uc-steps li {
+    display: flex;
+    gap: 0.65rem;
+    font-size: 0.8rem;
+    color: #94A3B8;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    line-height: 1.5;
+    align-items: flex-start;
+  }
+  .uc-steps li:last-child { border-bottom: none; }
+  .uc-step-n {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    opacity: 0.35;
+    flex-shrink: 0;
+    padding-top: 0.15rem;
+  }
+
+  /* MOAT BADGE */
+  .moat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    padding: 0.18rem 0.5rem;
+    border-radius: 2px;
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    float: right;
+  }
+
+  /* COLOR VARIANTS */
+  /* C1 - pink */
+  .cc1 { background: var(--c1-bg); border: 1px solid var(--c1-border); }
+  .cc1 .uc-num { color: var(--c1); }
+  .cc1 .uc-tag { background: var(--c1-bg); color: var(--c1); border: 1px solid var(--c1-border); }
+  .cc1::before { background: var(--c1); }
+  .cat-hdr.cc1-hdr .cat-num { color: var(--c1); }
+  .cat-hdr.cc1-hdr .cat-icon { background: var(--c1-bg); border: 1px solid var(--c1-border); }
+
+  /* C2 - sky */
+  .cc2 { background: var(--c2-bg); border: 1px solid var(--c2-border); }
+  .cc2 .uc-num { color: var(--c2); }
+  .cc2 .uc-tag { background: var(--c2-bg); color: var(--c2); border: 1px solid var(--c2-border); }
+  .cc2::before { background: var(--c2); }
+  .cat-hdr.cc2-hdr .cat-num { color: var(--c2); }
+  .cat-hdr.cc2-hdr .cat-icon { background: var(--c2-bg); border: 1px solid var(--c2-border); }
+
+  /* C3 - violet */
+  .cc3 { background: var(--c3-bg); border: 1px solid var(--c3-border); }
+  .cc3 .uc-num { color: var(--c3); }
+  .cc3 .uc-tag { background: var(--c3-bg); color: var(--c3); border: 1px solid var(--c3-border); }
+  .cc3::before { background: var(--c3); }
+  .cat-hdr.cc3-hdr .cat-num { color: var(--c3); }
+  .cat-hdr.cc3-hdr .cat-icon { background: var(--c3-bg); border: 1px solid var(--c3-border); }
+
+  /* C4 - emerald */
+  .cc4 { background: var(--c4-bg); border: 1px solid var(--c4-border); }
+  .cc4 .uc-num { color: var(--c4); }
+  .cc4 .uc-tag { background: var(--c4-bg); color: var(--c4); border: 1px solid var(--c4-border); }
+  .cc4::before { background: var(--c4); }
+  .cat-hdr.cc4-hdr .cat-num { color: var(--c4); }
+  .cat-hdr.cc4-hdr .cat-icon { background: var(--c4-bg); border: 1px solid var(--c4-border); }
+
+  /* C5 - orange */
+  .cc5 { background: var(--c5-bg); border: 1px solid var(--c5-border); }
+  .cc5 .uc-num { color: var(--c5); }
+  .cc5 .uc-tag { background: var(--c5-bg); color: var(--c5); border: 1px solid var(--c5-border); }
+  .cc5::before { background: var(--c5); }
+  .cat-hdr.cc5-hdr .cat-num { color: var(--c5); }
+  .cat-hdr.cc5-hdr .cat-icon { background: var(--c5-bg); border: 1px solid var(--c5-border); }
+
+  /* C6 - fuchsia */
+  .cc6 { background: var(--c6-bg); border: 1px solid var(--c6-border); }
+  .cc6 .uc-num { color: var(--c6); }
+  .cc6 .uc-tag { background: var(--c6-bg); color: var(--c6); border: 1px solid var(--c6-border); }
+  .cc6::before { background: var(--c6); }
+  .cat-hdr.cc6-hdr .cat-num { color: var(--c6); }
+  .cat-hdr.cc6-hdr .cat-icon { background: var(--c6-bg); border: 1px solid var(--c6-border); }
+
+  /* C7 - amber */
+  .cc7 { background: var(--c7-bg); border: 1px solid var(--c7-border); }
+  .cc7 .uc-num { color: var(--c7); }
+  .cc7 .uc-tag { background: var(--c7-bg); color: var(--c7); border: 1px solid var(--c7-border); }
+  .cc7::before { background: var(--c7); }
+  .cat-hdr.cc7-hdr .cat-num { color: var(--c7); }
+  .cat-hdr.cc7-hdr .cat-icon { background: var(--c7-bg); border: 1px solid var(--c7-border); }
+
+  /* CLOSING */
+  .closing {
+    background: var(--gold-bg);
+    border: 1px solid var(--gold-border);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .closing h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .closing p { font-size: 0.85rem; color: #64748B; line-height: 1.7; max-width: 620px; margin: 0 auto; }
+  .closing p strong { color: #94A3B8; }
+
+  footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--dim);
+    text-align: center;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 680px) {
+    body { padding: 1.25rem 1rem; }
+    .nav { margin: 0 -1rem 2rem; padding-left: 1rem; }
+    .uc-grid { grid-template-columns: 1fr; }
+    .uc-card-featured { grid-template-columns: 1fr; }
+    .uc-card-featured .uc-feat-right { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .cat-desc { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <p class="eyebrow">Strategic AI Vision · Warren James</p>
+    <h1>AI That Moves the<br><em>Business Forward</em></h1>
+    <p class="hdr-sub">Not efficiency. Not automation. Genuine competitive advantage.</p>
+    <p class="hdr-desc">These use cases go beyond saving time on existing tasks. Each one creates a capability Warren James doesn't have today  -  and that competitors can't easily replicate without the same data foundation.</p>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-links">
+      <a href="#s1">01 · Campaign Intelligence</a>
+      <a href="#s2">02 · Audience Intelligence</a>
+      <a href="#s3">03 · Creator Intelligence</a>
+      <a href="#s4">04 · Product Intelligence</a>
+      <a href="#s5">05 · Revenue Intelligence</a>
+      <a href="#s6">06 · Creator Growth</a>
+      <a href="#s7">07 · Risk & Anomaly</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 1: CAMPAIGN INTELLIGENCE -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s1">
+    <div class="cat-hdr cc2-hdr">
+      <div class="cat-icon">📡</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 01</p>
+        <p class="cat-title">Campaign Intelligence</p>
+      </div>
+      <p class="cat-desc">Turn every launch into institutional knowledge. Make the next campaign smarter than the last.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card uc-card-featured cc2">
+        <span class="moat-badge">⬡ Competitive Moat</span>
+        <div class="uc-feat-left">
+          <p class="uc-num">UC-01</p>
+          <p class="uc-title">Cross-Store Campaign Pattern Matching</p>
+          <p class="uc-what">After a campaign closes, AI extracts its success fingerprint  -  audience trust index, scarcity responsiveness, price sensitivity, sell-through velocity, content format  -  and encodes it as structured attributes. It then scans all 40 stores and ranks them by similarity, identifying which stores share enough characteristics to replicate the playbook and why.</p>
+          <div class="uc-divider"></div>
+          <p class="uc-outcome-label">Business outcome</p>
+          <p class="uc-outcome">"Creator A's October drop cleared in 18 hours. Stores 7, 12, and 31 share 74–87% of the same audience attributes. Here's an adapted campaign brief for each, tuned to their specific product mix and posting cadence."</p>
+          <div class="uc-tags">
+            <span class="uc-tag">BigQuery</span>
+            <span class="uc-tag">Claude API</span>
+            <span class="uc-tag">Social data</span>
+            <span class="uc-tag">Compounds over time</span>
+          </div>
+        </div>
+        <div class="uc-feat-right">
+          <p class="uc-feat-right-label">How it works  -  step by step</p>
+          <ul class="uc-steps">
+            <li><span class="uc-step-n">01</span>Campaign closes. AI agent queries BigQuery for all orders, UTMs, sell-through rate, AOV, customer profile during window.</li>
+            <li><span class="uc-step-n">02</span>AI synthesizes success factors into a structured fingerprint  -  not just metrics but the WHY behind them.</li>
+            <li><span class="uc-step-n">03</span>Fingerprint is encoded into `store_profile` table in BigQuery as comparable attributes.</li>
+            <li><span class="uc-step-n">04</span>Similarity query runs across all 40 store profiles. Ranked match list generated.</li>
+            <li><span class="uc-step-n">05</span>For each matched store, AI generates an adapted campaign brief using that store's own product and audience data.</li>
+            <li><span class="uc-step-n">06</span>Output delivered to ops team as a structured recommendation with confidence score and reasoning.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="uc-card cc2">
+        <p class="uc-num">UC-02</p>
+        <p class="uc-title">Optimal Launch Timing Engine</p>
+        <p class="uc-what">AI analyzes historical order timestamps, day-of-week patterns, seasonal signals, and audience timezone distribution per store to recommend the optimal day and hour to publish a campaign. Not a generic best practice  -  specific to each creator's audience behavior.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Store 12's audience converts 34% better on Tuesday 7pm EST. Store 7 peaks Sunday morning. Stop guessing launch time."</p>
+        <div class="uc-tags"><span class="uc-tag">Behavioral data</span><span class="uc-tag">Per-store</span></div>
+      </div>
+
+      <div class="uc-card cc2">
+        <p class="uc-num">UC-03</p>
+        <p class="uc-title">Campaign Brief Generator</p>
+        <p class="uc-what">Given a new product and a target store, AI generates a full campaign brief  -  recommended window length, pricing strategy, scarcity mechanic (limited units vs limited time), channel mix, content angle  -  all grounded in what has historically worked for that store's audience specifically.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">New collection launches with a data-backed strategy in minutes instead of a gut-feel meeting that takes a week to schedule.</p>
+        <div class="uc-tags"><span class="uc-tag">LLM synthesis</span><span class="uc-tag">Historical data</span></div>
+      </div>
+
+      <div class="uc-card cc2">
+        <p class="uc-num">UC-04</p>
+        <p class="uc-title">Live Campaign Performance Monitor</p>
+        <p class="uc-what">During an active campaign, AI monitors sell-through velocity in real time and compares it to the projected curve based on historical patterns. If it's tracking ahead  -  surface upsell or bundle opportunity. If it's tracking behind  -  trigger an early alert with a recommended intervention (extend window, push a second post, add a discount layer).</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">No more finding out a campaign underperformed after the window closed. Intervene while there's still time.</p>
+        <div class="uc-tags"><span class="uc-tag">Real-time</span><span class="uc-tag">Shopify webhooks</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 2: AUDIENCE INTELLIGENCE -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s2">
+    <div class="cat-hdr cc1-hdr">
+      <div class="cat-icon">👥</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 02</p>
+        <p class="cat-title">Audience Intelligence</p>
+      </div>
+      <p class="cat-desc">Understand who is actually buying  -  not just who follows. Surface patterns invisible to the naked eye.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc1">
+        <p class="uc-num">UC-05</p>
+        <p class="uc-title">Cross-Store Buyer Identity Graph</p>
+        <p class="uc-what">Build a unified customer identity layer across all 40 stores. A customer who bought from Creator A and Creator B is a high-value signal  -  they're a Warren James loyalist, not just a fan of one creator. AI surfaces these cross-store buyers, profiles their behavior, and identifies which stores they haven't bought from yet that match their taste profile.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"These 4,200 customers have bought from 2+ stores. Here are the 3 stores they haven't discovered yet that match their purchase history. Warm introduction campaign, not cold acquisition."</p>
+        <div class="uc-tags"><span class="uc-tag">Identity resolution</span><span class="uc-tag">BigQuery</span></div>
+      </div>
+
+      <div class="uc-card cc1">
+        <p class="uc-num">UC-06</p>
+        <p class="uc-title">Audience Saturation Detector</p>
+        <p class="uc-what">AI monitors repeat purchase rate, time-between-orders, and new-vs-returning customer ratio per store over time. When a store's audience starts showing saturation signals  -  declining new customer rate, same customers buying every drop  -  it flags that the creator may need a new audience growth strategy before the next campaign.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Catch audience fatigue before revenue decline. Prompt the creator to expand reach before the well runs dry.</p>
+        <div class="uc-tags"><span class="uc-tag">Trend analysis</span><span class="uc-tag">Early warning</span></div>
+      </div>
+
+      <div class="uc-card cc1">
+        <p class="uc-num">UC-07</p>
+        <p class="uc-title">Price Sensitivity Profiling</p>
+        <p class="uc-what">AI models the price elasticity curve for each store's audience  -  the point at which conversion rate drops meaningfully as price increases. Different creator audiences have completely different price ceilings. Knowing the ceiling per store optimizes product pricing at launch and prevents leaving margin on the table.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Store 7's audience converts well up to $89. Above that, conversion drops 40%. Store 12's ceiling is $140. Price accordingly."</p>
+        <div class="uc-tags"><span class="uc-tag">Elasticity modeling</span><span class="uc-tag">Per-store</span></div>
+      </div>
+
+      <div class="uc-card cc1">
+        <p class="uc-num">UC-08</p>
+        <p class="uc-title">Return Reason Intelligence</p>
+        <p class="uc-what">AI classifies and clusters return reasons at scale across all stores. Not just the checkbox the customer selected  -  the free-text notes, the patterns across SKUs, the correlation between return rate and specific campaign types. Surfaces product quality signals, sizing issues, and expectation mismatches before they compound.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Ring sizing in Store 3 has a 22% return rate specifically on flash sale orders  -  customers are impulse buying the wrong size. Add a size guide prompt at checkout for that store during sales."</p>
+        <div class="uc-tags"><span class="uc-tag">NLP classification</span><span class="uc-tag">Product feedback</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 3: CREATOR INTELLIGENCE -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s3">
+    <div class="cat-hdr cc3-hdr">
+      <div class="cat-icon">✦</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 03</p>
+        <p class="cat-title">Creator Intelligence</p>
+      </div>
+      <p class="cat-desc">Help creators succeed more by understanding them more deeply than they understand themselves.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc3">
+        <p class="uc-num">UC-09</p>
+        <p class="uc-title">Creator Health Score</p>
+        <p class="uc-what">A composite AI-generated score per creator that combines commerce performance (revenue trend, sell-through rate, AOV trajectory, return rate) with audience health signals (engagement rate trend, follower growth velocity, sentiment in comments). Updated monthly. Flags creators whose commercial potential is growing before it's obvious, and catches declining creators before revenue drops.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Warren James knows which creator relationships to invest in more deeply and which need intervention  -  before the revenue numbers tell the story six months too late.</p>
+        <div class="uc-tags"><span class="uc-tag">Composite scoring</span><span class="uc-tag">Social + commerce</span></div>
+      </div>
+
+      <div class="uc-card cc3">
+        <p class="uc-num">UC-10</p>
+        <p class="uc-title">New Creator Fit Predictor</p>
+        <p class="uc-what">When evaluating a new creator partnership, AI scores them against the historical profile of Warren James's most successful store launches. Input: the creator's social data, content style, audience demographics, engagement metrics. Output: predicted revenue range in year one, recommended product category, optimal launch strategy, and the three existing creators whose success pattern theirs most resembles.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Stop signing creators on gut feel. Make new partnership decisions with a data-backed probability of success before any capital is committed.</p>
+        <div class="uc-tags"><span class="uc-tag">Predictive model</span><span class="uc-tag">Due diligence</span><span class="uc-tag">Moat</span></div>
+      </div>
+
+      <div class="uc-card cc3">
+        <p class="uc-num">UC-11</p>
+        <p class="uc-title">Creator Performance Debrief Generator</p>
+        <p class="uc-what">Monthly AI-generated debrief per creator  -  written in plain language, not dashboards  -  that explains their store's performance, what drove it, what's working and what isn't, and three specific recommended actions for the next 30 days. Designed to be shared directly with the creator to keep them informed and aligned without requiring a human to compile it.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">40 personalized creator reports generated automatically. Creators feel informed and invested. Warren James team spends zero hours compiling them.</p>
+        <div class="uc-tags"><span class="uc-tag">LLM narration</span><span class="uc-tag">Relationship tool</span></div>
+      </div>
+
+      <div class="uc-card cc3">
+        <p class="uc-num">UC-12</p>
+        <p class="uc-title">Category Expansion Recommender</p>
+        <p class="uc-what">AI analyzes a creator's existing product performance, audience purchase behavior, and cross-store category data to recommend the next product category they should expand into. Based on what similar audiences have already proven they'll buy  -  not speculation.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Store 7's jewelry audience has a high overlap with customers who also buy hair accessories at Store 19. Here's the case for expanding into that category next."</p>
+        <div class="uc-tags"><span class="uc-tag">Cross-store learning</span><span class="uc-tag">Revenue expansion</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 4: PRODUCT INTELLIGENCE -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s4">
+    <div class="cat-hdr cc4-hdr">
+      <div class="cat-icon">◈</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 04</p>
+        <p class="cat-title">Product Intelligence</p>
+      </div>
+      <p class="cat-desc">Make every product decision smarter. From what to make to how to price it to when to reorder.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc4">
+        <p class="uc-num">UC-13</p>
+        <p class="uc-title">Trend Signal Detector</p>
+        <p class="uc-what">AI monitors external signals  -  TikTok trending sounds and aesthetics, Pinterest search velocity, Google Trends, competitor product launches, macro fashion trends  -  and maps them against Warren James's existing product catalog. Surfaces emerging trends before they peak and identifies which creator stores are best positioned to capitalize on each one.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">For a white-label brand competing on trend velocity, being 3 weeks earlier to a trend than competitors is the entire competitive advantage. AI makes that systematic instead of lucky.</p>
+        <div class="uc-tags"><span class="uc-tag">External signals</span><span class="uc-tag">Web search API</span><span class="uc-tag">Trend mapping</span></div>
+      </div>
+
+      <div class="uc-card cc4">
+        <p class="uc-num">UC-14</p>
+        <p class="uc-title">Inventory Allocation Optimizer</p>
+        <p class="uc-what">Before a launch, AI recommends how many units to allocate per SKU per size based on: this store's historical size distribution, sell-through velocity of similar products, and how analogous launches performed at comparable stores. Reduces overstock on slow sizes and stockouts on fast ones.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Stop allocating inventory by gut feel. Every launch starts with a data-backed unit breakdown that minimizes leftover stock and maximizes sell-through.</p>
+        <div class="uc-tags"><span class="uc-tag">Demand forecasting</span><span class="uc-tag">Odoo integration</span></div>
+      </div>
+
+      <div class="uc-card cc4">
+        <p class="uc-num">UC-15</p>
+        <p class="uc-title">SKU Retirement Recommender</p>
+        <p class="uc-what">AI continuously monitors long-tail SKU performance  -  identifying products with declining velocity, high return rates, or consistently low sell-through  -  and recommends retirement, discount clearance, or catalog consolidation. Prevents catalog bloat that buries high-performing products and ties up inventory capital.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">A focused catalog of proven performers converts better than a sprawling one. AI makes catalog hygiene automatic instead of a quarterly spreadsheet review nobody gets to.</p>
+        <div class="uc-tags"><span class="uc-tag">Velocity tracking</span><span class="uc-tag">Working capital</span></div>
+      </div>
+
+      <div class="uc-card cc4">
+        <p class="uc-num">UC-16</p>
+        <p class="uc-title">Cross-Store Product Hit Predictor</p>
+        <p class="uc-what">When a SKU performs exceptionally well at one store, AI scores it against every other store's audience profile to predict where it could succeed if adapted or relaunched. Not every product travels  -  AI identifies which ones do and why, based on audience overlap and category affinity.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"This ring style sold out in 6 hours at Store 3. Stores 8, 14, and 22 have overlapping audience profiles and no comparable offering. Recommend sourcing a variant for each."</p>
+        <div class="uc-tags"><span class="uc-tag">Portfolio leverage</span><span class="uc-tag">Hit propagation</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 5: REVENUE INTELLIGENCE -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s5">
+    <div class="cat-hdr cc5-hdr">
+      <div class="cat-icon">◎</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 05</p>
+        <p class="cat-title">Revenue Intelligence</p>
+      </div>
+      <p class="cat-desc">Find revenue hiding in the existing business. Not new products  -  smarter use of what already exists.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc5">
+        <p class="uc-num">UC-17</p>
+        <p class="uc-title">Post-Purchase Revenue Engine</p>
+        <p class="uc-what">AI analyzes what customers buy together, what they buy next, and the time gap between purchases per store. Generates personalized post-purchase sequences  -  email or SMS  -  with product recommendations timed to when that customer type historically makes their next purchase. Not generic cross-sell. Audience-specific and timing-optimized.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Revenue from existing customers costs a fraction of new customer acquisition. A 15% increase in repeat purchase rate across 40 stores compounds significantly at scale.</p>
+        <div class="uc-tags"><span class="uc-tag">Sequence generation</span><span class="uc-tag">LTV expansion</span></div>
+      </div>
+
+      <div class="uc-card cc5">
+        <p class="uc-num">UC-18</p>
+        <p class="uc-title">Margin Leakage Detector</p>
+        <p class="uc-what">AI continuously monitors gross margin per store, per SKU, per campaign  -  comparing realized margin against expected margin and flagging unexplained gaps. Root cause analysis runs automatically: is the leak in COGS, fulfillment cost, discount depth, return rate, or shipping overages? Surfaces it before it compounds.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Most margin leakage at this scale is invisible without deliberate monitoring. AI makes it audible before it becomes a quarterly surprise.</p>
+        <div class="uc-tags"><span class="uc-tag">Financial data</span><span class="uc-tag">Odoo + BigQuery</span></div>
+      </div>
+
+      <div class="uc-card cc5">
+        <p class="uc-num">UC-19</p>
+        <p class="uc-title">Bundle Opportunity Identifier</p>
+        <p class="uc-what">AI mines order and browse data to find which products customers consistently consider together but rarely buy together  -  indicating a bundle that isn't offered. Creates specific bundle recommendations per store with projected AOV lift based on comparable bundle performance elsewhere in the portfolio.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Bundle AOV is consistently higher than single-item AOV. AI finds the right bundles instead of guessing which ones might work.</p>
+        <div class="uc-tags"><span class="uc-tag">Basket analysis</span><span class="uc-tag">AOV optimization</span></div>
+      </div>
+
+      <div class="uc-card cc5">
+        <p class="uc-num">UC-20</p>
+        <p class="uc-title">Win-Back Campaign Trigger</p>
+        <p class="uc-what">AI identifies customers who have gone quiet  -  no purchase within their historically typical repurchase window  -  and automatically triggers a win-back sequence personalized to their specific purchase history and the store's current inventory. Timed to align with upcoming launches when possible.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Lapsed customers who already trust a creator convert at dramatically higher rates than cold audiences. Win-back is the highest-ROI campaign type that most brands under-invest in.</p>
+        <div class="uc-tags"><span class="uc-tag">Automated trigger</span><span class="uc-tag">Retention</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 6: CREATOR GROWTH -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s6">
+    <div class="cat-hdr cc6-hdr">
+      <div class="cat-icon">↑</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 06</p>
+        <p class="cat-title">Creator Growth Tools</p>
+      </div>
+      <p class="cat-desc">Give creators capabilities they couldn't have without Warren James. Make the partnership irreplaceable.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-21</p>
+        <p class="uc-title">Creator Commerce Coach</p>
+        <p class="uc-what">An AI interface  -  potentially a Slack bot or lightweight web app  -  that each creator can query in plain language about their own store. "Why did my last drop underperform?" "What should I charge for this new ring?" "When should I do my next launch?" Answers drawn from their actual BigQuery data, not generic advice.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Creators who understand their own data make better decisions. Better decisions mean better stores. Better stores mean Warren James retains talent longer and those stores generate more revenue.</p>
+        <div class="uc-tags"><span class="uc-tag">Creator-facing</span><span class="uc-tag">Claude API</span><span class="uc-tag">Retention tool</span></div>
+      </div>
+
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-22</p>
+        <p class="uc-title">Content Performance ↔ Commerce Correlator</p>
+        <p class="uc-what">Joins a creator's social content performance data (views, saves, shares per post) with the commerce data from the 48 hours after each post. Identifies which content formats, topics, aesthetics, and captions correlate with the highest conversion  -  specific to that creator's audience. Not general social media advice  -  their personal conversion playbook.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Your Reels with product in use in the first 2 seconds convert 3× better than flat lays for your audience. Here's why, and here's what to do more of."</p>
+        <div class="uc-tags"><span class="uc-tag">Social API</span><span class="uc-tag">Commerce data join</span></div>
+      </div>
+
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-23</p>
+        <p class="uc-title">Launch Readiness Scorer</p>
+        <p class="uc-what">Before a creator launches a new collection, AI scores launch readiness across five dimensions: inventory sufficiency, audience warmth (engagement trend in the 2 weeks prior), product-market fit based on comparable launches, timing relative to creator's audience calendar, and operational readiness in Shopify and Odoo. Flags gaps before they become launch-day failures.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Launches fail for predictable reasons. A pre-launch checklist powered by real data catches 80% of them before they happen.</p>
+        <div class="uc-tags"><span class="uc-tag">Pre-launch</span><span class="uc-tag">Multi-signal</span></div>
+      </div>
+
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-24</p>
+        <p class="uc-title">Audience Growth Advisor</p>
+        <p class="uc-what">When a store's audience saturation signals appear (UC-06), AI goes further  -  analyzing which adjacent content categories, platforms, and creator collaboration types have historically grown audiences with similar demographic profiles across the WJ portfolio, and generates a specific growth recommendation for that creator.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Warren James becomes a strategic growth partner to its creators, not just a merchandise operator. That deepens the relationship and reduces churn.</p>
+        <div class="uc-tags"><span class="uc-tag">Strategic advisory</span><span class="uc-tag">Retention</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 7: RISK & ANOMALY -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s7">
+    <div class="cat-hdr cc7-hdr">
+      <div class="cat-icon">⚡</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 07</p>
+        <p class="cat-title">Risk & Anomaly Detection</p>
+      </div>
+      <p class="cat-desc">Know when something is wrong before it becomes a problem. Protect the business at 40-store scale.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc7">
+        <p class="uc-num">UC-25</p>
+        <p class="uc-title">Inventory Sync Integrity Monitor</p>
+        <p class="uc-what">AI continuously compares inventory counts between Shopify and Odoo across all 40 stores and flags discrepancies above a defined threshold in real time. Classifies the likely cause  -  sync failure, manual adjustment, return processing lag  -  and routes to the right fix. Catches oversell risk before a customer experiences it.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">At 40 stores, one sync failure per store per month is 40 potential oversell incidents. AI makes each one visible immediately instead of after the complaint.</p>
+        <div class="uc-tags"><span class="uc-tag">Real-time monitor</span><span class="uc-tag">Ops integrity</span></div>
+      </div>
+
+      <div class="uc-card cc7">
+        <p class="uc-num">UC-26</p>
+        <p class="uc-title">Revenue Anomaly Explainer</p>
+        <p class="uc-what">When a store's revenue deviates significantly from its expected baseline  -  up or down  -  AI automatically generates an explanation rooted in actual data: was it a campaign, a social post that went viral, a competitor event, a Shopify outage, a product going out of stock? Answers the "why" before the CEO asks it.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Revenue spikes and dips are currently explained by whoever noticed them. AI makes every anomaly self-explaining and documented.</p>
+        <div class="uc-tags"><span class="uc-tag">Root cause AI</span><span class="uc-tag">CEO visibility</span></div>
+      </div>
+
+      <div class="uc-card cc7">
+        <p class="uc-num">UC-27</p>
+        <p class="uc-title">Fraud & Abuse Pattern Detector</p>
+        <p class="uc-what">AI models normal order behavior per store and flags anomalous patterns  -  discount code abuse, unusual order clustering from the same IP ranges, return fraud patterns, or reseller behavior (bulk orders of limited-availability items). Surfaces patterns that are invisible in single-store views but obvious when looking across 40 stores simultaneously.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Reseller and fraud patterns at one store often appear at others shortly after. Catching the pattern once protects all 40.</p>
+        <div class="uc-tags"><span class="uc-tag">Anomaly detection</span><span class="uc-tag">Cross-store</span></div>
+      </div>
+
+      <div class="uc-card cc7">
+        <p class="uc-num">UC-28</p>
+        <p class="uc-title">Creator Risk Early Warning</p>
+        <p class="uc-what">AI monitors external signals for each creator  -  social sentiment trends, follower growth deceleration, engagement rate decline, brand mention sentiment, any public controversy signals  -  and generates a monthly risk score. Not surveillance  -  business continuity. A creator whose audience is eroding quietly is a revenue risk that needs a proactive conversation, not a reactive one.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Warren James has 40 creator relationships that are business-critical. Knowing which ones need attention before revenue reflects it is a genuine strategic advantage.</p>
+        <div class="uc-tags"><span class="uc-tag">Sentiment analysis</span><span class="uc-tag">Social signals</span><span class="uc-tag">Risk mgmt</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h3>The Compounding Advantage</h3>
+    <p>None of these use cases work without the data foundation  -  the BigQuery warehouse, the campaign tagging, the UTM discipline, the unified customer identity layer. <strong>That's why building the foundation isn't an IT project. It's a competitive strategy.</strong> Every month of clean data collected is a month of competitive advantage that compounds. A competitor starting this in two years starts two years behind.</p>
+  </div>
+
+  <footer>WARREN JAMES · STRATEGIC AI USE CASES · 28 APPLICATIONS ACROSS 7 CATEGORIES · PREPARED BY REZA</footer>
+
+</div>
+</body>
+</html>

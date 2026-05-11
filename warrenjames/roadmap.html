@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WJ VP of Tech  -  6–9 Month Roadmap</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-1: #f4f4f4;
+    --gray-2: #e0e0e0;
+    --gray-3: #9e9e9e;
+    --gray-4: #555;
+    --accent: #1a1a1a;
+    --now: #111;
+    --later: #888;
+    --phase1: #1c1c1c;
+    --phase2: #2a2a2a;
+    --phase3: #383838;
+    --phase4: #464646;
+    --tag-erp: #e8f0fe;
+    --tag-erp-text: #1a56db;
+    --tag-ai: #fef3c7;
+    --tag-ai-text: #92400e;
+    --tag-data: #dcfce7;
+    --tag-data-text: #166534;
+    --tag-gov: #fce7f3;
+    --tag-gov-text: #831843;
+    --tag-shopify: #ede9fe;
+    --tag-shopify-text: #5b21b6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--black);
+    color: var(--white);
+    padding: 48px 64px 40px;
+    position: relative;
+  }
+  header .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    max-width: 700px;
+    margin-bottom: 20px;
+  }
+  header .subtitle {
+    font-size: 15px;
+    color: #bbb;
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  /* ── Success Criteria bar ── */
+  .success-bar {
+    background: #111;
+    border-top: 1px solid #222;
+    padding: 20px 64px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .success-bar .criterion {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #bbb;
+    letter-spacing: 0.02em;
+  }
+  .success-bar .criterion-group-label {
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #444;
+    align-self: center;
+    padding: 0 8px 0 16px;
+    border-left: 1px solid #2a2a2a;
+  }
+  .success-bar .criterion-group-label:first-child {
+    border-left: none;
+    padding-left: 0;
+  }
+  .success-bar .criterion .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #444;
+    flex-shrink: 0;
+  }
+  .success-bar .criterion .dot.active {
+    background: #fff;
+  }
+  .success-bar .criterion .dot.mid {
+    background: #888;
+  }
+
+  /* ── Nav ── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-2);
+    padding: 0 64px;
+    display: flex;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--gray-3);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 14px 20px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  nav a:hover { color: var(--black); border-bottom-color: var(--black); }
+
+  /* ── Main Layout ── */
+  main { max-width: 1100px; margin: 0 auto; padding: 0 64px 80px; }
+
+  /* ── Principle callout ── */
+  .principle-bar {
+    background: var(--gray-1);
+    border-left: 3px solid var(--black);
+    padding: 18px 24px;
+    margin: 40px 0 0;
+    font-size: 13px;
+    color: var(--gray-4);
+    line-height: 1.65;
+  }
+  .principle-bar strong { color: var(--black); }
+
+  /* ── Phase sections ── */
+  .phase {
+    margin-top: 56px;
+  }
+  .phase-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--black);
+    margin-bottom: 32px;
+  }
+  .phase-num {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    padding-top: 4px;
+    min-width: 60px;
+  }
+  .phase-title-block {}
+  .phase-title-block h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+  }
+  .phase-title-block .phase-timing {
+    font-size: 12px;
+    color: var(--gray-3);
+    letter-spacing: 0.04em;
+  }
+  .phase-title-block .phase-thesis {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin-top: 8px;
+    max-width: 640px;
+    line-height: 1.6;
+  }
+  .phase-mandate {
+    margin-left: auto;
+    text-align: right;
+    min-width: 160px;
+  }
+  .phase-mandate .mandate-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-3);
+    margin-bottom: 4px;
+  }
+  .phase-mandate .mandate-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  /* ── Track grid ── */
+  /* ── Anchor offset fix for sticky nav ── */
+  html { scroll-padding-top: 52px; }
+  .phase, .now-later-block, .success-map, .vision-section { scroll-margin-top: 52px; }
+
+  .track-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .track-card {
+    border: 1px solid var(--gray-2);
+    border-radius: 6px;
+    padding: 22px 24px;
+    background: var(--white);
+  }
+  .track-card.full-width {
+    grid-column: 1 / -1;
+  }
+  .track-card .track-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .track-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .track-card .track-desc {
+    font-size: 13px;
+    color: var(--gray-4);
+    margin-bottom: 14px;
+    line-height: 1.6;
+  }
+  .track-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .track-card ul li {
+    font-size: 13px;
+    padding-left: 16px;
+    position: relative;
+    color: var(--black);
+    line-height: 1.45;
+  }
+  .track-card ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gray-3);
+    font-size: 11px;
+    top: 1px;
+  }
+  .track-card ul li.skip {
+    color: var(--gray-3);
+    text-decoration: line-through;
+  }
+  .track-card ul li.skip::before { color: var(--gray-2); }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-right: 4px;
+    margin-bottom: 10px;
+  }
+  .tag.erp { background: var(--tag-erp); color: var(--tag-erp-text); }
+  .tag.ai { background: var(--tag-ai); color: var(--tag-ai-text); }
+  .tag.data { background: var(--tag-data); color: var(--tag-data-text); }
+  .tag.gov { background: var(--tag-gov); color: var(--tag-gov-text); }
+  .tag.shopify { background: var(--tag-shopify); color: var(--tag-shopify-text); }
+  .tag.now { background: var(--black); color: var(--white); }
+  .tag.later { background: var(--gray-2); color: var(--gray-4); }
+
+  /* ── Now/Later callout in cards ── */
+  .card-decision {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: var(--gray-1);
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--gray-4);
+    line-height: 1.5;
+  }
+  .card-decision strong { color: var(--black); }
+
+  /* ── Milestone timeline ── */
+  .milestone-strip {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--gray-2);
+  }
+  .milestone-strip h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 16px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gray-2);
+    z-index: 0;
+  }
+  .timeline-month {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .timeline-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid var(--gray-2);
+    background: var(--white);
+    flex-shrink: 0;
+    margin-top: 9px;
+  }
+  .timeline-dot.active { background: var(--black); border-color: var(--black); }
+  .timeline-dot.phase-end { background: var(--white); border-color: var(--black); border-width: 3px; }
+  .timeline-month-label {
+    font-size: 10px;
+    color: var(--gray-3);
+    text-align: center;
+    letter-spacing: 0.04em;
+  }
+  .timeline-event {
+    font-size: 10px;
+    color: var(--black);
+    text-align: center;
+    line-height: 1.4;
+    font-weight: 600;
+    max-width: 80px;
+  }
+
+  /* ── Success criteria mapping ── */
+  .success-map {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--gray-2);
+  }
+  .success-map h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .success-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .success-table th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    padding: 0 16px 10px 0;
+    font-weight: 600;
+    border-bottom: 1px solid var(--gray-2);
+  }
+  .success-table td {
+    padding: 14px 16px 14px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--gray-1);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .success-table td:first-child { font-weight: 600; max-width: 220px; }
+  .success-table td:last-child { color: var(--gray-4); }
+
+  /* ── Now vs Later sidebar ── */
+  .now-later-block {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--gray-2);
+  }
+  .now-later-block h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .now-later-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .now-col, .later-col {
+    padding: 24px;
+    border-radius: 6px;
+  }
+  .now-col { background: var(--black); color: var(--white); }
+  .later-col { background: var(--gray-1); }
+  .now-col h3, .later-col h3 {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .now-col h3 { color: #bbb; }
+  .later-col h3 { color: var(--gray-3); }
+  .nl-item {
+    font-size: 13px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    line-height: 1.5;
+  }
+  .later-col .nl-item { border-bottom-color: var(--gray-2); color: var(--gray-4); }
+  .nl-item:last-child { border-bottom: none; }
+  .nl-item .nl-why {
+    font-size: 11px;
+    color: #777;
+    margin-top: 2px;
+  }
+  .now-col .nl-item .nl-why { color: #666; }
+
+  /* ── Vision section ── */
+  .vision-section {
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid var(--gray-2);
+  }
+  .vision-section > .vision-header {
+    margin-bottom: 12px;
+  }
+  .vision-section > .vision-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .vision-intro {
+    font-size: 13px;
+    color: var(--gray-4);
+    max-width: 680px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .vision-intro strong { color: var(--black); }
+  .vision-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--gray-2);
+    border: 1px solid var(--gray-2);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .vision-card {
+    background: var(--white);
+    padding: 26px 24px;
+  }
+  .vision-card .v-category {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--gray-3);
+  }
+  .vision-card h3 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+  }
+  .vision-card .v-desc {
+    font-size: 12.5px;
+    color: var(--gray-4);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .vision-card .v-outcome {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--black);
+    padding: 8px 12px;
+    background: var(--gray-1);
+    border-radius: 4px;
+    line-height: 1.5;
+  }
+  .vision-card .v-outcome::before {
+    content: '→ ';
+    color: var(--gray-3);
+  }
+  .vision-card.featured {
+    grid-column: span 2;
+    background: var(--black);
+    color: var(--white);
+  }
+  .vision-card.featured .v-category { color: #666; }
+  .vision-card.featured h3 { color: var(--white); }
+  .vision-card.featured .v-desc { color: #999; }
+  .vision-card.featured .v-outcome {
+    background: #1a1a1a;
+    color: #ddd;
+    border: 1px solid #333;
+  }
+  .vision-card.featured .v-outcome::before { color: #555; }
+  .vision-prereq {
+    background: var(--gray-1);
+    border-left: 3px solid var(--black);
+    padding: 18px 24px;
+    font-size: 13px;
+    color: var(--gray-4);
+    line-height: 1.7;
+    border-radius: 0 4px 4px 0;
+  }
+  .vision-prereq strong { color: var(--black); }
+
+  /* ── Footer ── */
+  footer {
+    background: var(--black);
+    color: var(--gray-3);
+    text-align: center;
+    padding: 20px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 80px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Warren James · VP of Technology</div>
+  <h1>6–9 Month Execution Roadmap</h1>
+  <div class="subtitle">
+    Four phases. One clear direction: stabilize the foundation fast, build leverage into it, then compound.<br>
+    Everything here is grounded in what the CEO actually needs  -  not what looks impressive on a slide.
+  </div>
+</header>
+
+<div class="success-bar">
+  <div class="criterion-group-label">Minimum goals</div>
+  <div class="criterion"><div class="dot active"></div>Odoo feels stable, not fragile</div>
+  <div class="criterion"><div class="dot active"></div>Manual handoffs meaningfully reduced</div>
+  <div class="criterion"><div class="dot active"></div>Leadership trusts the numbers</div>
+  <div class="criterion-group-label">Target</div>
+  <div class="criterion"><div class="dot mid"></div>Teams move without asking permission</div>
+  <div class="criterion"><div class="dot mid"></div>CEO has a true technical partner</div>
+  <div class="criterion-group-label">Stretch</div>
+  <div class="criterion"><div class="dot"></div>AI workflows used weekly across teams</div>
+</div>
+
+<nav>
+  <a href="#phase1">Phase 1 · Orient</a>
+  <a href="#phase2">Phase 2 · Stabilize</a>
+  <a href="#phase3">Phase 3 · Leverage</a>
+  <a href="#phase4">Phase 4 · Compound</a>
+  <a href="#nowlater">Now vs Later</a>
+  <a href="#success">Success Map</a>
+  <a href="#vision">Vision</a>
+</nav>
+
+<main>
+
+  <div class="principle-bar">
+    <strong>The governing constraint:</strong> Warren James runs ~70 Shopify stores for creators who move at the speed of social media. That means the cost of being slow is real revenue. Every decision in this roadmap is made through that lens  -  what unblocks the business fastest vs. what's a nice-to-have that can wait.
+  </div>
+
+  <!-- ══════════ PHASE 1 ══════════ -->
+  <section class="phase" id="phase1">
+    <div class="phase-header">
+      <div class="phase-num">Phase 1</div>
+      <div class="phase-title-block">
+        <h2>Orient &amp; Listen  -  Don't Touch, Don't Fix</h2>
+        <div class="phase-timing">Days 1 – 30</div>
+        <div class="phase-thesis">
+          The biggest mistake in this role would be coming in with answers before understanding the problem. The first 30 days are an audit, not a build sprint. My output is a ranked list of what's actually broken and what the team has been working around  -  not a change log.
+        </div>
+      </div>
+      <div class="phase-mandate">
+        <div class="mandate-label">Primary mandate</div>
+        <div class="mandate-value">Understand before acting</div>
+      </div>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card">
+        <span class="tag erp">ERP</span>
+        <h3>Map the Real State of Odoo</h3>
+        <div class="track-desc">Not what it's supposed to do  -  what it actually does. Where do people not trust it? Where are they maintaining a parallel spreadsheet? What breaks every week?</div>
+        <ul>
+          <li>Sit with each team that touches Odoo (ops, finance, merch)  -  ask "where do you go when you can't trust this?"</li>
+          <li>Pull a sample of orders and trace them end-to-end through both Shopify and Odoo  -  find where the states diverge</li>
+          <li>Map every manual reconciliation that happens at month-end</li>
+          <li>Document every Odoo workaround currently in production</li>
+        </ul>
+        <div class="card-decision"><strong>Decision rule:</strong> Don't fix anything in Phase 1 unless it's causing live operational damage (oversells, wrong invoices going out). Everything else goes on the list.</div>
+      </div>
+
+      <div class="track-card">
+        <span class="tag shopify">Shopify</span>
+        <h3>Inventory the Shopify Reality</h3>
+        <div class="track-desc">~70 stores. Are they all on the same plan, under the same org, with consistent structure? The answer is probably no  -  and I need to understand exactly what I've inherited.</div>
+        <ul>
+          <li>Audit which stores are on Plus vs standard  -  document what each is actually using</li>
+          <li>Map all active third-party apps across all stores and their cost</li>
+          <li>Identify which stores share infrastructure vs. which are completely siloed</li>
+          <li>Find out where Launchpad is used and how drops are currently coordinated</li>
+          <li>Understand the Shopify ↔ Odoo sync: direction, frequency, failure behavior</li>
+        </ul>
+        <div class="card-decision"><strong>Decision rule:</strong> Consolidation decisions (plan changes, org structure) belong in Phase 2. Phase 1 is observation only.</div>
+      </div>
+
+      <div class="track-card">
+        <span class="tag ai">AI / Automation</span>
+        <h3>Find the 3 Most Painful Manual Handoffs</h3>
+        <div class="track-desc">The mandate is to reduce manual handoffs. I need to find the ones actually killing productivity  -  not the ones that feel interesting to automate.</div>
+        <ul>
+          <li>Shadow one person in each function for half a day  -  ops, finance, creative/merch, creator success</li>
+          <li>Look for copy-paste chains: where does someone take data from system A and type it into system B?</li>
+          <li>Ask: "What do you do every Monday/first-of-month that you wish you didn't have to?"</li>
+          <li>Rank by: time cost × frequency × error rate</li>
+        </ul>
+      </div>
+
+      <div class="track-card">
+        <span class="tag gov">Governance</span>
+        <h3>SaaS &amp; Vendor Audit</h3>
+        <div class="track-desc">Most companies this size carry $15–40K/month in redundant or abandoned SaaS. I need a full picture of what's in the building before making any tooling decisions.</div>
+        <ul>
+          <li>Pull all active subscriptions from billing (credit cards, corporate accounts)</li>
+          <li>Map who uses what and what they'd lose if it went away</li>
+          <li>Identify overlapping tools (multiple project managers, duplicate communication apps)</li>
+          <li>Flag anything with no clear owner  -  that's a security risk</li>
+          <li>Note contract renewal dates  -  any coming up in the next 90 days</li>
+        </ul>
+        <div class="card-decision"><strong>Quick win opportunity:</strong> Killing 2–3 unused subscriptions in week 2 is a visible win that costs zero credibility and banks goodwill.</div>
+      </div>
+
+      <div class="track-card full-width">
+        <span class="tag now">Action</span>
+        <h3>The One Thing I Build in Month 1</h3>
+        <div class="track-desc">One high-visibility, low-risk AI automation ships in week 2  -  not to impress, but to prove the pattern. I'll pick the highest-signal handoff from the audit and build it before anyone asks. The specific workflow depends on what the audit surfaces, but the profile is consistent: Slack or Asana as the trigger, Claude as the reasoning layer, n8n as the orchestration engine. Builds in hours, runs forever, teams feel it immediately.</div>
+        <ul>
+          <li>Most likely candidate: inbound ops request triage  -  messages that are currently handled manually get classified, routed, and ticketed automatically</li>
+          <li>Add memory so the agent can reference prior tickets and update rather than duplicate</li>
+          <li>Document it so ops can modify routing rules themselves  -  this is the template for every automation that follows</li>
+          <li>Measure usage weekly  -  this is the first data point for "AI used weekly across teams"</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════ PHASE 2 ══════════ -->
+  <section class="phase" id="phase2">
+    <div class="phase-header">
+      <div class="phase-num">Phase 2</div>
+      <div class="phase-title-block">
+        <h2>Stabilize  -  Make Odoo Trustworthy</h2>
+        <div class="phase-timing">Months 2 – 3</div>
+        <div class="phase-thesis">
+          Phase 2 is the unglamorous work that makes everything else possible. Odoo can't feel stable until the data going in is clean and the sync to Shopify is reliable. This is the work most candidates skip  -  and why trust in the system erodes over time.
+        </div>
+      </div>
+      <div class="phase-mandate">
+        <div class="mandate-label">Primary mandate</div>
+        <div class="mandate-value">One source of truth</div>
+      </div>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card">
+        <span class="tag erp">ERP</span>
+        <h3>Fix the Shopify ↔ Odoo Sync</h3>
+        <div class="track-desc">This is almost certainly the root cause of every "the numbers don't match" conversation. The fix isn't glamorous but it's the highest-leverage thing in the whole roadmap.</div>
+        <ul>
+          <li>Identify all failure modes in the current sync  -  silent failures, conflict resolution, rate limits</li>
+          <li>Add monitoring so failures are visible immediately instead of discovered days later</li>
+          <li>Define the conflict resolution rule: when Shopify and Odoo disagree on inventory, which wins and why?</li>
+          <li>Test the sync under campaign load  -  what happens when 70 stores get a surge simultaneously?</li>
+          <li>Document it so anyone on the team can debug it without me</li>
+        </ul>
+        <div class="card-decision"><strong>Success signal:</strong> A week goes by with no "the inventory numbers are wrong" conversation. That's the signal Phase 2 is done.</div>
+      </div>
+
+      <div class="track-card">
+        <span class="tag erp">ERP</span>
+        <h3>Close the Top 3 Data Model Gaps</h3>
+        <div class="track-desc">Based on Phase 1 audit. These are the specific fields, records, or structures that are producing unreliable reports. Fix the sources, not the outputs.</div>
+        <ul>
+          <li>Establish data entry standards: required fields, dropdown over free text, naming conventions</li>
+          <li>Deduplicate critical records  -  vendors, products, contacts  -  starting with the ones impacting finance</li>
+          <li>Move any load-bearing spreadsheet data into Odoo with proper structure</li>
+          <li>Close the "notes field as structured data" problem  -  create proper metafields for recurring use cases</li>
+        </ul>
+      </div>
+
+      <div class="track-card">
+        <span class="tag ai">AI / Automation</span>
+        <h3>Ship the 3 Highest-ROI Automations</h3>
+        <div class="track-desc">From the Phase 1 pain map. Pick the handoffs that are most frequent, most error-prone, and most manual. Build them with n8n. Measure before and after.</div>
+        <ul>
+          <li>Likely candidate: New creator onboarding → database entry → Asana kickoff → Slack notification (eliminate the Google Sheet)</li>
+          <li>Likely candidate: Order anomaly detection  -  flag orders where Shopify and Odoo state diverges for more than X minutes</li>
+          <li>Likely candidate: Campaign launch checklist  -  when a drop is scheduled, auto-prep the checklist across Asana, notify the creator team, confirm inventory is staged</li>
+          <li>Each automation gets a Slack alert on failure so it never silently breaks</li>
+        </ul>
+      </div>
+
+      <div class="track-card">
+        <span class="tag data">Data</span>
+        <h3>Stand Up the Reporting Foundation</h3>
+        <div class="track-desc">Leadership shouldn't be reconciling spreadsheets to get a Monday morning number. Build the plumbing now so the dashboard in Phase 3 actually shows the right thing.</div>
+        <ul>
+          <li>Set up BigQuery (or equivalent)  -  start syncing Shopify and Odoo via Fivetran or Airbyte</li>
+          <li>Define the 5 metrics the CEO looks at every week  -  build those first, nothing else</li>
+          <li>Connect Looker Studio or Metabase for zero-code access by non-technical users</li>
+          <li>Validate outputs against source systems before sharing  -  don't show the CEO a dashboard that's wrong</li>
+        </ul>
+        <div class="card-decision"><strong>Do NOT:</strong> Build 40 dashboards before the 5 core metrics are trusted. Breadth before trust is how dashboards get ignored.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════ PHASE 3 ══════════ -->
+  <section class="phase" id="phase3">
+    <div class="phase-header">
+      <div class="phase-num">Phase 3</div>
+      <div class="phase-title-block">
+        <h2>Build for Leverage  -  AI Across Teams</h2>
+        <div class="phase-timing">Months 4 – 6</div>
+        <div class="phase-thesis">
+          The foundation is stable. Now I build what actually changes how the business operates. This is where AI stops being a demo and starts being infrastructure  -  workflows that run on their own, data that answers questions without someone pulling it, teams that move faster because the tools move with them.
+        </div>
+      </div>
+      <div class="phase-mandate">
+        <div class="mandate-label">Primary mandate</div>
+        <div class="mandate-value">Teams self-serve</div>
+      </div>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card">
+        <span class="tag ai">AI / Automation</span>
+        <h3>AI Workflows Running in Every Team</h3>
+        <div class="track-desc">The goal is AI embedded in how every team operates  -  not just workflows I built, but workflows teams own. Phase 3 is about enabling that through tools, templates, and internal training.</div>
+        <ul>
+          <li><strong>Ops team:</strong> AI-powered inbound message triage with memory (built on Phase 1 foundation, now mature)</li>
+          <li><strong>Finance:</strong> Month-end reconciliation assistant  -  flags discrepancies, drafts summaries, suggests reclassifications</li>
+          <li><strong>Marketing/creator team:</strong> Campaign brief generator  -  pull a creator's performance history, generate a tailored launch strategy doc</li>
+          <li><strong>Creator success:</strong> Automated weekly store performance digest per creator  -  no one manually compiling reports</li>
+          <li>Run an internal "AI office hours" session  -  teach teams to build simple workflows themselves using n8n or Make</li>
+        </ul>
+      </div>
+
+      <div class="track-card">
+        <span class="tag shopify">Shopify</span>
+        <h3>Shopify Infrastructure Consolidation</h3>
+        <div class="track-desc">Based on Phase 1 audit findings. This is about removing the debt  -  redundant apps, inconsistent store structures, the manual coordination that happens at launch time.</div>
+        <ul>
+          <li>Standardize app stack across stores  -  one approved set, remove redundant installs</li>
+          <li>Launchpad deployment: every coordinated creator drop uses Launchpad, not manual "everyone go live at 9am"</li>
+          <li>Shopify Flow for cross-store order tagging  -  automated campaign attribution starts now</li>
+          <li>Evaluate Shopify Plus consolidation ROI if stores are on split plans  -  present the math with a clear recommendation</li>
+        </ul>
+      </div>
+
+      <div class="track-card">
+        <span class="tag data">Data</span>
+        <h3>Campaign Intelligence Layer</h3>
+        <div class="track-desc">The strategic AI use case  -  post-campaign analysis that extracts what drove success and matches it to similar stores. This is the work that becomes a moat.</div>
+        <ul>
+          <li>Add campaign tracking to Shopify orders via UTM discipline + Shopify Flow tagging  -  mandatory from day one of Phase 3</li>
+          <li>Build the campaign_performance table in BigQuery  -  one row per campaign per store</li>
+          <li>First post-campaign debrief with AI synthesis: what drove performance, what the sell-through curve looked like, what to do differently</li>
+          <li>Creator store fingerprint: encode success attributes per store so cross-store matching becomes possible in Phase 4</li>
+        </ul>
+        <div class="card-decision"><strong>Why Phase 3, not earlier:</strong> Two months of clean data need to flow into BigQuery before campaign analytics mean anything. Starting the pipeline in Phase 2 means Phase 3 has data to work with.</div>
+      </div>
+
+      <div class="track-card">
+        <span class="tag gov">Governance</span>
+        <h3>Access Management &amp; Offboarding Protocol</h3>
+        <div class="track-desc">70 stores, fast-growing company, already had a key tech person leave. The offboarding risk is real  -  former employee access across 70 Shopify stores is a liability. Fix it before the next departure.</div>
+        <ul>
+          <li>Audit current Shopify admin access  -  every account across every store</li>
+          <li>Implement SSO where possible  -  Google Workspace as the identity layer</li>
+          <li>Offboarding checklist that covers all systems in under 30 minutes</li>
+          <li>Quarterly access review  -  not a bureaucratic process, a 2-hour audit once per quarter</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════ PHASE 4 ══════════ -->
+  <section class="phase" id="phase4">
+    <div class="phase-header">
+      <div class="phase-num">Phase 4</div>
+      <div class="phase-title-block">
+        <h2>Compound  -  Strategic Intelligence</h2>
+        <div class="phase-timing">Months 7 – 9</div>
+        <div class="phase-thesis">
+          By Month 7, the foundation is solid, the workflows are running, and the data is clean and accumulating. Phase 4 is where I shift from building infrastructure to building competitive advantage. The things in this phase only work because of everything that came before.
+        </div>
+      </div>
+      <div class="phase-mandate">
+        <div class="mandate-label">Primary mandate</div>
+        <div class="mandate-value">Business intelligence moat</div>
+      </div>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card">
+        <span class="tag ai">AI / Automation</span>
+        <h3>Cross-Store Campaign Pattern Matching</h3>
+        <div class="track-desc">The flagship AI use case. A successful campaign in Store A auto-generates a brief for the 5 stores with the most similar audience profiles. This is institutional knowledge the business owns and competitors can't buy.</div>
+        <ul>
+          <li>Cross-store attribute similarity engine  -  which stores share audience type, price band, category, trust index?</li>
+          <li>Post-campaign AI debrief: structured analysis of what drove success, encoded into store fingerprint</li>
+          <li>Proactive playbook generation: "Store 12 just had a breakout drop  -  here are the 4 stores most likely to replicate it and why"</li>
+          <li>Inputs: BigQuery campaign data + social analytics (engagement rate, audience demo) from Instagram/TikTok API</li>
+        </ul>
+        <div class="card-decision"><strong>Why this only works now:</strong> This requires 6+ months of tagged campaign data and 2+ months of store fingerprint profiles before similarity matching is meaningful. Attempting it in Month 2 produces noise, not insight.</div>
+      </div>
+
+      <div class="track-card">
+        <span class="tag data">Data</span>
+        <h3>CEO Operating Dashboard</h3>
+        <div class="track-desc">Not 40 dashboards. One view the CEO opens every Monday that answers: how is the portfolio doing, where are the problems, and what needs a decision today.</div>
+        <ul>
+          <li>Portfolio GMV vs. prior week, month, same period last year  -  across all stores</li>
+          <li>Top 5 and bottom 5 performing stores  -  ranked by this week's sell-through rate</li>
+          <li>Active campaigns: what's live, what's closing, what's pending</li>
+          <li>Odoo health signal: sync status, any anomalies flagged in the last 7 days</li>
+          <li>AI-generated weekly narrative: "The story of last week in 3 bullets"  -  synthesized from the data automatically</li>
+        </ul>
+      </div>
+
+      <div class="track-card">
+        <span class="tag ai">AI / Automation</span>
+        <h3>Creator Commerce Coach</h3>
+        <div class="track-desc">Give creators access to AI-powered insights about their own store that they couldn't get anywhere else. This is the retention play  -  leaving Warren James means losing this capability.</div>
+        <ul>
+          <li>Creator-facing performance digest: "Here's what worked in your last launch and why"</li>
+          <li>Pre-launch recommendations: "Based on your audience, these product types and price points have the highest sell-through probability"</li>
+          <li>Benchmark visibility: "Your engagement-to-conversion rate is in the top quartile of stores your size"</li>
+          <li>Delivered via Slack or a lightweight web view  -  no new app required</li>
+        </ul>
+      </div>
+
+      <div class="track-card">
+        <span class="tag erp">ERP</span>
+        <span class="tag data">Data</span>
+        <h3>Vendor Intelligence &amp; Procurement Optimization</h3>
+        <div class="track-desc">With clean cross-store data, purchasing leverage that was invisible when each store was siloed becomes actionable. 15 stores buying from the same manufacturer should negotiate as one buyer.</div>
+        <ul>
+          <li>Map shared vendor relationships across all 70 stores  -  total spend per vendor in Odoo</li>
+          <li>Identify top 10 vendors by total WJ portfolio spend  -  present consolidated leverage case</li>
+          <li>Automate reorder alerts: when any store's stock for a shared SKU-category drops below threshold, flag it</li>
+          <li>Lead time intelligence: which vendors deliver on time, which create inventory gaps during launches</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════ NOW VS LATER ══════════ -->
+  <section class="now-later-block" id="nowlater">
+    <h2>Strong Intuition: What to Build Now vs Later</h2>
+    <div class="now-later-grid">
+      <div class="now-col">
+        <h3>Build now  -  months 1–3</h3>
+
+        <div class="nl-item">
+          Shopify ↔ Odoo sync monitoring (day one priority)
+          <div class="nl-why">Root cause of leadership distrust. Everything else depends on this being reliable.</div>
+        </div>
+
+        <div class="nl-item">
+          BigQuery pipeline (Shopify + Odoo → warehouse)
+          <div class="nl-why">Data needs to accumulate before it's useful. Start the clock in month 2.</div>
+        </div>
+        <div class="nl-item">
+          SaaS audit and consolidation
+          <div class="nl-why">Free money, zero risk. Do it week 2.</div>
+        </div>
+        <div class="nl-item">
+          3 highest-frequency manual handoff automations
+          <div class="nl-why">Operationally visible, teams feel the difference immediately.</div>
+        </div>
+        <div class="nl-item">
+          Odoo data standards (required fields, naming, no free-text metafields)
+          <div class="nl-why">Cheap to set, expensive to fix later. Establish before more data goes in dirty.</div>
+        </div>
+      </div>
+
+      <div class="later-col">
+        <h3>Build later  -  months 4–9</h3>
+
+        <div class="nl-item">
+          Cross-store campaign pattern matching
+          <div class="nl-why">Requires 6 months of clean campaign data. Premature before that.</div>
+        </div>
+        <div class="nl-item">
+          Creator Commerce Coach (creator-facing AI)
+          <div class="nl-why">Only valuable once the underlying store data is trustworthy and structured.</div>
+        </div>
+        <div class="nl-item">
+          Shopify Plus - gap analysis and consideration
+          <div class="nl-why">Plus unlocks B2B, Checkout Extensibility, and multi-store admin. At ~$2k/month per store it's a significant cost decision. Worth a structured evaluation after the store audit - not a default assumption.</div>
+        </div>
+        <div class="nl-item">
+          Checkout Extensibility / Shopify Functions
+          <div class="nl-why">High-leverage but requires Shopify Plus. Only relevant after a deliberate decision to upgrade - don't design for features we don't have access to yet.</div>
+        </div>
+        <div class="nl-item">
+          Custom internal tooling (Supabase-backed apps)
+          <div class="nl-why">Only if Airtable genuinely can't do the job. Don't build what can be configured.</div>
+        </div>
+        <div class="nl-item">
+          Headless / Hydrogen storefronts
+          <div class="nl-why">Not on the roadmap unless a specific store's revenue clearly justifies the engineering overhead. Shopify's native storefront is not the bottleneck.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ VISION ══════════ -->
+  <section class="vision-section" id="vision">
+    <div class="vision-header">
+      <h2>Vision Horizon  -  Where This Leads</h2>
+    </div>
+    <p class="vision-intro">
+      The 6–9 month roadmap is about stabilizing the foundation and proving the pattern. But the reason to build it carefully is what it unlocks after. <strong>Every use case below is impossible without clean data, a reliable sync layer, and AI workflows already embedded in how teams operate.</strong> The foundation isn't the goal  -  it's the prerequisite. These are the outcomes that justify it.
+    </p>
+
+    <div class="vision-grid">
+
+      <!-- Featured: Cross-store campaign intelligence -->
+      <div class="vision-card featured">
+        <div class="v-category">Campaign Intelligence · Flagship</div>
+        <h3>Cross-Store Campaign Pattern Matching</h3>
+        <p class="v-desc">
+          After every successful launch, an AI agent extracts the characteristics that drove performance  -  audience trust index, product category, price band, scarcity mechanics, sell-through velocity  -  and encodes them as a store fingerprint. When Store A has a breakout drop, the system automatically identifies the 4–5 stores with the most similar profiles and generates a tailored campaign brief for each. Over time this becomes a proprietary playbook library that no competitor can replicate without the same data history. Institutional knowledge that compounds.
+        </p>
+        <div class="v-outcome">Every successful launch teaches the whole portfolio. One win becomes five.</div>
+      </div>
+
+      <!-- New Creator Fit Predictor -->
+      <div class="vision-card">
+        <div class="v-category">Creator Intelligence</div>
+        <h3>New Creator Fit Predictor</h3>
+        <p class="v-desc">
+          Signing a new creator partnership is one of the most capital-intensive decisions Warren James makes. Today it's largely qualitative. With two years of store fingerprint data, it becomes predictive  -  score any prospective creator against the audience profiles and product categories where WJ consistently wins, and rank them by expected Year 1 GMV before a single dollar is committed.
+        </p>
+        <div class="v-outcome">Data-driven creator acquisition. Gut feel replaced with ranked probability.</div>
+      </div>
+
+      <!-- Optimal Launch Timing -->
+      <div class="vision-card">
+        <div class="v-category">Campaign Intelligence</div>
+        <h3>Optimal Launch Timing Engine</h3>
+        <p class="v-desc">
+          Patterns in campaign data reveal which days, times, and seasonal windows produce the highest sell-through for each store's audience type. The system stops being reactive  -  instead of "when does the creator want to post?" it becomes "here's the highest-probability launch window for this creator's audience in Q4, based on 18 months of their performance data."
+        </p>
+        <div class="v-outcome">Higher sell-through on every launch. No more guessing posting windows.</div>
+      </div>
+
+      <!-- Creator Commerce Coach -->
+      <div class="vision-card">
+        <div class="v-category">Creator Growth</div>
+        <h3>Creator Commerce Coach</h3>
+        <p class="v-desc">
+          Every creator gets an AI-powered weekly digest of their store performance  -  sell-through trends, audience behavior, what's working and why  -  framed as actionable recommendations, not raw data. Delivered via Slack or a lightweight web view. The strategic implication: leaving Warren James means losing this capability. It turns the partnership into infrastructure.
+        </p>
+        <div class="v-outcome">Creator retention tool. WJ becomes irreplaceable, not just convenient.</div>
+      </div>
+
+      <!-- Inventory Allocation Optimizer -->
+      <div class="vision-card">
+        <div class="v-category">Product Intelligence</div>
+        <h3>Launch Inventory Optimizer</h3>
+        <p class="v-desc">
+          Consistently understocking a launch leaves revenue on the table. Overstocking means sitting on margin-eroding inventory. With historical sell-through velocity by store, category, and campaign type, the system recommends launch inventory quantities  -  and flags when a planned allocation looks mismatched against the store's historical demand curve.
+        </p>
+        <div class="v-outcome">Less stockout. Less dead inventory. Better margin on every launch.</div>
+      </div>
+
+      <!-- Revenue Anomaly Explainer -->
+      <div class="vision-card">
+        <div class="v-category">Revenue Intelligence</div>
+        <h3>Revenue Anomaly Explainer</h3>
+        <p class="v-desc">
+          When revenue spikes or drops unexpectedly, someone currently has to manually investigate across Shopify, Odoo, and social  -  correlating an order surge with a post, a dip with a sync failure, a return spike with a product quality issue. The AI agent does this automatically: detects the anomaly, traces it to the most likely cause, and surfaces the explanation before anyone asks.
+        </p>
+        <div class="v-outcome">CEO Monday meeting starts with explanations, not questions.</div>
+      </div>
+
+      <!-- Shared vendor leverage -->
+      <div class="vision-card">
+        <div class="v-category">Ops Intelligence</div>
+        <h3>Portfolio Vendor Leverage</h3>
+        <p class="v-desc">
+          Fifteen stores buying from the same manufacturer appear as fifteen separate relationships  -  each negotiating independently, each blind to the others. With cross-store vendor data consolidated in one layer, Warren James sees its true aggregate spend per supplier. That's the basis for consolidating purchasing power, negotiating better terms, and identifying which vendors are creating inventory risk across multiple stores simultaneously.
+        </p>
+        <div class="v-outcome">Buying power of a portfolio, not 70 individual stores.</div>
+      </div>
+
+      <!-- Buyer Identity Graph -->
+      <div class="vision-card">
+        <div class="v-category">Audience Intelligence</div>
+        <h3>Cross-Store Buyer Identity Graph</h3>
+        <p class="v-desc">
+          A customer who bought from Creator A's store and Creator B's store is a high-value repeat buyer across the WJ portfolio  -  but if each store is siloed they're invisible as such. Connecting buyer identities across stores (via email match) reveals the true lifetime value of the WJ audience, which creators share the most loyal overlap, and where cross-promotion is most likely to convert.
+        </p>
+        <div class="v-outcome">The WJ audience is worth more than the sum of 70 individual stores.</div>
+      </div>
+
+    </div>
+
+    <div class="vision-prereq">
+      <strong>Why none of this works without the foundation:</strong> Clean campaign tagging starts in Phase 3. Store fingerprints require 6+ months of tagged data. Cross-store buyer identity requires consistent customer records in Odoo. Vendor leverage requires unified spend data in BigQuery. The 6–9 month roadmap isn't a delay before the interesting work  -  it's what makes the interesting work possible.
+    </div>
+  </section>
+
+  <!-- ══════════ SUCCESS MAP ══════════ -->
+  <section class="success-map" id="success">
+    <h2>Success Criteria  -  Where Each Gets Checked Off</h2>
+    <table class="success-table">
+      <thead>
+        <tr>
+          <th>Success Criterion</th>
+          <th>When</th>
+          <th>How You Know It's Real</th>
+          <th>Key Levers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>AI workflows used weekly across teams</td>
+          <td>Month 1 (first), all teams by Month 5</td>
+          <td>Slack → Asana routing runs in production week 2; by Month 5 every team has at least one workflow they didn't build themselves asking for</td>
+          <td>n8n, Slack integrations, AI office hours</td>
+        </tr>
+        <tr>
+          <td>Manual handoffs meaningfully reduced</td>
+          <td>Month 3</td>
+          <td>Measure time spent on the top 3 handoffs before and after. If someone isn't asking "wait, did that already happen?" the automation is working</td>
+          <td>n8n automations, Shopify Flow, Odoo triggers</td>
+        </tr>
+        <tr>
+          <td>Odoo feels stable, not fragile</td>
+          <td>Month 3–4</td>
+          <td>A full week passes without a "the numbers are wrong" conversation. Finance stops building reconciliation spreadsheets</td>
+          <td>Sync monitoring, data standards, deduplication</td>
+        </tr>
+        <tr>
+          <td>Leadership has clearer, faster access to reliable data</td>
+          <td>Month 4 (basic), Month 7 (full)</td>
+          <td>CEO opens a dashboard Monday morning instead of asking someone to pull a report. The number they see matches what they'd find if they checked manually</td>
+          <td>BigQuery, Looker Studio / Metabase, Airbyte/Fivetran</td>
+        </tr>
+        <tr>
+          <td>Teams move faster without asking permission</td>
+          <td>Month 5–6</td>
+          <td>Teams are building their own simple automations in Make/n8n without looping me in. Decisions happen in the system, not in a Slack thread asking "can someone check Odoo?"</td>
+          <td>AI office hours, documented workflow templates, self-serve dashboards</td>
+        </tr>
+        <tr>
+          <td>CEO has a technical partner</td>
+          <td>Ongoing from Day 1</td>
+          <td>Weekly or bi-weekly sync where I bring the architecture direction, not waiting to be asked. No surprises  -  I surface issues before they become problems</td>
+          <td>Proactive communication, CEO dashboard, clear "here's what I'm building and why" cadence</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>WARREN JAMES · DIRECTOR OF TECHNOLOGY · ROADMAP & VISION · PREPARED BY REZA</footer>
+
+</body>
+</html>
