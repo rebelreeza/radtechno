@@ -434,42 +434,63 @@
     margin-top: -2px;
   }
 
-  /* Stack grid */
-  .stack-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+  /* Stack table */
+  .stack-table {
     margin-top: 20px;
-  }
-
-  .stack-item {
     border: 1px solid var(--gray-2);
-    border-radius: 6px;
-    padding: 14px 16px;
+    border-radius: 8px;
+    overflow: hidden;
   }
 
-  .stack-item.full { grid-column: 1 / -1; }
+  .stack-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 150px 1fr;
+    border-bottom: 1px solid var(--gray-2);
+    align-items: start;
+  }
 
-  .stack-name {
+  .stack-row:last-child { border-bottom: none; }
+  .stack-row.hdr { background: var(--gray-1); }
+
+  .sc {
+    padding: 13px 15px;
+    border-right: 1px solid var(--gray-2);
     font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 2px;
   }
 
-  .stack-role {
+  .sc:last-child { border-right: none; }
+
+  .stack-row.hdr .sc {
     font-size: 10px;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gray-3);
-    font-weight: 600;
-    margin-bottom: 8px;
+    padding: 9px 15px;
   }
 
-  .stack-mandate {
-    font-size: 12px;
+  .sc-tool strong { font-size: 13px; font-weight: 700; }
+  .sc-tool span { font-size: 11px; color: var(--gray-3); display: block; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .sc-purpose { color: var(--gray-4); line-height: 1.5; font-size: 13px; }
+  .sc-users { font-size: 12px; color: var(--gray-4); line-height: 1.5; }
+
+  .rx-group { display: flex; flex-wrap: wrap; gap: 5px; padding: 13px 15px; }
+
+  .rx-btn {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid var(--gray-2);
+    border-radius: 20px;
+    background: var(--white);
     color: var(--gray-4);
-    line-height: 1.5;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.1s;
   }
+
+  .rx-btn:hover { border-color: var(--gray-4); color: var(--black); }
+  .rx-btn.selected { background: var(--black); color: var(--white); border-color: var(--black); }
 
   /* Answer fields */
   .q-answer {
@@ -532,18 +553,18 @@
 <body>
 
 <header>
-  <div class="eyebrow">Warren James - VP of Technology</div>
-  <h1>Where My Head Is At</h1>
-  <div class="subtitle">A working document for Saurabh - what I understand, what I'd do, and what I want to think through with you before day one.</div>
+  <div class="eyebrow">Warren James - VP of Technology · Onboarding Brief</div>
+  <h1>Getting Started</h1>
+  <div class="subtitle">Assumptions I'm walking in with, where I'm focusing first, and what I need from you to move fast. Use the fields throughout to correct me or add context - the faster I have your input, the faster we're moving.</div>
 </header>
 
 <main>
 
   <!-- CURRENT STATE -->
   <div class="memo-section">
-    <div class="section-label">Current State</div>
-    <h2>What I Think Is True Right Now</h2>
-    <p>Based on everything I've learned so far, here's my honest read of where things stand. I'm sharing this because I want you to correct me where I'm wrong - I'd rather surface a wrong assumption now than act on it later.</p>
+    <div class="section-label">Going-In Assumptions</div>
+    <h2>What I'm Walking In With</h2>
+    <p>These are my working assumptions before I've had eyes on the systems. Flag anything that's off - a corrected assumption in week one is better than a wrong one in week four.</p>
 
     <div class="assessment-grid">
       <div class="a-card">
@@ -583,45 +604,99 @@
 
   <!-- STACK -->
   <div class="memo-section">
-    <div class="section-label">Current Environment</div>
-    <h2>What I'm Working With</h2>
-    <p>Based on the role, here's how I'm mapping the current stack and the mandate that comes with each piece. This is my starting assumption - correct me where it's off.</p>
+    <div class="section-label">Current Stack</div>
+    <h2>What We're Working With</h2>
+    <p>My assumptions on how each tool is being used and who's touching it. Mark your honest take on each - this directly shapes where I focus first.</p>
 
-    <div class="stack-grid">
-      <div class="stack-item">
-        <div class="stack-name">Odoo</div>
-        <div class="stack-role">ERP · post-launch</div>
-        <div class="stack-mandate">Stability, data integrity, and trust. The most urgent work - own configuration, fix the sync layer, make the numbers reliable.</div>
+    <div class="stack-table">
+      <div class="stack-row hdr">
+        <div class="sc">Tool</div>
+        <div class="sc">Assumed use</div>
+        <div class="sc">Who's using it</div>
+        <div class="sc">Your take</div>
       </div>
-      <div class="stack-item">
-        <div class="stack-name">Shopify</div>
-        <div class="stack-role">~70 storefronts</div>
-        <div class="stack-mandate">Full infrastructure ownership - plan consistency, app rationalization, sync reliability, and drop coordination across all stores.</div>
+      <div class="stack-row">
+        <div class="sc sc-tool"><strong>Odoo</strong><span>ERP</span></div>
+        <div class="sc sc-purpose">Inventory, order flow, purchasing, and accounting. The operational system of record - or supposed to be.</div>
+        <div class="sc sc-users">Ops, Finance, Merch</div>
+        <div class="rx-group">
+          <button class="rx-btn">Essential</button>
+          <button class="rx-btn">Works well</button>
+          <button class="rx-btn">Underused</button>
+          <button class="rx-btn">Has potential</button>
+          <button class="rx-btn">Replace</button>
+        </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-name">Airtable</div>
-        <div class="stack-role">Ops & internal data</div>
-        <div class="stack-mandate">Key integration node between ops workflows and the broader stack. Needs clean connections to Odoo and Shopify to be useful.</div>
+      <div class="stack-row">
+        <div class="sc sc-tool"><strong>Shopify</strong><span>~70 stores</span></div>
+        <div class="sc sc-purpose">Creator storefronts - product listings, checkout, fulfillment, and drop coordination. Each store likely has its own app stack.</div>
+        <div class="sc sc-users">Ops, Creator team</div>
+        <div class="rx-group">
+          <button class="rx-btn">Essential</button>
+          <button class="rx-btn">Works well</button>
+          <button class="rx-btn">Underused</button>
+          <button class="rx-btn">Has potential</button>
+          <button class="rx-btn">Replace</button>
+        </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-name">PipeDrive</div>
-        <div class="stack-role">CRM</div>
-        <div class="stack-mandate">Seamless coordination with Asana is the mandate. Pipeline data should flow without manual handoffs.</div>
+      <div class="stack-row">
+        <div class="sc sc-tool"><strong>Airtable</strong><span>Ops & data</span></div>
+        <div class="sc sc-purpose">Internal ops workflows and lightweight data management. Likely bridging gaps between systems that don't talk to each other yet.</div>
+        <div class="sc sc-users">Ops, possibly all teams</div>
+        <div class="rx-group">
+          <button class="rx-btn">Essential</button>
+          <button class="rx-btn">Works well</button>
+          <button class="rx-btn">Underused</button>
+          <button class="rx-btn">Has potential</button>
+          <button class="rx-btn">Replace</button>
+        </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-name">Asana</div>
-        <div class="stack-role">Project coordination</div>
-        <div class="stack-mandate">Connected to PipeDrive; also a target for AI workflow automation - routing, ticketing, status updates without manual input.</div>
+      <div class="stack-row">
+        <div class="sc sc-tool"><strong>PipeDrive</strong><span>CRM</span></div>
+        <div class="sc sc-purpose">Creator pipeline and partnership management. Should be coordinating cleanly with Asana but my guess is that handoff is manual today.</div>
+        <div class="sc sc-users">Partnerships, Sales</div>
+        <div class="rx-group">
+          <button class="rx-btn">Essential</button>
+          <button class="rx-btn">Works well</button>
+          <button class="rx-btn">Underused</button>
+          <button class="rx-btn">Has potential</button>
+          <button class="rx-btn">Replace</button>
+        </div>
       </div>
-      <div class="stack-item">
-        <div class="stack-name">Make / Zapier</div>
-        <div class="stack-role">Automation layer</div>
-        <div class="stack-mandate">Low-code automation backbone. The goal is AI-powered workflows teams can own and modify themselves - not just ones I built.</div>
+      <div class="stack-row">
+        <div class="sc sc-tool"><strong>Asana</strong><span>Project mgmt</span></div>
+        <div class="sc sc-purpose">Task and project coordination across teams. A natural target for AI-assisted routing and status automation once the foundation is stable.</div>
+        <div class="sc sc-users">All teams</div>
+        <div class="rx-group">
+          <button class="rx-btn">Essential</button>
+          <button class="rx-btn">Works well</button>
+          <button class="rx-btn">Underused</button>
+          <button class="rx-btn">Has potential</button>
+          <button class="rx-btn">Replace</button>
+        </div>
       </div>
-      <div class="stack-item full">
-        <div class="stack-name">Hardware & Device Fleet</div>
-        <div class="stack-role">Inventory, visibility & governance</div>
-        <div class="stack-mandate">Own device inventory, software visibility, and security posture across the team. Build scalable upgrade and purchasing processes as the company grows - fast enough to not be a bottleneck, rigorous enough to not be a liability.</div>
+      <div class="stack-row">
+        <div class="sc sc-tool"><strong>Make / Zapier</strong><span>Automation</span></div>
+        <div class="sc sc-purpose">Low-code automation between systems. Likely powering some existing workflows - I'll audit what's running, what's broken, and what should be rebuilt properly.</div>
+        <div class="sc sc-users">Ops, whoever set it up</div>
+        <div class="rx-group">
+          <button class="rx-btn">Essential</button>
+          <button class="rx-btn">Works well</button>
+          <button class="rx-btn">Underused</button>
+          <button class="rx-btn">Has potential</button>
+          <button class="rx-btn">Replace</button>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="sc sc-tool"><strong>Hardware</strong><span>Device fleet</span></div>
+        <div class="sc sc-purpose">Company devices, software licenses, and access controls. My assumption is there's no single inventory view today and upgrade processes are ad hoc.</div>
+        <div class="sc sc-users">All employees</div>
+        <div class="rx-group">
+          <button class="rx-btn">Well managed</button>
+          <button class="rx-btn">Mostly fine</button>
+          <button class="rx-btn">Needs work</button>
+          <button class="rx-btn">No process</button>
+        </div>
       </div>
     </div>
   </div>
@@ -630,8 +705,8 @@
 
   <!-- PLAN -->
   <div class="memo-section">
-    <div class="section-label">The Plan</div>
-    <h2>Four Phases - One Direction</h2>
+    <div class="section-label">First 90 Days</div>
+    <h2>Where I'm Focusing</h2>
     <p>Stabilize the foundation fast, build leverage into it, then compound. The sequencing is intentional - later phases depend on earlier ones being solid.</p>
 
     <div class="timeline">
@@ -732,9 +807,9 @@
 
   <!-- OPEN QUESTIONS -->
   <div class="memo-section">
-    <div class="section-label">Open Questions</div>
-    <h2>What I Want to Hear From You</h2>
-    <p>These aren't things I can answer from the outside. The faster I get your read on these, the faster I can build a plan that's actually grounded in reality.</p>
+    <div class="section-label">Help Me Move Fast</div>
+    <h2>What I Need From You</h2>
+    <p>These are the things I can't learn from the outside. Your answers in the first week save me a month of wrong assumptions. Type or use the mic.</p>
 
     <p style="font-size:12px; color:var(--gray-3); margin-top:8px;">Type your thoughts or click 🎤 to answer by voice.</p>
 
@@ -801,8 +876,8 @@
 
   <!-- HOW WE WORK -->
   <div class="memo-section">
-    <div class="section-label">Collaboration</div>
-    <h2>How I'd Work With You</h2>
+    <div class="section-label">Working Together</div>
+    <h2>How We'll Work</h2>
 
     <div class="collab-grid">
       <div class="collab-card">
@@ -828,9 +903,9 @@
 
   <!-- WHAT I BRING -->
   <div class="memo-section">
-    <div class="section-label">What I Bring</div>
-    <h2>Beyond Building Workflows</h2>
-    <p>The technical execution is table stakes. What I think this role actually requires - and where I'd differentiate - is the combination of strategic thinking, organizational leadership, and hands-on delivery operating at the same time.</p>
+    <div class="section-label">The Approach</div>
+    <h2>How I Think About This Work</h2>
+    <p>Technical execution is table stakes. What makes the difference here is combining strategic judgment, cross-functional leadership, and hands-on delivery - all at the same time, not in sequence.</p>
 
     <div class="collab-grid">
       <div class="collab-card">
@@ -884,8 +959,8 @@
 
   <!-- CLOSE -->
   <div class="close-block">
-    <h2>Ready to Start</h2>
-    <p>Everything in this document was put together before day one - which means it will be wrong in some places. That's fine. The point is to show up with a real perspective, not a blank slate. Tell me what I've got wrong and we'll sharpen it together. I can move fast once I'm in the building.</p>
+    <h2>Let's Go</h2>
+    <p>Some of what's in here will be wrong - that's expected. The point is to start with a real perspective and sharpen it fast with your input. Use the fields above, push back on anything that doesn't land right, and I'll have a revised version back to you within 48 hours of our first conversation.</p>
   </div>
 
 </main>
@@ -893,6 +968,16 @@
 <footer>Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology</footer>
 
 <script>
+  // Reaction buttons - mutually exclusive per row
+  document.querySelectorAll('.rx-group').forEach(group => {
+    group.querySelectorAll('.rx-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.rx-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+      });
+    });
+  });
+
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   let activeRecognition = null;
   let activeBtn = null;
