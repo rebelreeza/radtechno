@@ -434,6 +434,89 @@
     margin-top: -2px;
   }
 
+  /* Stack grid */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .stack-item {
+    border: 1px solid var(--gray-2);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+
+  .stack-item.full { grid-column: 1 / -1; }
+
+  .stack-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .stack-role {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-3);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .stack-mandate {
+    font-size: 12px;
+    color: var(--gray-4);
+    line-height: 1.5;
+  }
+
+  /* Answer fields */
+  .q-answer {
+    margin-top: 12px;
+    position: relative;
+  }
+
+  .q-answer textarea {
+    width: 100%;
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    padding: 10px 44px 10px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--black);
+    resize: vertical;
+    min-height: 72px;
+    outline: none;
+    transition: border-color 0.15s;
+    background: var(--gray-1);
+  }
+
+  .q-answer textarea:focus { border-color: var(--black); background: var(--white); }
+  .q-answer textarea::placeholder { color: var(--gray-3); }
+
+  .mic-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: var(--gray-3);
+    padding: 2px;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+
+  .mic-btn:hover { color: var(--black); }
+  .mic-btn.recording { color: #dc2626; animation: pulse 1s infinite; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
   /* Footer */
   footer {
     text-align: center;
@@ -494,6 +577,53 @@
       </div>
     </div>
 
+  </div>
+
+  <hr class="divider">
+
+  <!-- STACK -->
+  <div class="memo-section">
+    <div class="section-label">Current Environment</div>
+    <h2>What I'm Working With</h2>
+    <p>Based on the role, here's how I'm mapping the current stack and the mandate that comes with each piece. This is my starting assumption - correct me where it's off.</p>
+
+    <div class="stack-grid">
+      <div class="stack-item">
+        <div class="stack-name">Odoo</div>
+        <div class="stack-role">ERP · post-launch</div>
+        <div class="stack-mandate">Stability, data integrity, and trust. The most urgent work - own configuration, fix the sync layer, make the numbers reliable.</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-name">Shopify</div>
+        <div class="stack-role">~70 storefronts</div>
+        <div class="stack-mandate">Full infrastructure ownership - plan consistency, app rationalization, sync reliability, and drop coordination across all stores.</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-name">Airtable</div>
+        <div class="stack-role">Ops & internal data</div>
+        <div class="stack-mandate">Key integration node between ops workflows and the broader stack. Needs clean connections to Odoo and Shopify to be useful.</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-name">PipeDrive</div>
+        <div class="stack-role">CRM</div>
+        <div class="stack-mandate">Seamless coordination with Asana is the mandate. Pipeline data should flow without manual handoffs.</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-name">Asana</div>
+        <div class="stack-role">Project coordination</div>
+        <div class="stack-mandate">Connected to PipeDrive; also a target for AI workflow automation - routing, ticketing, status updates without manual input.</div>
+      </div>
+      <div class="stack-item">
+        <div class="stack-name">Make / Zapier</div>
+        <div class="stack-role">Automation layer</div>
+        <div class="stack-mandate">Low-code automation backbone. The goal is AI-powered workflows teams can own and modify themselves - not just ones I built.</div>
+      </div>
+      <div class="stack-item full">
+        <div class="stack-name">Hardware & Device Fleet</div>
+        <div class="stack-role">Inventory, visibility & governance</div>
+        <div class="stack-mandate">Own device inventory, software visibility, and security posture across the team. Build scalable upgrade and purchasing processes as the company grows - fast enough to not be a bottleneck, rigorous enough to not be a liability.</div>
+      </div>
+    </div>
   </div>
 
   <hr class="divider">
@@ -606,12 +736,18 @@
     <h2>What I Want to Hear From You</h2>
     <p>These aren't things I can answer from the outside. The faster I get your read on these, the faster I can build a plan that's actually grounded in reality.</p>
 
+    <p style="font-size:12px; color:var(--gray-3); margin-top:8px;">Type your thoughts or click 🎤 to answer by voice.</p>
+
     <ul class="q-list">
       <li>
         <div class="q-num">01</div>
         <div class="q-body">
           <strong>What does Odoo actually feel like to the team right now?</strong>
           <span>Not the intended state - the lived experience. Do people trust it enough to make decisions from it, or is it a system of record that nobody actually uses?</span>
+          <div class="q-answer">
+            <textarea placeholder="Your answer..."></textarea>
+            <button class="mic-btn" title="Click to speak">🎤</button>
+          </div>
         </div>
       </li>
       <li>
@@ -619,6 +755,10 @@
         <div class="q-body">
           <strong>Where is the biggest operational pain point right now - the one that costs the most time or creates the most internal friction?</strong>
           <span>I have hypotheses from the outside. You'll know the answer immediately. That's where I'd want to focus first.</span>
+          <div class="q-answer">
+            <textarea placeholder="Your answer..."></textarea>
+            <button class="mic-btn" title="Click to speak">🎤</button>
+          </div>
         </div>
       </li>
       <li>
@@ -626,6 +766,10 @@
         <div class="q-body">
           <strong>What's currently falling through the cracks on the technology side - things that are owned in name only or not owned at all?</strong>
           <span>This tells me where the acute gaps are versus the chronic ones - and which problems have already been quietly absorbed by other people.</span>
+          <div class="q-answer">
+            <textarea placeholder="Your answer..."></textarea>
+            <button class="mic-btn" title="Click to speak">🎤</button>
+          </div>
         </div>
       </li>
       <li>
@@ -633,6 +777,10 @@
         <div class="q-body">
           <strong>What's your instinct on Shopify Plus - is that a conversation worth having, or is the cost a non-starter?</strong>
           <span>Some of the longer-term leverage (checkout extensibility, multi-store admin) requires it. Worth knowing early whether that's in the picture or not.</span>
+          <div class="q-answer">
+            <textarea placeholder="Your answer..."></textarea>
+            <button class="mic-btn" title="Click to speak">🎤</button>
+          </div>
         </div>
       </li>
       <li>
@@ -640,6 +788,10 @@
         <div class="q-body">
           <strong>What would make you feel like this was unambiguously working at the 90-day mark?</strong>
           <span>Not the full roadmap - just the signal that would tell you the right person is in the seat. I want to design month one around that signal.</span>
+          <div class="q-answer">
+            <textarea placeholder="Your answer..."></textarea>
+            <button class="mic-btn" title="Click to speak">🎤</button>
+          </div>
         </div>
       </li>
     </ul>
@@ -740,5 +892,57 @@
 
 <footer>Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology</footer>
 
+<script>
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let activeRecognition = null;
+  let activeBtn = null;
+
+  document.querySelectorAll('.mic-btn').forEach(btn => {
+    if (!SpeechRecognition) { btn.style.display = 'none'; return; }
+
+    btn.addEventListener('click', () => {
+      // Stop any active session
+      if (activeRecognition) {
+        activeRecognition.stop();
+        activeRecognition = null;
+        if (activeBtn) { activeBtn.classList.remove('recording'); activeBtn.title = 'Click to speak'; }
+        if (activeBtn === btn) { activeBtn = null; return; }
+      }
+
+      const textarea = btn.previousElementSibling;
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      const baseText = textarea.value.trimEnd();
+
+      recognition.onresult = (event) => {
+        const transcript = Array.from(event.results).map(r => r[0].transcript).join('');
+        textarea.value = baseText ? baseText + ' ' + transcript : transcript;
+      };
+
+      recognition.onerror = () => {
+        btn.classList.remove('recording');
+        btn.title = 'Click to speak';
+        activeRecognition = null;
+        activeBtn = null;
+      };
+
+      recognition.onend = () => {
+        btn.classList.remove('recording');
+        btn.title = 'Click to speak';
+        activeRecognition = null;
+        activeBtn = null;
+      };
+
+      recognition.start();
+      activeRecognition = recognition;
+      activeBtn = btn;
+      btn.classList.add('recording');
+      btn.title = 'Recording... click to stop';
+    });
+  });
+</script>
 </body>
 </html>
