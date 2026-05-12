@@ -1011,17 +1011,16 @@ const headerObserver = new IntersectionObserver(([e]) => {
 }, { threshold: 0 });
 headerObserver.observe(header);
 
-const sectionObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      navLinks.forEach(l => l.classList.remove('active'));
-      const link = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
-      if (link) link.classList.add('active');
-    }
-  });
-}, { rootMargin: '-30% 0px -60% 0px' });
-
-sections.forEach(s => s && sectionObserver.observe(s));
+const offset = 80;
+function updateActive() {
+  const scrollY = window.scrollY + offset;
+  let active = sections[0];
+  for (const s of sections) { if (s && s.offsetTop <= scrollY) active = s; }
+  if (!active) return;
+  navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + active.id));
+}
+window.addEventListener('scroll', updateActive, { passive: true });
+updateActive();
 </script>
 <script src="/warrenjames/comments.js"></script>
 </body>

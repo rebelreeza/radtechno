@@ -137,6 +137,7 @@
     transition: all 0.15s;
   }
   nav a:hover { color: var(--black); border-bottom-color: var(--black); }
+  nav a.active { color: var(--black); border-bottom-color: var(--black); }
   nav a.nav-home { color: var(--gray-3); border-right: 1px solid var(--gray-2); margin-right: 8px; }
   nav a.nav-home:hover { color: var(--black); }
 
@@ -1118,5 +1119,23 @@
 
 <footer>WARREN JAMES · DIRECTOR OF TECHNOLOGY · ROADMAP & VISION · PREPARED BY REZA</footer>
 
+<script>
+(function() {
+  const navLinks = document.querySelectorAll('nav a[href^="#"]');
+  const sectionIds = ['phase1','phase2','phase3','phase4','nowlater','success','vision'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+  const offset = 70;
+
+  function update() {
+    const scrollY = window.scrollY + offset;
+    let active = sections[0];
+    for (const s of sections) { if (s.offsetTop <= scrollY) active = s; }
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active.id));
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
 </body>
 </html>
