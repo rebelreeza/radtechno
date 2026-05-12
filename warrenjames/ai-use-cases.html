@@ -155,6 +155,9 @@
     white-space: nowrap;
   }
   .nav-links a:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
+  .nav-links a.nav-home { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); margin-right: 4px; }
+  .nav-links a.nav-home:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
+  .nav-sep { width: 1px; height: 14px; background: rgba(255,255,255,0.12); margin: 0 4px; align-self: center; flex-shrink: 0; }
 
   /* CATEGORY SECTION */
   .cat-section {
@@ -458,6 +461,8 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-links">
+      <a class="nav-home" href="/warrenjames/">Home</a>
+      <span class="nav-sep"></span>
       <a href="#s1">01 · Campaign Intelligence</a>
       <a href="#s2">02 · Audience Intelligence</a>
       <a href="#s3">03 · Creator Intelligence</a>

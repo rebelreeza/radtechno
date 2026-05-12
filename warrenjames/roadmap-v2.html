@@ -170,6 +170,9 @@
   }
   .nav-link:hover { color: rgba(255,255,255,0.65); }
   .nav-link.active { color: var(--cream); border-bottom-color: var(--cream); }
+  .nav-home { color: rgba(255,255,255,0.45) !important; }
+  .nav-home:hover { color: rgba(255,255,255,0.8) !important; }
+  .nav-sep { width: 1px; height: 14px; background: rgba(255,255,255,0.12); margin: 0 6px; flex-shrink: 0; }
 
   /* ─── PHASE BLOCKS ─── */
   .phase-lbl {
@@ -496,6 +499,8 @@
 <!-- Sticky Nav -->
 <nav class="site-nav" id="site-nav">
   <div class="nav-inner">
+    <a class="nav-link nav-home" href="/warrenjames/">Home</a>
+    <span class="nav-sep"></span>
     <a class="nav-link" href="#phase1">Phase 1</a>
     <a class="nav-link" href="#phase2">Phase 2</a>
     <a class="nav-link" href="#phase3">Phase 3</a>
