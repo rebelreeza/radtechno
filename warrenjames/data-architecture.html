@@ -38,6 +38,10 @@
     --c-supplier: #38BDF8;
     --c-supplier-bg: rgba(56,189,248,0.08);
     --c-supplier-border: rgba(56,189,248,0.3);
+
+    --c-rag: #FBBF24;
+    --c-rag-bg: rgba(251,191,36,0.08);
+    --c-rag-border: rgba(251,191,36,0.3);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -305,7 +309,7 @@
   .ai-grid {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 0.75rem;
     margin-top: 0.25rem;
   }
@@ -314,6 +318,20 @@
     border: 1px solid var(--c-ai-border);
   }
   .node-ai .node-title { color: var(--c-ai); }
+
+  .node-rag {
+    background: var(--c-rag-bg);
+    border: 1px solid var(--c-rag-border);
+  }
+  .node-rag .node-title { color: var(--c-rag); }
+
+  .rag-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
 
   /* RULE STRIP */
   .rules {
@@ -449,6 +467,7 @@
     <div class="legend-item"><span class="legend-dot" style="background:var(--c-sync)"></span>Sync / ETL</div>
     <div class="legend-item"><span class="legend-dot" style="background:var(--c-bq)"></span>BigQuery Warehouse</div>
     <div class="legend-item"><span class="legend-dot" style="background:var(--c-ai)"></span>AI & Reporting</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-rag)"></span>RAG / Knowledge</div>
   </div>
 
   <div class="diagram">
@@ -614,6 +633,31 @@
     </div>
 
     <!-- ═══════════════════════════════════ -->
+    <!-- KNOWLEDGE LAYER (RAG) -->
+    <!-- ═══════════════════════════════════ -->
+    <div class="sec-label">
+      <span class="sec-label-line"></span>
+      <span class="sec-label-text">Knowledge layer  —  unstructured docs, parallel to warehouse</span>
+      <span class="sec-label-line"></span>
+    </div>
+
+    <div class="rag-row">
+      <div class="node node-rag">
+        <p class="node-title">Document Sources</p>
+        <p class="node-sub">SOPs, supplier contracts, creative briefs, past campaign reports, product specs, internal wikis. The institutional knowledge that lives in docs and emails rather than databases. Ingested on a schedule or triggered on upload.</p>
+      </div>
+      <div class="node node-rag">
+        <p class="node-title">Vector Store  —  pgvector or Pinecone</p>
+        <p class="node-sub">Documents chunked and embedded. Semantic search retrieves the most relevant chunks before an AI generates a response. Handles questions the warehouse can't: "What did we agree with Supplier X on lead times?" or "What's the SOP for a drop going wrong?"</p>
+      </div>
+    </div>
+
+    <div class="connector-full">
+      <p class="connector-label">Both warehouse and vector store feed the AI layer  —  structured queries go to BigQuery, knowledge queries go to the vector store</p>
+      <div class="connector-arrow-down"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
     <!-- AI & CONSUMPTION LAYER -->
     <!-- ═══════════════════════════════════ -->
     <div class="sec-label">
@@ -628,8 +672,12 @@
         <p class="node-sub">All 40 stores in one view. Revenue, inventory health, creator performance. Looker Studio or Metabase connected to BigQuery. No manual reports.</p>
       </div>
       <div class="node node-ai">
-        <p class="node-title">AI Q&A</p>
-        <p class="node-sub">Claude or GPT with BigQuery read access. Natural language questions against real business data. "Top 5 SKUs last week across all stores?" Answered in seconds.</p>
+        <p class="node-title">Structured Q&A</p>
+        <p class="node-sub">AI with warehouse read access — natural language translated to SQL. "Top 5 SKUs last week across all stores?" Answered in seconds. Works on numbers and events, not documents.</p>
+      </div>
+      <div class="node node-rag">
+        <p class="node-title">Knowledge Q&A (RAG)</p>
+        <p class="node-sub">AI retrieves relevant document chunks from the vector store before answering. For questions that live in docs, not data: SOPs, contracts, briefs, historical context. Different pipeline, same interface.</p>
       </div>
       <div class="node node-ai">
         <p class="node-title">Automated Reports</p>
@@ -667,6 +715,10 @@
     <div class="callout">
       <h3 style="color:var(--c-odoo);">Why pull from both in the ETL</h3>
       <p>Shopify has data Odoo never receives — abandoned carts, discount code attribution, storefront behavior, influencer referral UTMs. Odoo has data Shopify never sees — landed costs, PO history, accounting entries. The hypothesis is that you need both to get a complete picture, which is why pulling from each independently makes sense.</p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-rag);">RAG vs. structured queries  —  two different pipelines</h3>
+      <p>BigQuery answers questions about events and numbers — things that were recorded as structured data. RAG answers questions about knowledge — things that live in documents, contracts, SOPs, and briefs. An AI interface can route to either depending on the question, but they're built differently and solve different problems. The hypothesis is that WJ needs both: the warehouse for operational intelligence, the vector store for institutional knowledge retrieval.</p>
     </div>
     <div class="callout">
       <h3 style="color:var(--c-bq);">Why BigQuery never feeds back up</h3>
