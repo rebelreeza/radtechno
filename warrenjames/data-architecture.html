@@ -437,8 +437,8 @@
   <div class="hdr">
     <a style="display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);text-decoration:none;margin-bottom:1.5rem;transition:color 0.15s" href="/warrenjames/" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.35)'">← Home</a>
     <p class="eyebrow">Technical Reference · Warren James</p>
-    <h1>Data Architecture  -  Corrected & Complete</h1>
-    <p>Bidirectional Shopify ↔ Odoo flow · Supplier chain · BigQuery as read-only analytical layer</p>
+    <h1>Data Architecture  -  Tentative Thinking</h1>
+    <p>Bidirectional Shopify ↔ Odoo flow · Supplier chain · Analytical warehouse as read-only layer</p>
   </div>
 
   <!-- LEGEND -->
@@ -563,13 +563,13 @@
     <!-- ═══════════════════════════════════ -->
     <div class="sec-label">
       <span class="sec-label-line"></span>
-      <span class="sec-label-text">Data warehouse  -  analytical layer, read-only, single source of truth</span>
+      <span class="sec-label-text">Data warehouse  -  analytical layer, read-only</span>
       <span class="sec-label-line"></span>
     </div>
 
     <div class="node node-bq">
       <p class="node-title">BigQuery  -  Central Data Warehouse</p>
-      <p class="node-sub">Every business event from every source accumulates here permanently. Optimized for analytical queries. Nothing is ever deleted. No live transactions. This is where every dashboard, report, and AI tool reads from.</p>
+      <p class="node-sub">The working assumption: business events from Shopify and Odoo accumulate here as read-only copies, optimized for analytical queries rather than live transactions. Dashboards, reports, and AI tools would read from here rather than hitting the operational systems directly.</p>
 
       <div class="bq-tables">
         <div class="bq-table">
@@ -578,11 +578,11 @@
         </div>
         <div class="bq-table">
           <p class="bq-table-name">inventory_snapshots</p>
-          <p class="bq-table-desc">Historical inventory levels over time. Odoo is source of truth. Shopify quantities reconciled against it.</p>
+          <p class="bq-table-desc">Read copy from Odoo for trend analysis — not operational. Odoo owns live inventory; this is a snapshot for analytics only.</p>
         </div>
         <div class="bq-table">
           <p class="bq-table-name">financials</p>
-          <p class="bq-table-desc">P&L per store, COGS, fulfillment cost, gross margin. From Odoo accounting module.</p>
+          <p class="bq-table-desc">Read copy from Odoo's accounting module for cross-store margin analysis. Odoo remains the system of record; this enables reporting without querying it directly.</p>
         </div>
         <div class="bq-table">
           <p class="bq-table-name">customers</p>
@@ -602,7 +602,7 @@
         </div>
         <div class="bq-table">
           <p class="bq-table-name">purchase_orders</p>
-          <p class="bq-table-desc">Supplier PO history, lead times, landed costs. From Odoo purchasing module.</p>
+          <p class="bq-table-desc">Read copy from Odoo's purchasing module. Useful for lead time trends and landed cost analysis without touching ERP directly.</p>
         </div>
       </div>
     </div>
@@ -643,7 +643,7 @@
 
     <!-- RULES -->
     <div class="rules">
-      <p class="rules-label">Architecture rules</p>
+      <p class="rules-label">Working principles  —  tentative</p>
       <span class="rule rule-g">✓ Odoo is inventory source of truth</span>
       <span class="rule rule-g">✓ Odoo pushes inventory → Shopify</span>
       <span class="rule rule-g">✓ Shopify pushes orders → Odoo</span>
@@ -662,19 +662,19 @@
   <div class="callouts">
     <div class="callout">
       <h3 style="color:var(--c-shopify);">Why Odoo → Shopify for inventory</h3>
-      <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. <strong>Odoo is authoritative.</strong> When a PO is received and confirmed in Odoo, it pushes the updated quantity to Shopify. Shopify doesn't calculate inventory  -  it displays what Odoo tells it.</p>
+      <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. The working assumption is that Odoo should be the authoritative source — when a PO is confirmed, it pushes updated quantities to Shopify. Whether that's actually how it's configured today is one of the first things to verify.</p>
     </div>
     <div class="callout">
       <h3 style="color:var(--c-odoo);">Why pull from both in the ETL</h3>
-      <p>Shopify has data Odoo never receives  -  abandoned carts, discount code attribution, storefront behavior, influencer referral UTMs. Odoo has data Shopify never sees  -  landed costs, PO history, accounting entries. <strong>Both are needed for the full picture.</strong></p>
+      <p>Shopify has data Odoo never receives — abandoned carts, discount code attribution, storefront behavior, influencer referral UTMs. Odoo has data Shopify never sees — landed costs, PO history, accounting entries. The hypothesis is that you need both to get a complete picture, which is why pulling from each independently makes sense.</p>
     </div>
     <div class="callout">
       <h3 style="color:var(--c-bq);">Why BigQuery never feeds back up</h3>
-      <p>BigQuery is a record of what happened  -  it's historical and analytical. <strong>It does not make things happen.</strong> If an AI agent needs to trigger a reorder in Odoo, it calls Odoo's API directly, not through BigQuery. The warehouse only ever receives data, never sends it.</p>
+      <p>The warehouse layer should be historical and analytical — a record of what happened, not a trigger for what happens next. If an AI agent needs to trigger a reorder in Odoo, the intent is for it to call Odoo's API directly, not route through the warehouse. That said, the exact boundaries depend on what we find in the audit.</p>
     </div>
   </div>
 
-  <footer>WARREN JAMES · DATA ARCHITECTURE v2  -  CORRECTED BIDIRECTIONAL FLOW · PREPARED BY REZA</footer>
+  <footer>WARREN JAMES · DATA ARCHITECTURE  -  TENTATIVE · PREPARED BY REZA</footer>
 
 </div>
 <script src="/warrenjames/comments.js"></script>
