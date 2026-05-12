@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WJ Cost Estimates — Infrastructure & AI</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --gray-1: #f4f4f4;
+    --gray-2: #e4e4e4;
+    --gray-3: #9e9e9e;
+    --gray-4: #555;
+    --gray-5: #333;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --green-text: #166534;
+    --amber-bg: #fffbeb;
+    --amber-border: #fde68a;
+    --amber-text: #92400e;
+    --blue-bg: #eff6ff;
+    --blue-border: #bfdbfe;
+    --blue-text: #1e40af;
+    --purple-bg: #faf5ff;
+    --purple-border: #e9d5ff;
+    --purple-text: #6b21a8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  header {
+    background: var(--black);
+    color: var(--white);
+    padding: 48px 64px 40px;
+  }
+
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28); text-decoration: none;
+    margin-bottom: 28px; transition: color 0.15s;
+  }
+  .breadcrumb:hover { color: rgba(255,255,255,0.7); }
+
+  .eyebrow {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #666; margin-bottom: 10px;
+  }
+
+  header h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 12px; }
+  .subtitle { font-size: 14px; color: #aaa; max-width: 620px; line-height: 1.6; }
+
+  main { max-width: 960px; margin: 0 auto; padding: 52px 48px 100px; }
+
+  .section-block { margin-bottom: 60px; }
+
+  .section-label {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gray-3); font-weight: 600; margin-bottom: 10px;
+  }
+
+  .section-block h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.2px; }
+
+  .section-intro { font-size: 14px; color: var(--gray-4); margin-bottom: 24px; max-width: 700px; line-height: 1.65; }
+
+  hr { border: none; border-top: 1px solid var(--gray-2); margin: 0 0 52px; }
+
+  /* ── Callout banner ── */
+  .callout-banner {
+    background: var(--amber-bg); border: 1px solid var(--amber-border);
+    border-radius: 8px; padding: 18px 22px; margin-bottom: 40px;
+    font-size: 13px; color: var(--amber-text); line-height: 1.65;
+  }
+  .callout-banner strong { font-weight: 700; }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  th {
+    text-align: left; padding: 10px 14px;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray-3); font-weight: 600;
+    border-bottom: 2px solid var(--gray-2);
+  }
+
+  td { padding: 13px 14px; vertical-align: top; border-bottom: 1px solid var(--gray-2); }
+
+  td:first-child { font-weight: 600; color: var(--gray-5); white-space: nowrap; }
+
+  tr:last-child td { border-bottom: none; }
+
+  .cost-lo { color: var(--green-text); font-weight: 600; }
+  .cost-mid { color: var(--amber-text); font-weight: 600; }
+  .cost-hi { color: #991b1b; font-weight: 600; }
+  .cost-unknown { color: var(--gray-3); font-style: italic; }
+
+  .badge {
+    display: inline-block; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 3px; margin-left: 6px;
+  }
+  .badge-start { background: var(--green-bg); color: var(--green-text); border: 1px solid var(--green-border); }
+  .badge-scale { background: var(--blue-bg); color: var(--blue-text); border: 1px solid var(--blue-border); }
+  .badge-avoid { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+  .badge-rec { background: var(--purple-bg); color: var(--purple-text); border: 1px solid var(--purple-border); }
+
+  /* ── Option comparison cards ── */
+  .option-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 8px; }
+
+  .option-card {
+    border: 1px solid var(--gray-2); border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .option-card.recommended { border-color: #bbf7d0; background: var(--green-bg); }
+  .option-card.fallback { border-color: var(--blue-border); background: var(--blue-bg); }
+  .option-card.avoid { border-color: #fca5a5; background: #fef2f2; }
+
+  .option-name {
+    font-size: 13px; font-weight: 700; margin-bottom: 4px;
+  }
+  .option-card.recommended .option-name { color: var(--green-text); }
+  .option-card.fallback .option-name { color: var(--blue-text); }
+  .option-card.avoid .option-name { color: #991b1b; }
+
+  .option-cost {
+    font-size: 18px; font-weight: 700; margin: 8px 0 4px;
+    letter-spacing: -0.3px;
+  }
+  .option-card.recommended .option-cost { color: var(--green-text); }
+  .option-card.fallback .option-cost { color: var(--blue-text); }
+  .option-card.avoid .option-cost { color: #991b1b; }
+
+  .option-desc { font-size: 12px; color: var(--gray-4); line-height: 1.55; margin-top: 6px; }
+  .option-when { font-size: 11px; color: var(--gray-3); margin-top: 8px; font-style: italic; }
+
+  /* ── Total summary ── */
+  .total-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 8px; }
+
+  .total-card {
+    border-radius: 8px; padding: 22px 24px;
+    border: 1px solid var(--gray-2);
+  }
+  .total-card.lean { background: var(--green-bg); border-color: var(--green-border); }
+  .total-card.moderate { background: var(--amber-bg); border-color: var(--amber-border); }
+  .total-card.full { background: #fef2f2; border-color: #fca5a5; }
+
+  .total-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px; }
+  .total-card.lean .total-label { color: var(--green-text); }
+  .total-card.moderate .total-label { color: var(--amber-text); }
+  .total-card.full .total-label { color: #991b1b; }
+
+  .total-amount { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
+  .total-card.lean .total-amount { color: var(--green-text); }
+  .total-card.moderate .total-amount { color: var(--amber-text); }
+  .total-card.full .total-amount { color: #991b1b; }
+
+  .total-sub { font-size: 12px; color: var(--gray-4); line-height: 1.55; margin-top: 8px; }
+
+  .note { font-size: 12px; color: var(--gray-3); margin-top: 16px; line-height: 1.6; }
+
+  @media (max-width: 720px) {
+    header { padding: 36px 28px 32px; }
+    main { padding: 36px 24px 64px; }
+    .option-grid, .total-grid { grid-template-columns: 1fr; }
+    td:first-child { white-space: normal; }
+  }
+</style>
+</head>
+<body data-page="cost-estimates">
+
+<header>
+  <a class="breadcrumb" href="/warrenjames/">← Home</a>
+  <div class="eyebrow">Warren James · VP of Technology</div>
+  <h1>Cost Estimates — Infrastructure & AI</h1>
+  <p class="subtitle">Projected monthly spend across existing tools, proposed data infrastructure, and AI use cases. Lean options first. Nothing sized beyond what the current stage actually warrants.</p>
+</header>
+
+<main>
+
+  <div class="callout-banner">
+    <strong>The core principle:</strong> start with the cheapest option that solves the problem. Spend is justified by scale, not ambition. At WJ's current size, AI token costs run $1–5/month — the real investment is architect time to get the decisions right, not compute. Every recommendation here has an upgrade path but doesn't require it.
+  </div>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- EXISTING TOOLS -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-label">Section 01</div>
+    <h2>Existing Tools — Estimated Monthly</h2>
+    <p class="section-intro">Based on assumed team size and typical plan tiers. Actuals pending audit — license counts, plan levels, and who pays (WJ vs. creators) are all unknowns today.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Tool</th>
+          <th>Assumed plan</th>
+          <th>Users / units</th>
+          <th>Est. monthly</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Odoo</td>
+          <td>Community (open-source) + hosting, or Enterprise</td>
+          <td>~10–15 users</td>
+          <td><span class="cost-unknown">TBD — audit first</span></td>
+          <td>Community is free + $40–80/mo hosting. Enterprise is ~$25/user/mo (~$300–375/mo). Which one they're on changes the picture significantly.</td>
+        </tr>
+        <tr>
+          <td>Shopify</td>
+          <td>Basic ($29) or Shopify ($79) per store</td>
+          <td>~70 stores</td>
+          <td><span class="cost-lo">$0 to WJ</span></td>
+          <td>Creator-owned stores — creators pay their own subscriptions. WJ's Partner account is free. Confirm this assumption early.</td>
+        </tr>
+        <tr>
+          <td>Airtable</td>
+          <td>Pro ($20/user/mo)</td>
+          <td>~8 users</td>
+          <td><span class="cost-mid">~$160/mo</span></td>
+          <td>May be on Team plan ($45/user) if using advanced automations. Worth pulling the invoice.</td>
+        </tr>
+        <tr>
+          <td>PipeDrive</td>
+          <td>Essential ($14.90) or Advanced ($27.90)</td>
+          <td>~5 users</td>
+          <td><span class="cost-lo">$75–140/mo</span></td>
+          <td>Low cost, but the fit question may lead to replacement — factor potential migration cost.</td>
+        </tr>
+        <tr>
+          <td>Asana</td>
+          <td>Starter ($10.99/user/mo)</td>
+          <td>~15 users</td>
+          <td><span class="cost-lo">~$165/mo</span></td>
+          <td>License count vs. active users is the first thing to check. Unused seats are cash.</td>
+        </tr>
+        <tr>
+          <td>Make / Zapier</td>
+          <td>Make Core ($29) or Zapier Professional ($49–299)</td>
+          <td>1 account</td>
+          <td><span class="cost-lo">$29–299/mo</span></td>
+          <td>Highly variable. Operation count drives cost. Audit running flows before touching plans.</td>
+        </tr>
+        <tr>
+          <td>Hardware MDM</td>
+          <td>Jamf Now ($4/device/mo) or equivalent</td>
+          <td>~20 devices</td>
+          <td><span class="cost-lo">~$80/mo</span></td>
+          <td>Only if an MDM is in place. If there's no MDM currently, this is a new cost — but a necessary one.</td>
+        </tr>
+        <tr>
+          <td>Notion</td>
+          <td>Plus ($8/user/mo) or Business ($15)</td>
+          <td>~10 users</td>
+          <td><span class="cost-lo">$80–150/mo</span></td>
+          <td>If in use. Confirm during audit — may or may not exist.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note">Existing tool subtotal (excl. Odoo TBD): roughly <strong>$590–$990/mo</strong> before any optimization. Probable quick wins: unused Asana seats, redundant Make vs. Zapier, and clarifying Odoo licensing.</p>
+  </div>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- DATA WAREHOUSE -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-label">Section 02</div>
+    <h2>Data Warehouse Options</h2>
+    <p class="section-intro">WJ's data volume at 70 stores is modest — a few million rows across orders, inventory, and financials. That's comfortably within the free tier of most warehouse products. The case for spending more only appears when query complexity, team size, or real-time requirements grow.</p>
+
+    <div class="option-grid">
+      <div class="option-card recommended">
+        <div class="option-name">MotherDuck (DuckDB) <span class="badge badge-start">Start here</span></div>
+        <div class="option-cost">$10–30/mo</div>
+        <div class="option-desc">Cloud-hosted DuckDB. Runs analytical SQL directly on Parquet or CSV files. No infrastructure to manage. Blazing fast for the read-heavy patterns needed here. Postgres-compatible enough for most BI tools.</div>
+        <div class="option-when">Good until: data volume exceeds ~50GB or concurrent user demand requires more</div>
+      </div>
+      <div class="option-card fallback">
+        <div class="option-name">BigQuery <span class="badge badge-scale">Scale option</span></div>
+        <div class="option-cost">$0–80/mo</div>
+        <div class="option-desc">Pay-per-query. First 10GB storage and 1TB queries/month are free. At WJ's scale, likely stays under $30/mo for months. Mature ecosystem, native Looker Studio connector, strong for AI integrations.</div>
+        <div class="option-when">Good until: query patterns get unpredictable and costs spike — use query budgets from day one</div>
+      </div>
+      <div class="option-card avoid">
+        <div class="option-name">Snowflake / Fivetran <span class="badge badge-avoid">Overkill now</span></div>
+        <div class="option-cost">$300–600/mo</div>
+        <div class="option-desc">Enterprise-grade. Excellent tooling, but the per-credit billing and Fivetran connector costs at this scale are hard to justify. Save this conversation for when volume or compliance requirements demand it.</div>
+        <div class="option-when">Revisit when: $2M+ ARR or multi-region data residency requirements</div>
+      </div>
+    </div>
+
+    <p class="note">Recommendation: start with MotherDuck or BigQuery free tier. Either can handle 70-store analytics comfortably. The ETL layer (Airbyte self-hosted or n8n) costs $0–40/mo on a small VM — no need for managed Fivetran at this stage.</p>
+  </div>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- RAG ALTERNATIVES -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-label">Section 03</div>
+    <h2>RAG & Knowledge Layer Options</h2>
+    <p class="section-intro">The lightest option that works is the right option. For WJ's doc volume — SOPs, contracts, briefs, past reports — even a full-text search approach may be sufficient before reaching for vector embeddings. The upgrade path is clean; there's no reason to start at the top.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Cost</th>
+          <th>Semantic quality</th>
+          <th>Setup effort</th>
+          <th>When to use</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Postgres full-text search (FTS) <span class="badge badge-start">Lightest</span></td>
+          <td><span class="cost-lo">$0</span></td>
+          <td>Keyword match only — no semantic understanding</td>
+          <td>Hours</td>
+          <td>Exact phrase search across SOPs and contracts. Surprisingly effective for structured internal docs where terminology is consistent.</td>
+        </tr>
+        <tr>
+          <td>pgvector on existing Postgres <span class="badge badge-start">Start here</span></td>
+          <td><span class="cost-lo">$0–20/mo</span></td>
+          <td>Good — true vector similarity search</td>
+          <td>1–2 days</td>
+          <td>Best first RAG option. Runs as a Postgres extension — no new infrastructure if a Postgres instance already exists. Handles WJ's doc volume easily.</td>
+        </tr>
+        <tr>
+          <td>Chroma (self-hosted)</td>
+          <td><span class="cost-lo">$0 + ~$15/mo VPS</span></td>
+          <td>Good</td>
+          <td>1–2 days</td>
+          <td>Purpose-built vector DB. Simpler API than pgvector, good for rapid prototyping. Self-hosted = no vendor dependency.</td>
+        </tr>
+        <tr>
+          <td>Pinecone Serverless <span class="badge badge-scale">Scale option</span></td>
+          <td><span class="cost-lo">$0–15/mo</span></td>
+          <td>Excellent</td>
+          <td>Hours</td>
+          <td>Managed, zero-ops. Free tier covers WJ's current doc volume. Graduate here when pgvector starts feeling like overhead to manage.</td>
+        </tr>
+        <tr>
+          <td>Weaviate Cloud</td>
+          <td><span class="cost-lo">$0–25/mo</span></td>
+          <td>Excellent — built-in hybrid search</td>
+          <td>1 day</td>
+          <td>Adds BM25 + vector hybrid search out of the box. Useful if doc retrieval precision becomes a problem.</td>
+        </tr>
+        <tr>
+          <td>OpenAI File Search (Assistants API)</td>
+          <td><span class="cost-lo">$0.10/GB + usage</span></td>
+          <td>Good</td>
+          <td>Minutes</td>
+          <td>Fastest path to RAG if already using OpenAI. Vendor-managed, no infra. Tradeoff: locked into OpenAI, less control over chunking and retrieval logic.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note"><strong>Embedding cost:</strong> running embeddings on WJ's estimated doc corpus (~500 docs × ~3,000 tokens avg = 1.5M tokens) costs $0.03 one-time using OpenAI's text-embedding-3-small at $0.02/1M tokens. Re-embedding on updates is negligible. This is not a meaningful cost line.</p>
+  </div>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- AI USE CASES -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-label">Section 04</div>
+    <h2>AI Use Cases — Token Costs</h2>
+    <p class="section-intro">The key cost lever in AI is model selection. Haiku and GPT-4o-mini handle high-volume, structured tasks at a fraction of Sonnet cost. Reserve the more capable models for reasoning-heavy work. At WJ's current scale, total AI token spend should stay well under $10/month for months.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Use case</th>
+          <th>Model recommendation</th>
+          <th>Est. volume / mo</th>
+          <th>Tokens / call</th>
+          <th>Est. monthly cost</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>CEO Dashboard</td>
+          <td>No AI — BI tool only</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="cost-lo">$0</span></td>
+          <td>Metabase or Looker Studio queries BigQuery directly. No model involved.</td>
+        </tr>
+        <tr>
+          <td>Structured Q&A (text-to-SQL)</td>
+          <td>Claude Haiku <span class="badge badge-rec">Recommended</span></td>
+          <td>~100 queries</td>
+          <td>~2,000 avg</td>
+          <td><span class="cost-lo">~$0.05/mo</span></td>
+          <td>Haiku is fast and cheap for schema-aware SQL generation. Use Sonnet only if query complexity regularly fails.</td>
+        </tr>
+        <tr>
+          <td>Knowledge Q&A (RAG)</td>
+          <td>Claude Sonnet</td>
+          <td>~50 queries</td>
+          <td>~4,000 avg (incl. context chunks)</td>
+          <td><span class="cost-lo">~$0.75/mo</span></td>
+          <td>Retrieval adds context tokens. Sonnet justified here — doc reasoning is where quality matters.</td>
+        </tr>
+        <tr>
+          <td>Automated weekly reports</td>
+          <td>Claude Haiku</td>
+          <td>~16 reports</td>
+          <td>~5,000 avg</td>
+          <td><span class="cost-lo">~$0.02/mo</span></td>
+          <td>Scheduled, structured summarization. Haiku is more than capable. Run via n8n or Make.</td>
+        </tr>
+        <tr>
+          <td>Inventory alerts / anomaly detection</td>
+          <td>Claude Haiku</td>
+          <td>~1,000 checks</td>
+          <td>~500 avg</td>
+          <td><span class="cost-lo">~$0.13/mo</span></td>
+          <td>High volume, simple pattern. Haiku built for this. Only escalate to Sonnet when alert logic becomes complex.</td>
+        </tr>
+        <tr>
+          <td>Cross-store campaign pattern matching</td>
+          <td>Claude Sonnet</td>
+          <td>~10 analyses</td>
+          <td>~6,000 avg</td>
+          <td><span class="cost-lo">~$0.90/mo</span></td>
+          <td>The flagship AI use case. Rich multi-store data synthesis justifies the model tier. Still cheap at this volume.</td>
+        </tr>
+        <tr>
+          <td>Campaign brief generation</td>
+          <td>Claude Sonnet</td>
+          <td>~10 briefs</td>
+          <td>~4,000 output tokens</td>
+          <td><span class="cost-lo">~$0.60/mo</span></td>
+          <td>Output-heavy. Sonnet for quality. Consider caching brief templates to reduce generation calls.</td>
+        </tr>
+        <tr>
+          <td>Creator onboarding / comms drafts</td>
+          <td>Claude Haiku</td>
+          <td>~20 drafts</td>
+          <td>~1,500 avg</td>
+          <td><span class="cost-lo">&lt;$0.01/mo</span></td>
+          <td>Light templating task. Haiku is fine. Human review before send.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note"><strong>Total AI token cost at current scale: ~$2–3/month.</strong> Even at 10× usage growth, this stays under $30/month. The cost pressure in AI comes from context window mismanagement (stuffing too much into prompts) and over-indexing on premium models for routine tasks — both avoidable with intentional design.</p>
+  </div>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- ETL -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-label">Section 05</div>
+    <h2>ETL / Data Pipeline</h2>
+    <p class="section-intro">The connector layer between Shopify, Odoo, and the warehouse. Cost varies enormously depending on whether it's self-hosted or managed.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Option</th>
+          <th>Est. monthly</th>
+          <th>Pros</th>
+          <th>Cons</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>n8n self-hosted <span class="badge badge-start">Start here</span></td>
+          <td><span class="cost-lo">$0–20/mo</span></td>
+          <td>Free, already likely in use, MCP-native for AI integration</td>
+          <td>Requires maintenance; not purpose-built for data pipelines</td>
+        </tr>
+        <tr>
+          <td>Airbyte self-hosted</td>
+          <td><span class="cost-lo">$20–40/mo</span></td>
+          <td>Purpose-built, 300+ connectors, open-source</td>
+          <td>Needs a dedicated VM; some operational overhead</td>
+        </tr>
+        <tr>
+          <td>Airbyte Cloud</td>
+          <td><span class="cost-mid">$100–300/mo</span></td>
+          <td>Zero-ops, fully managed</td>
+          <td>Per-row pricing can surprise at scale</td>
+        </tr>
+        <tr>
+          <td>Fivetran <span class="badge badge-avoid">Overkill now</span></td>
+          <td><span class="cost-hi">$500–2,000/mo</span></td>
+          <td>Best-in-class connectors, enterprise SLAs</td>
+          <td>Expensive relative to WJ's current data volume; hard to justify pre-scale</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- ══════════════════════════════════════ -->
+  <!-- TOTAL SUMMARY -->
+  <!-- ══════════════════════════════════════ -->
+  <div class="section-block">
+    <div class="section-label">Section 06</div>
+    <h2>Total Monthly Estimate — New Infrastructure Only</h2>
+    <p class="section-intro">Excluding existing tools (audited separately). These are the net-new costs introduced by the data and AI layer.</p>
+
+    <div class="total-grid">
+      <div class="total-card lean">
+        <div class="total-label">Lean — Start here</div>
+        <div class="total-amount">$10–75/mo</div>
+        <div class="total-sub">
+          MotherDuck or BigQuery free tier ($0–30)<br>
+          pgvector on existing Postgres ($0–20)<br>
+          n8n self-hosted ETL ($0–20)<br>
+          AI tokens (~$3–5)
+        </div>
+      </div>
+      <div class="total-card moderate">
+        <div class="total-label">Moderate — After validation</div>
+        <div class="total-amount">$80–200/mo</div>
+        <div class="total-sub">
+          BigQuery at light usage ($30–80)<br>
+          Pinecone Serverless ($10–25)<br>
+          Airbyte self-hosted ($20–40)<br>
+          AI tokens ($5–20)<br>
+          MDM if new ($80)
+        </div>
+      </div>
+      <div class="total-card full">
+        <div class="total-label">Full build — Scale later</div>
+        <div class="total-amount">$500–1,100/mo</div>
+        <div class="total-sub">
+          BigQuery or Snowflake at scale ($200–400)<br>
+          Pinecone dedicated ($70–150)<br>
+          Airbyte Cloud ($200–300)<br>
+          AI tokens at 10× volume ($30–100)<br>
+          Additional tooling
+        </div>
+      </div>
+    </div>
+
+    <p class="note">The lean setup handles months 1–3 comfortably. Nothing in the moderate tier needs to be purchased until the data pipeline is proven and query volume is real. The full build is a 12–18 month conversation, not a day-one commitment. The goal is to design the architecture so upgrading any layer is a swap, not a rebuild.</p>
+  </div>
+
+</main>
+
+<script src="/warrenjames/comments.js"></script>
+</body>
+</html>
