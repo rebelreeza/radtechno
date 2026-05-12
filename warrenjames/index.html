@@ -809,9 +809,75 @@
     h2 { letter-spacing: -0.8px; }
     footer { padding: 20px 24px; }
   }
+
+  /* ── Entry gate */
+  #gate {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--black);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+  }
+  #gate.hidden { display: none; }
+  .gate-box {
+    width: 360px;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .gate-logo {
+    font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(237,234,226,0.4); margin-bottom: 8px;
+  }
+  .gate-title {
+    font-size: 22px; font-weight: 600; color: var(--cream);
+    line-height: 1.25;
+  }
+  .gate-sub {
+    font-size: 14px; color: rgba(237,234,226,0.45); margin-top: -10px;
+  }
+  .gate-input {
+    width: 100%; padding: 12px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    color: var(--cream); font-size: 15px; font-family: inherit;
+    outline: none; transition: border-color 0.2s;
+  }
+  .gate-input:focus { border-color: rgba(255,255,255,0.4); }
+  .gate-input::placeholder { color: rgba(237,234,226,0.3); }
+  .gate-btn {
+    padding: 12px 20px; border-radius: 8px;
+    background: var(--cream); color: var(--black);
+    font-size: 14px; font-weight: 600; font-family: inherit;
+    border: none; cursor: pointer; transition: opacity 0.2s;
+  }
+  .gate-btn:hover { opacity: 0.85; }
+  .gate-err { font-size: 13px; color: #ff6b6b; display: none; }
+  .gate-err.show { display: block; }
+  .gate-step { display: none; flex-direction: column; gap: 16px; }
+  .gate-step.active { display: flex; }
 </style>
 </head>
 <body>
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">Warren James &nbsp;/&nbsp; Onboarding Brief</div>
+
+    <div class="gate-step active" id="gate-step-1">
+      <div class="gate-title">Enter password to continue</div>
+      <input class="gate-input" id="gate-pw" type="password" placeholder="Password" autocomplete="off" />
+      <div class="gate-err" id="gate-err-pw">Incorrect password. Try again.</div>
+      <button class="gate-btn" id="gate-pw-btn">Continue</button>
+    </div>
+
+    <div class="gate-step" id="gate-step-2">
+      <div class="gate-title">Who's reading?</div>
+      <div class="gate-sub">Your name tags any reactions or notes you leave, so Reza knows who added what.</div>
+      <input class="gate-input" id="gate-name" type="text" placeholder="Your name" autocomplete="off" />
+      <div class="gate-err" id="gate-err-name">Please enter your name to continue.</div>
+      <button class="gate-btn" id="gate-name-btn">Enter</button>
+    </div>
+  </div>
+</div>
+
 
 <nav class="site-nav" id="site-nav">
   <div class="nav-inner">
@@ -832,7 +898,7 @@
   <div class="inner">
     <div class="eyebrow fade">Warren James &nbsp;·&nbsp; VP of Technology</div>
     <h1 class="fade">Getting<br>Started</h1>
-    <p class="subtitle fade">A structured first pass at the business: my outside-in read, a proposed 90-day focus, and the questions I'd normally spend our first few meetings working through. React to what's off, fill in the gaps, and we skip a lot of early back-and-forth. It's also meant to give you a concrete sense of how I approach a new problem.</p>
+    <p class="subtitle fade">This doc is designed to streamline discovery and give you a small taste of how I think about designing tools for efficiency.</p>
   </div>
 </header>
 
@@ -1375,12 +1441,11 @@
     observer.observe(el);
   });
 
-  // ── Reaction buttons (mutually exclusive per row)
+  // ── Reaction buttons (multi-select per row)
   document.querySelectorAll('.rx-group').forEach(group => {
     group.querySelectorAll('.rx-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        group.querySelectorAll('.rx-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
+        btn.classList.toggle('selected');
       });
     });
   });
@@ -1555,12 +1620,15 @@
     pill.addEventListener('click', () => body.classList.toggle('open'));
 
     function compile() {
-      return Object.entries(SECTIONS)
+      const visitor = window._wjVisitor || sessionStorage.getItem('wj_visitor_name') || 'Anonymous';
+      const header = 'From: ' + visitor + '\n\n';
+      const body = Object.entries(SECTIONS)
         .filter(([id]) => fb[id]?.reaction || fb[id]?.note)
         .map(([id, name]) => {
           const d = fb[id];
           return name + ':\n' + [d.reaction, d.note].filter(Boolean).join('  ');
         }).join('\n\n');
+      return header + body;
     }
 
     function updateDrawer() {
@@ -1592,11 +1660,62 @@
     document.getElementById('email-notes').addEventListener('click', () => {
       const txt = compile();
       if (!txt) return;
-      const sub = encodeURIComponent('WJ Onboarding Brief - My Notes');
+      const visitor = window._wjVisitor || sessionStorage.getItem('wj_visitor_name') || 'Anonymous';
+      const sub = encodeURIComponent('WJ Onboarding Brief - Notes from ' + visitor);
       const bod = encodeURIComponent('Hey Reza,\n\nHere are my notes from the brief:\n\n' + txt + '\n');
       window.location.href = 'mailto:' + REZA + '?subject=' + sub + '&body=' + bod;
     });
   })();
+
+  // ── Entry gate
+  (function() {
+    const GATE_PW = 'warrenjames2025';
+    const gate = document.getElementById('gate');
+    const step1 = document.getElementById('gate-step-1');
+    const step2 = document.getElementById('gate-step-2');
+
+    // Skip gate if already authed this session
+    const savedName = sessionStorage.getItem('wj_visitor_name');
+    if (savedName) { gate.classList.add('hidden'); setVisitorName(savedName); return; }
+
+    // Step 1: password
+    function checkPw() {
+      const val = document.getElementById('gate-pw').value.trim();
+      const err = document.getElementById('gate-err-pw');
+      if (val === GATE_PW) {
+        step1.classList.remove('active');
+        step2.classList.add('active');
+        setTimeout(() => document.getElementById('gate-name').focus(), 50);
+        err.classList.remove('show');
+      } else {
+        err.classList.add('show');
+        document.getElementById('gate-pw').value = '';
+      }
+    }
+    document.getElementById('gate-pw-btn').addEventListener('click', checkPw);
+    document.getElementById('gate-pw').addEventListener('keydown', e => { if (e.key === 'Enter') checkPw(); });
+
+    // Step 2: name
+    function checkName() {
+      const val = document.getElementById('gate-name').value.trim();
+      const err = document.getElementById('gate-err-name');
+      if (val) {
+        sessionStorage.setItem('wj_visitor_name', val);
+        setVisitorName(val);
+        gate.classList.add('hidden');
+        err.classList.remove('show');
+      } else {
+        err.classList.add('show');
+      }
+    }
+    document.getElementById('gate-name-btn').addEventListener('click', checkName);
+    document.getElementById('gate-name').addEventListener('keydown', e => { if (e.key === 'Enter') checkName(); });
+  })();
+
+  function setVisitorName(name) {
+    window._wjVisitor = name;
+  }
+
 </script>
 </body>
 </html>
