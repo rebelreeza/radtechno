@@ -703,6 +703,58 @@
   .cream .note-mic-btn:hover { color: var(--black); }
   .note-mic-btn.recording { color: #dc2626 !important; animation: pulse 1s infinite; }
 
+
+
+  /* ── Phase bridge checkpoint */
+  .tl-bridge {
+    margin: 48px 0 48px 32px;
+    padding: 20px 24px;
+    border-left: 2px solid rgba(0,0,0,0.12);
+    border-radius: 0 6px 6px 0;
+    background: rgba(0,0,0,0.03);
+  }
+  .tl-bridge-lbl {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: rgba(0,0,0,0.35);
+    margin-bottom: 10px;
+  }
+  .tl-bridge p {
+    font-size: 14px;
+    color: rgba(0,0,0,0.55);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .tl-bridge ul {
+    margin: 10px 0 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .tl-bridge ul li {
+    font-size: 12px;
+    color: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.05);
+    border-radius: 3px;
+    padding: 3px 9px;
+  }
+  /* ── JD Theme Tags */
+  .jd-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+  .jd-tag {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .cream .jd-tag { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.45); border: 1px solid rgba(0,0,0,0.1); }
+  .dark .jd-tag  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.12); }
   /* ─── FEEDBACK DRAWER ─── */
   .feedback-drawer {
     position: fixed;
@@ -914,46 +966,46 @@
 
       <div class="a-card fade">
         <span class="clbl">ERP Health</span>
-        <h3>Functional but not trusted</h3>
-        <p>The system is running, but the team is probably maintaining parallel spreadsheets for anything important. The Shopify connector is often where trust breaks down in setups like this: silent sync failures that go unnoticed until the numbers don't match.</p>
+        <h3>Odoo as source of truth</h3>
+        <p>Odoo is the operational backbone. The question I need to answer early is how much it's actually trusted vs. worked around. The gap between system-of-record and how teams actually operate is where most operational friction lives.</p>
       </div>
       <div class="a-card fade">
-        <span class="clbl">Store Portfolio</span>
-        <h3>~70 stores, unknown standardization</h3>
-        <p>At this scale, some variation is expected. Stores with heavier drop and merch cycles may have more complex setups than others. The question I need answered early: how much infrastructure is shared vs. creator-specific, and where is that variation intentional vs. accidental.</p>
+        <span class="clbl">Shopify Sync</span>
+        <h3>A high-surface, high-frequency integration</h3>
+        <p>Inventory counts, order states, and fulfillment events have to stay in sync across ~70 stores and Odoo. Understanding where that integration is reliable and where it isn't is a week-one priority.</p>
       </div>
       <div class="a-card fade">
         <span class="clbl">Institutional Knowledge</span>
-        <h3>Concentrated risk</h3>
-        <p>The reasoning behind key Odoo configuration choices rarely survives the handoff. Whether that was an implementation partner, an internal resource, or some combination, the institutional knowledge around why things were set up a certain way is probably thinner than it looks.</p>
+        <h3>Context behind the configuration</h3>
+        <p>The decisions behind how Odoo is set up carry real weight. Understanding what was intentional, what was inherited, and what was expedient determines what can safely change and what has to be worked around.</p>
       </div>
       <div class="a-card fade">
-        <span class="clbl">Cross-team Coordination</span>
-        <h3>Running on people, not systems</h3>
-        <p>Cross-functional coordination across Brand, Ops, and Tech is probably happening through Slack threads and individual heroics rather than structured workflows. That works until it doesn't, and at ~70 stores the surface area for things to fall through is large.</p>
+        <span class="clbl">Drop Coordination</span>
+        <h3>Launch execution overhead</h3>
+        <p>Coordinating a drop across inventory, Shopify, fulfillment, and creator comms is high-touch. At ~70 stores the coordination cost per launch compounds. The question is how much of that is structural vs. improvised.</p>
       </div>
 
       <div class="a-group-lbl fade">Where the Leverage Is</div>
 
       <div class="a-card fade">
-        <span class="clbl">Launch Data</span>
-        <h3>~70 launches of compounding signal</h3>
-        <p>Every drop generates timing data, audience behavior, sell-through velocity, and cross-creator performance patterns. None of it is captured systematically yet. Fix that first. The raw material is already there and compounding with every launch.</p>
+        <span class="clbl">AI Enablement</span>
+        <h3>Embedded, not bolted on</h3>
+        <p>The opportunity isn't adopting AI tools. It's embedding AI into the decisions teams are already making: ops triage, inventory calls, creative briefs, launch coordination. That's a different outcome from rolling out subscriptions — and a harder one to replicate once it's working.</p>
       </div>
       <div class="a-card fade">
-        <span class="clbl">AI Use Cases</span>
-        <h3>Use cases that can actually ship</h3>
-        <p>Launch timing optimization, cross-store campaign pattern matching, inventory allocation, creator health scoring. These aren't aspirational. They're buildable once the data foundation is clean. The gap between today and what's possible in 12 months is unusually large for a company this size.</p>
+        <span class="clbl">Automation Consolidation</span>
+        <h3>From glue code to real infrastructure</h3>
+        <p>An audit of existing automation will surface what's load-bearing, what's redundant, and where to consolidate. At this scale, n8n self-hosted starts to make more economic and operational sense than per-task pricing — and typically frees up meaningful SaaS spend in the process.</p>
       </div>
       <div class="a-card fade">
-        <span class="clbl">Creator Audiences</span>
-        <h3>70 segmented fanbases, not one brand</h3>
-        <p>Each creator store is a controlled audience experiment. Purchase behavior tied to a specific creator's fanbase, across 70 of them. No traditional brand has this. It's the raw material for product and merchandising intelligence that gets sharper with every drop.</p>
+        <span class="clbl">Creator Intelligence</span>
+        <h3>Purchase data by fanbase, not brand</h3>
+        <p>Each store produces distinct purchase behavior tied to a specific creator's audience. Aggregated across ~70, that's a merchandising and product intelligence layer that compounds with every drop and is structurally hard for a brand-first competitor to replicate.</p>
       </div>
       <div class="a-card fade">
-        <span class="clbl">Unified Reporting</span>
-        <h3>No one can see the full picture yet</h3>
-        <p>Odoo, Shopify, Airtable, and PipeDrive are all producing data in silos. There's no layer stitching it together into a view leadership can actually act on. That's a fast win: a unified dashboard across inventory, sell-through, and creator performance changes how the business makes decisions within weeks of it existing.</p>
+        <span class="clbl">Portfolio Visibility</span>
+        <h3>One view across all stores</h3>
+        <p>Odoo, Shopify, Airtable, and PipeDrive are producing data independently. Connecting them into a single pipeline gives leadership a live view of inventory, sell-through, and creator performance. Achievable in the first 90 days once the data foundation is clean.</p>
       </div>
 
       <div class="a-card risk full fade">
@@ -1096,44 +1148,83 @@
           <li>Pull a sample of orders and trace them end-to-end through Shopify and Odoo to find where states diverge</li>
           <li>Map every manual reconciliation happening at month-end</li>
           <li>Full Shopify audit: plan types, app overlap, store structure consistency, sync behavior</li>
-          <li>SaaS and vendor audit. Most companies this size carry $15–40K/month in redundant tooling</li>
+          <li>SaaS and vendor audit to identify consolidation and cost reduction opportunities</li>
           <li>Ship one high-visibility AI automation early to prove the pattern, not to impress, to establish the template</li>
         </ul>
+        <div class="jd-tags">
+          <span class="jd-tag">ERP / Odoo</span>
+          <span class="jd-tag">Shopify Sync</span>
+          <span class="jd-tag">AI Enablement</span>
+          <span class="jd-tag">Automation</span>
+          <span class="jd-tag">Creator Scale</span>
+        </div>
       </div>
       <div class="tl-item fade">
         <div class="tl-dot"></div>
         <span class="tl-timing">Months 2 – 3 · Phase 2</span>
         <div class="tl-title">Stabilize: Make Odoo trustworthy</div>
-        <p class="tl-desc">This is the unglamorous work that makes everything else possible. The goal: a week goes by with no "the inventory numbers are wrong" conversation.</p>
+        <p class="tl-desc">The foundational work that later phases depend on. The measure of success is a measurable reduction in data errors and the manual effort spent correcting them.</p>
         <ul class="tl-bullets">
           <li>Fix the Shopify sync: monitoring, alerting, and conflict resolution documented</li>
           <li>Clean the data sources that are producing unreliable reports (not the reports themselves)</li>
           <li>Automate the 3 most painful manual handoffs identified in Phase 1</li>
           <li>Stand up the data pipeline to BigQuery so Phase 3 has clean data to work with</li>
         </ul>
+        <div class="jd-tags">
+          <span class="jd-tag">Shopify Sync</span>
+          <span class="jd-tag">ERP / Odoo</span>
+          <span class="jd-tag">Automation</span>
+          <span class="jd-tag">Data Pipeline</span>
+        </div>
       </div>
       <div class="tl-item fade">
         <div class="tl-dot"></div>
         <span class="tl-timing">Months 4 – 6 · Phase 3</span>
-        <div class="tl-title">Leverage: Build on a stable base</div>
-        <p class="tl-desc">With a reliable foundation, shift from fixing to building. AI workflows embedded in how teams actually operate, not just demos.</p>
+        <div class="tl-title">Build: Automate, surface intelligence, ship dashboards</div>
+        <p class="tl-desc">Clean data is only useful if something is built on top of it. This phase turns the foundation into visible, operational output.</p>
         <ul class="tl-bullets">
-          <li>AI embedded in every team's workflow: ops triage, creative briefs, inventory forecasting</li>
-          <li>Campaign tracking discipline across all ~70 stores: UTM tagging, Shopify Flow, consistent attribution</li>
-          <li>Creator store "fingerprints": encode what makes each store's audience unique as structured data</li>
-          <li>Shopify store consolidation where it makes sense: fewer redundant apps, consistent drop infrastructure</li>
+          <li>Live portfolio dashboard: inventory, sell-through, and margin across all stores in one view</li>
+          <li>RAG layer on campaign history, creator briefs, and product data — AI outputs informed by what actually worked, not generic responses</li>
+          <li>Launch readiness agent: checks inventory, Shopify, and fulfillment before each drop and flags gaps automatically</li>
+          <li>Cross-store audience profiles encoded as structured data — each store's price sensitivity, category affinity, and sell-through patterns. Sets up Phase 4.</li>
+          <li>Non-obvious handoff automations: inventory pre-positioning ahead of drops, creator sign-to-ops handoff, sell-through velocity alerts</li>
+        </ul>
+        <div class="jd-tags">
+          <span class="jd-tag">AI Enablement</span>
+          <span class="jd-tag">Reporting</span>
+          <span class="jd-tag">Automation</span>
+          <span class="jd-tag">Creator Scale</span>
+        </div>
+      </div>
+      <div class="tl-bridge fade">
+        <div class="tl-bridge-lbl">By this point</div>
+        <p>The operational pain that dominated month one should be structurally solved, not managed. Specifically:</p>
+        <ul>
+          <li>No more manual month-end reconciliations</li>
+          <li>Sync failures caught automatically, not discovered after a drop</li>
+          <li>Launch coordination is a checklist the system runs, not a Slack thread</li>
+          <li>Leadership has a live view of portfolio performance without pulling exports</li>
+          <li>Teams are getting AI-assisted outputs in the tools they already use</li>
         </ul>
       </div>
+
       <div class="tl-item fade">
         <div class="tl-dot"></div>
         <span class="tl-timing">Months 7 – 9 · Phase 4</span>
-        <div class="tl-title">Compound: Build competitive advantage</div>
-        <p class="tl-desc">The things in this phase require clean data and working infrastructure underneath them, which is why the earlier phases have to come first.</p>
+        <div class="tl-title">Compound: Where the data flywheel kicks in</div>
+        <p class="tl-desc">This is what the earlier phases were built toward. The infrastructure is clean, the audience profiles exist, the AI layer has context. Now it compounds.</p>
         <ul class="tl-bullets">
-          <li>Cross-store campaign intelligence. When Store A has a breakout drop, automatically identify which other stores have the most similar audience profile and generate tailored briefs</li>
-          <li>Purchasing leverage: 15 stores buying from the same manufacturer should negotiate as one buyer</li>
-          <li>Internal AI tools built on top of clean data and the workflow patterns established in Phase 3</li>
+          <li>Cross-store campaign intelligence: when a drop overperforms, automatically identify stores with the most similar audience profile and generate tailored briefs. Gets more accurate with every launch.</li>
+          <li>Predictive drop timing and inventory positioning: sell-through patterns across all stores feed recommendations on when to launch and how much to hold, per creator and category</li>
+          <li>Purchasing consolidation: stores sharing manufacturers surface automatically, enabling negotiation as a single buyer</li>
+          <li>Proprietary playbook library: every successful drop encodes its performance drivers. An institutional intelligence layer that compounds with time and is structurally hard to replicate from scratch</li>
         </ul>
+        <div class="jd-tags">
+          <span class="jd-tag">Creator Intelligence</span>
+          <span class="jd-tag">AI Enablement</span>
+          <span class="jd-tag">Portfolio Visibility</span>
+          <span class="jd-tag">Automation</span>
+        </div>
       </div>
     </div>
   </div>
