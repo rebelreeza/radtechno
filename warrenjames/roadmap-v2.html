@@ -664,7 +664,7 @@
         <h3>Start the Data Pipeline</h3>
         <p>This isn't about building dashboards yet. It's about turning on the pipeline so clean data starts accumulating, because Phase 3 dashboards are only useful if the data flowing into them has been trustworthy for months.</p>
         <ul>
-          <li>Set up BigQuery, begin syncing Shopify and Odoo via Fivetran or Airbyte</li>
+          <li>Evaluate what data warehouse is already in place, stand one up if not (BigQuery, Snowflake, or leaner depending on scale), begin syncing Shopify and Odoo</li>
           <li>Define the 5 metrics leadership looks at every week, build those first, nothing else</li>
           <li>Validate outputs against source systems before anyone sees them</li>
           <li>No dashboards shipped in Phase 2, only the pipeline. Dashboards come once there's confidence in what they show.</li>
@@ -802,7 +802,7 @@
           <li>Cross-store similarity engine, which stores share audience type, price band, category, engagement pattern?</li>
           <li>Post-campaign AI debrief: structured analysis of what drove success, encoded into the store's profile</li>
           <li>Proactive playbook generation: "Store 12 just had a breakout drop, here are the 4 stores most likely to replicate it and why"</li>
-          <li>Inputs: BigQuery campaign data + social analytics from Instagram/TikTok API</li>
+          <li>Inputs: warehouse campaign data + social analytics from Instagram/TikTok API</li>
         </ul>
         <div class="tc-note"><strong>Why this only works now:</strong> This requires 6+ months of tagged campaign data and 2+ months of audience profiles before similarity matching produces signal rather than noise. Attempting it in month 2 would be guesswork.</div>
       </div>
@@ -888,7 +888,7 @@
           <td style="color:var(--cream)">Leadership has reliable data, fast</td>
           <td>Month 4 (basic), Month 6 (full)</td>
           <td>CEO opens a dashboard Monday morning instead of asking someone to pull a report. Numbers match what a manual check would show.</td>
-          <td>BigQuery, Looker Studio / Metabase, Airbyte/Fivetran</td>
+          <td>Data warehouse, custom dashboards or Metabase, sync connectors</td>
         </tr>
         <tr>
           <td style="color:var(--cream)">Teams self-serve without asking permission</td>
@@ -963,7 +963,7 @@
     </div>
 
     <div class="tc-note fade" style="margin-top:24px; padding: 18px 24px; border-radius:3px; background: rgba(0,0,0,0.05); font-size:13px; line-height:1.7; color:rgba(0,0,0,0.5)">
-      <strong style="color:var(--black)">Why none of this works without the foundation:</strong> Clean campaign tagging starts in Phase 3. Store fingerprints require 6+ months of tagged data. Cross-store buyer identity requires consistent customer records in Odoo. Vendor leverage requires unified spend data in BigQuery. The 6–9 month roadmap isn't a delay before the interesting work, it's what makes the interesting work possible.
+      <strong style="color:var(--black)">Why none of this works without the foundation:</strong> Clean campaign tagging starts in Phase 3. Store fingerprints require 6+ months of tagged data. Cross-store buyer identity requires consistent customer records in Odoo. Vendor leverage requires unified spend data in the warehouse. The 6–9 month roadmap isn't a delay before the interesting work, it's what makes the interesting work possible.
     </div>
   </div>
 </section>
