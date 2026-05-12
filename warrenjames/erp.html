@@ -272,17 +272,30 @@
     color: var(--gray-3);
     min-width: 20px;
     padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .q-body {
+    flex: 1;
+    min-width: 0;
   }
 
   .q-body strong {
     font-size: 13px;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+  }
+
+  .q-input-row {
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+    margin-top: 8px;
   }
 
   .q-answer {
-    margin-top: 8px;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     padding: 8px 10px;
     font-family: inherit;
     font-size: 12px;
@@ -301,9 +314,46 @@
     background: #fff;
   }
 
-  .q-answer::placeholder {
+  .q-answer::placeholder { color: var(--gray-3); }
+
+  .q-mic {
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
     color: var(--gray-3);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.15s;
   }
+  .q-mic:hover { background: var(--gray-2); }
+  .q-mic.recording { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.35); color: #ef4444; }
+
+  .q-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  .q-status { font-size: 11px; color: #16a34a; }
+
+  .q-save {
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
+    border-radius: 4px;
+    padding: 5px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--gray-4);
+    transition: background 0.15s;
+  }
+  .q-save:hover { background: var(--gray-2); }
 
   footer {
     text-align: center;
@@ -534,5 +584,83 @@
 <footer>Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology</footer>
 
 <script src="/warrenjames/comments.js"></script>
+<script>
+(function() {
+  const PAGE = 'erp';
+  const MIC_SVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`;
+
+  function getVisitor() {
+    return sessionStorage.getItem('wj_visitor_name') || localStorage.getItem('wj_visitor_name') || null;
+  }
+
+  document.querySelectorAll('.q-answer').forEach((ta, i) => {
+    const id = `${PAGE}-q${String(i + 1).padStart(2, '0')}`;
+
+    // restore saved value
+    const saved = localStorage.getItem(id);
+    if (saved) ta.value = saved;
+
+    // wrap textarea + mic in a row
+    const row = document.createElement('div');
+    row.className = 'q-input-row';
+    ta.parentNode.insertBefore(row, ta);
+    row.appendChild(ta);
+
+    const mic = document.createElement('button');
+    mic.type = 'button';
+    mic.className = 'q-mic';
+    mic.title = 'Voice input';
+    mic.innerHTML = MIC_SVG;
+    row.appendChild(mic);
+
+    // footer: status + save
+    const footer = document.createElement('div');
+    footer.className = 'q-footer';
+    footer.innerHTML = '<span class="q-status"></span><button type="button" class="q-save">Save</button>';
+    row.after(footer);
+
+    const status = footer.querySelector('.q-status');
+    const saveBtn = footer.querySelector('.q-save');
+
+    function doSave() {
+      const text = ta.value.trim();
+      localStorage.setItem(id, text);
+      const visitor = getVisitor();
+      if (visitor) {
+        fetch('/api/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visitor, type: 'comment', key: id, value: text })
+        }).catch(() => {});
+      }
+      status.textContent = 'Saved ✓';
+      setTimeout(() => { status.textContent = ''; }, 1500);
+    }
+
+    saveBtn.addEventListener('click', doSave);
+    ta.addEventListener('keydown', e => { if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); doSave(); } });
+
+    // mic
+    let rec = null;
+    mic.addEventListener('click', () => {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) { alert('Voice input not supported in this browser.'); return; }
+      if (rec) { rec.stop(); rec = null; mic.classList.remove('recording'); return; }
+      rec = new SR();
+      rec.continuous = true;
+      rec.interimResults = true;
+      const base = ta.value;
+      rec.onresult = e => {
+        let t = '';
+        for (let j = e.resultIndex; j < e.results.length; j++) t += e.results[j][0].transcript;
+        ta.value = (base + ' ' + t).trim();
+      };
+      rec.onend = () => { rec = null; mic.classList.remove('recording'); };
+      rec.start();
+      mic.classList.add('recording');
+    });
+  });
+})();
+</script>
 </body>
 </html>
