@@ -2064,6 +2064,11 @@
         setVisitorName(val);
         gate.classList.add('hidden');
         err.classList.remove('show');
+        fetch('/api/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ visitor: val, type: 'visit', key: 'site_access', value: new Date().toISOString() })
+        }).catch(() => {});
       } else {
         err.classList.add('show');
       }

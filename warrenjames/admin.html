@@ -84,6 +84,21 @@
   .r-type.note      { background: rgba(52,211,153,0.12); color: #34d399; }
   .r-type.qa        { background: rgba(251,146,60,0.12); color: #fb923c; }
   .r-type.benchmark { background: rgba(167,139,250,0.12); color: #a78bfa; }
+
+  .visits-section { margin-bottom: 48px; }
+  .visits-heading {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(237,234,226,0.25); margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .visit-row {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 13px;
+  }
+  .visit-row:last-child { border-bottom: none; }
+  .visit-name { color: #edeae2; font-weight: 600; min-width: 140px; }
+  .visit-time { color: rgba(237,234,226,0.35); font-size: 12px; }
   .r-value { font-size: 13px; line-height: 1.6; color: #edeae2; padding-right: 20px; }
   .r-value.empty-val { color: rgba(237,234,226,0.2); font-style: italic; }
   .status-pill {
@@ -165,6 +180,10 @@
     </div>
   </div>
   <div class="page">
+    <div id="visits-section" class="visits-section" style="display:none">
+      <div class="visits-heading">Site Access</div>
+      <div id="visits-list"></div>
+    </div>
     <div id="tools-section" class="tools-section" style="display:none">
       <div class="tools-heading">Tool Suggestions <span class="tools-count" id="tools-count"></span></div>
       <div id="tools-list"></div>
@@ -290,9 +309,22 @@ async function rejectTool(key) {
 }
 
 /* ── Visitor responses ── */
+function renderVisits(rows) {
+  const visits = rows.filter(r => r.type === 'visit').sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+  const section = document.getElementById('visits-section');
+  const list = document.getElementById('visits-list');
+  if (!visits.length) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  list.innerHTML = visits.map(r => `
+    <div class="visit-row">
+      <span class="visit-name">${esc(r.visitor)}</span>
+      <span class="visit-time">${formatTime(r.updated_at)}</span>
+    </div>`).join('');
+}
+
 function renderResponses(rows) {
   const page = document.getElementById('page');
-  const excluded = new Set(['tool_suggestion','tool_approved','tool_rejected']);
+  const excluded = new Set(['tool_suggestion','tool_approved','tool_rejected','visit']);
   const filtered = rows.filter(r => !excluded.has(r.type));
 
   document.getElementById('topbar-meta').textContent = filtered.length + ' response' + (filtered.length !== 1 ? 's' : '');
@@ -343,6 +375,7 @@ async function load() {
   try {
     const res = await fetch('/api/responses?secret=' + ADMIN_SECRET);
     const rows = await res.json();
+    renderVisits(rows);
     renderTools(rows);
     renderResponses(rows);
   } catch (e) {
