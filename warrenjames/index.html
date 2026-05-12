@@ -547,6 +547,41 @@
   .doc-link h3 { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 7px; }
   .doc-link p { font-size: 13px; color: rgba(255,255,255,0.42); margin: 0; line-height: 1.6; }
 
+  /* ─── GO DEEPER STRIP ─── */
+  .go-deeper {
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+  .go-deeper-lbl {
+    font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); margin-right: 4px; white-space: nowrap;
+  }
+  .go-deeper-link {
+    display: inline-flex; flex-direction: column; gap: 2px;
+    padding: 9px 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 5px;
+    text-decoration: none;
+    background: rgba(255,255,255,0.04);
+    transition: all 0.15s;
+  }
+  .go-deeper-link:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.22); }
+  .go-deeper-link-tag { font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+  .go-deeper-link-title { font-size: 12px; font-weight: 500; color: var(--cream); transition: color 0.15s; }
+  .go-deeper-link:hover .go-deeper-link-title { color: #fff; }
+
+  .cream .go-deeper { border-top-color: rgba(0,0,0,0.08); }
+  .cream .go-deeper-lbl { color: rgba(0,0,0,0.25); }
+  .cream .go-deeper-link { border-color: rgba(0,0,0,0.1); background: rgba(0,0,0,0.03); }
+  .cream .go-deeper-link:hover { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.2); }
+  .cream .go-deeper-link-tag { color: rgba(0,0,0,0.28); }
+  .cream .go-deeper-link-title { color: var(--black); }
+
   /* ─── CLOSE ─── */
   .close-inner {
     text-align: center;
@@ -1292,6 +1327,21 @@
         <span class="suggest-note">Submitted suggestions go to admin for review before publishing.</span>
       </div>
     </div>
+    <div class="go-deeper fade">
+      <span class="go-deeper-lbl">Go deeper</span>
+      <a class="go-deeper-link" href="/warrenjames/erp.html">
+        <span class="go-deeper-link-tag">ERP Framework</span>
+        <span class="go-deeper-link-title">What Good Looks Like →</span>
+      </a>
+      <a class="go-deeper-link" href="/warrenjames/data-architecture.html">
+        <span class="go-deeper-link-tag">Technical Reference</span>
+        <span class="go-deeper-link-title">How the Stack Connects →</span>
+      </a>
+      <a class="go-deeper-link" href="/warrenjames/cost-estimates.html">
+        <span class="go-deeper-link-tag">Cost Estimates</span>
+        <span class="go-deeper-link-title">Infrastructure Projections →</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1393,6 +1443,13 @@
         </div>
       </div>
     </div>
+    <div class="go-deeper fade">
+      <span class="go-deeper-lbl">Go deeper</span>
+      <a class="go-deeper-link" href="/warrenjames/roadmap-v2.html">
+        <span class="go-deeper-link-tag">Full Plan</span>
+        <span class="go-deeper-link-title">6-9 Month Execution Roadmap →</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -1424,6 +1481,13 @@
         <h3>Real-Time Portfolio View</h3>
         <p>With clean Odoo data flowing into a central warehouse, a live portfolio view across all ~70 stores (revenue, inventory, margin) becomes achievable without anyone manually pulling and reconciling exports.</p>
       </div>
+    </div>
+    <div class="go-deeper fade">
+      <span class="go-deeper-lbl">Go deeper</span>
+      <a class="go-deeper-link" href="/warrenjames/ai-use-cases.html">
+        <span class="go-deeper-link-tag">Strategic Vision</span>
+        <span class="go-deeper-link-title">AI Opportunities Across the Business →</span>
+      </a>
     </div>
   </div>
 </section>
