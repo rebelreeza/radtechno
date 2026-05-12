@@ -20,13 +20,23 @@
 
     .cw-thumb {
       background: none;
-      border: 1px solid rgba(128,128,128,0.22);
+      border: 1px solid rgba(128,128,128,0.35);
       border-radius: 5px; padding: 3px 8px;
       cursor: pointer; font-size: 14px; line-height: 1;
-      opacity: 0.45; transition: opacity 0.15s, border-color 0.15s;
+      opacity: 0.7; transition: opacity 0.15s, border-color 0.15s, transform 0.15s;
     }
-    .cw-thumb.active { opacity: 1; border-color: rgba(128,128,128,0.55); }
-    .cw-thumb:hover { opacity: 0.75; }
+    .cw-thumb.active { opacity: 1; border-color: rgba(128,128,128,0.7); }
+    .cw-thumb:hover { opacity: 1; transform: scale(1.1); }
+    .cw-thumb.pop {
+      animation: thumb-pop 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+    @keyframes thumb-pop {
+      0%   { transform: scale(1) rotate(0deg); }
+      25%  { transform: scale(1.5) rotate(-12deg); }
+      50%  { transform: scale(1.6) rotate(8deg); }
+      75%  { transform: scale(1.3) rotate(-4deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
 
     .cw-toggle {
       background: none; border: none; cursor: pointer;
@@ -205,6 +215,10 @@
         const on = thumb.classList.toggle('active');
         const c = getCache(id); c.thumb = on; setCache(id, c);
         dbSave('reaction', id, on ? '👍' : '');
+        thumb.classList.remove('pop');
+        void thumb.offsetWidth;
+        thumb.classList.add('pop');
+        thumb.addEventListener('animationend', () => thumb.classList.remove('pop'), { once: true });
       });
     });
 
