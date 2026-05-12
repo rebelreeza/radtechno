@@ -1529,6 +1529,16 @@
 
 
 <script>
+
+  // ── DB save helper
+  function dbSave(type, key, value) {
+    const visitor = window._wjVisitor || sessionStorage.getItem('wj_visitor_name') || 'Anonymous';
+    fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ visitor, type, key, value })
+    }).catch(() => {});
+  }
   // ── Nav show/hide + active section
   const nav = document.getElementById('site-nav');
   const headerEl = document.querySelector('header');
@@ -1665,6 +1675,7 @@
           ta.value = base ? base + ' ' + t : t;
           if (!fb[id]) fb[id] = {};
           fb[id].note = ta.value; save(fb); updateDrawer();
+          dbSave('note', id, ta.value);
         };
         rec.onerror = rec.onend = () => {
           btn.classList.remove('recording'); btn.title = 'Click to speak';
@@ -1727,6 +1738,7 @@
           panel.querySelectorAll('.note-rx').forEach(b => b.classList.remove('selected'));
           if (fb[id].reaction) btn.classList.add('selected');
           save(fb); refreshToggle(); updateDrawer();
+          dbSave('reaction', id, fb[id].reaction || '');
         });
       });
 
@@ -1734,6 +1746,7 @@
       ta.addEventListener('input', () => {
         if (!fb[id]) fb[id] = {};
         fb[id].note = ta.value; save(fb); refreshToggle(); updateDrawer();
+          dbSave('note', id, ta.value);
       });
 
       setupNoteMic(panel.querySelector('.note-mic-btn'), ta, id);
@@ -1868,6 +1881,7 @@
       ta.addEventListener('input', () => {
         answers[i] = ta.value;
         saveAnswers(answers);
+        dbSave('qa', String(i), ta.value);
       });
     });
 
