@@ -80,11 +80,20 @@
     padding: 2px 7px; border-radius: 3px; align-self: start;
     background: rgba(255,255,255,0.07); color: rgba(237,234,226,0.4); width: fit-content;
   }
-  .r-type.reaction { background: rgba(110,168,254,0.15); color: #6ea8fe; }
-  .r-type.note     { background: rgba(52,211,153,0.12); color: #34d399; }
-  .r-type.qa       { background: rgba(251,146,60,0.12); color: #fb923c; }
+  .r-type.reaction  { background: rgba(110,168,254,0.15); color: #6ea8fe; }
+  .r-type.note      { background: rgba(52,211,153,0.12); color: #34d399; }
+  .r-type.qa        { background: rgba(251,146,60,0.12); color: #fb923c; }
+  .r-type.benchmark { background: rgba(167,139,250,0.12); color: #a78bfa; }
   .r-value { font-size: 13px; line-height: 1.6; color: #edeae2; padding-right: 20px; }
   .r-value.empty-val { color: rgba(237,234,226,0.2); font-style: italic; }
+  .status-pill {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    padding: 3px 10px; border-radius: 4px; border: 1px solid;
+  }
+  .status-pill.great { background: rgba(52,211,153,0.1); color: #34d399; border-color: rgba(52,211,153,0.3); }
+  .status-pill.good  { background: rgba(251,191,36,0.1); color: #fbbf24; border-color: rgba(251,191,36,0.3); }
+  .status-pill.bad   { background: rgba(248,113,113,0.12); color: #f87171; border-color: rgba(248,113,113,0.3); }
+  .status-pill.none  { background: rgba(255,255,255,0.05); color: rgba(237,234,226,0.4); border-color: rgba(255,255,255,0.1); }
   .r-time { font-size: 11px; color: rgba(237,234,226,0.25); text-align: right; padding-top: 2px; }
 
   /* Tool suggestions */
@@ -173,10 +182,24 @@ const PAGE_LABELS = {
   'erp': 'ERP Doc', 'cost-estimates': 'Cost Estimates', 'data-architecture': 'Data Architecture'
 };
 const Q_LABELS = ['Q1: Business context', 'Q2: Odoo experience', 'Q3: Biggest pain point', 'Q4: Falling through cracks', 'Q5: Shopify Plus', 'Q6: 90-day success signal', 'Q7: Tech vs Brand ownership'];
+const KEY_LABELS = {
+  'erp-bench-inventory': 'Inventory accuracy',
+  'erp-bench-orders':    'Order flow',
+  'erp-bench-close':     'Financial close',
+  'erp-bench-purchasing':'Purchasing',
+  'erp-bench-reporting': 'Reporting',
+  'erp-bench-multistore':'Multi-store management',
+  'erp-bench-discipline':'Data discipline',
+  'erp-bench-visibility':'Failure visibility',
+};
+const STATUS_LABELS = { great: 'Working great', good: 'Mostly good', bad: 'Bad', none: "Doesn't exist" };
 
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function parseKey(key) {
+  if (KEY_LABELS[key]) {
+    return { page: 'ERP Doc', card: KEY_LABELS[key], isBenchmark: true };
+  }
   const prefixes = Object.keys(PAGE_LABELS).sort((a,b) => b.length - a.length);
   for (const p of prefixes) {
     if (key === p || key.startsWith(p + '-')) {
@@ -287,18 +310,25 @@ function renderResponses(rows) {
     <div class="visitor-block">
       <div class="visitor-name">${esc(visitor)} <span class="visitor-count">${items.length} response${items.length !== 1 ? 's' : ''}</span></div>
       ${items.map(r => {
-        let secHtml;
+        let secHtml, typeLabel, typeClass, valDisplay;
         if (r.type === 'qa') {
           secHtml = `<div class="r-card">${esc(formatSection(r.type, r.key))}</div>`;
+          typeLabel = 'qa'; typeClass = 'qa';
+          valDisplay = r.value ? esc(r.value) : '<span style="color:rgba(237,234,226,0.2);font-style:italic">cleared</span>';
         } else {
-          const { page, card } = formatSection(r.type, r.key);
-          secHtml = `<div class="r-page">${esc(page)}</div><div class="r-card">${esc(card)}</div>`;
+          const parsed = parseKey(r.key);
+          secHtml = `<div class="r-page">${esc(parsed.page)}</div><div class="r-card">${esc(parsed.card)}</div>`;
+          typeLabel = parsed.isBenchmark ? 'benchmark' : r.type;
+          typeClass = parsed.isBenchmark ? 'benchmark' : esc(r.type);
+          valDisplay = parsed.isBenchmark && STATUS_LABELS[r.value]
+            ? `<span class="status-pill ${esc(r.value)}">${esc(STATUS_LABELS[r.value])}</span>`
+            : (r.value ? esc(r.value) : '<span style="color:rgba(237,234,226,0.2);font-style:italic">cleared</span>');
         }
         return `
         <div class="response">
           <div class="r-section">${secHtml}</div>
-          <div class="r-type ${esc(r.type)}">${esc(r.type)}</div>
-          <div class="r-value ${!r.value ? 'empty-val' : ''}">${r.value ? esc(r.value) : 'cleared'}</div>
+          <div class="r-type ${typeClass}">${typeLabel}</div>
+          <div class="r-value">${valDisplay}</div>
           <div class="r-time">${formatTime(r.updated_at)}</div>
         </div>`;
       }).join('')}
