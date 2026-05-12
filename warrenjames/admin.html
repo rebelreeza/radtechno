@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WJ Responses</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #0c0c0c;
+    color: #edeae2;
+    min-height: 100vh;
+  }
+
+  /* Gate */
+  #gate {
+    position: fixed; inset: 0; background: #0c0c0c;
+    display: flex; align-items: center; justify-content: center; z-index: 999;
+  }
+  #gate.hidden { display: none; }
+  .gate-box { width: 320px; display: flex; flex-direction: column; gap: 16px; }
+  .gate-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(237,234,226,0.35); }
+  .gate-input {
+    width: 100%; padding: 11px 14px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 6px; color: #edeae2; font-size: 15px; font-family: inherit; outline: none;
+  }
+  .gate-input:focus { border-color: rgba(255,255,255,0.4); }
+  .gate-btn {
+    padding: 11px; border-radius: 6px; background: #edeae2; color: #0c0c0c;
+    font-size: 13px; font-weight: 600; font-family: inherit; border: none; cursor: pointer;
+  }
+  .gate-err { font-size: 12px; color: #f87171; display: none; }
+  .gate-err.show { display: block; }
+
+  /* Layout */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12,12,12,0.96); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 14px 40px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-title { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(237,234,226,0.45); }
+  .topbar-meta { font-size: 11px; color: rgba(237,234,226,0.3); }
+  .refresh-btn {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    background: none; border: 1px solid rgba(255,255,255,0.18); color: rgba(237,234,226,0.5);
+    padding: 5px 12px; border-radius: 4px; cursor: pointer; font-family: inherit;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .refresh-btn:hover { border-color: rgba(255,255,255,0.45); color: #edeae2; }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 40px 40px 80px; }
+
+  .empty { color: rgba(237,234,226,0.3); font-size: 14px; padding: 60px 0; text-align: center; }
+
+  /* Visitor block */
+  .visitor-block { margin-bottom: 48px; }
+  .visitor-name {
+    font-size: 18px; font-weight: 600; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  .visitor-count { font-size: 11px; font-weight: 400; color: rgba(237,234,226,0.3); letter-spacing: 0.08em; }
+
+  /* Response row */
+  .response {
+    display: grid; grid-template-columns: 140px 80px 1fr 130px;
+    gap: 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 14px 0; align-items: start;
+  }
+  .response:last-child { border-bottom: none; }
+  .r-section { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(237,234,226,0.35); padding-top: 2px; }
+  .r-type {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 3px; align-self: start;
+    background: rgba(255,255,255,0.07); color: rgba(237,234,226,0.4); width: fit-content;
+  }
+  .r-type.reaction { background: rgba(110,168,254,0.15); color: #6ea8fe; }
+  .r-type.note     { background: rgba(52,211,153,0.12); color: #34d399; }
+  .r-type.qa       { background: rgba(251,146,60,0.12); color: #fb923c; }
+  .r-value { font-size: 13px; line-height: 1.6; color: #edeae2; padding-right: 20px; }
+  .r-value.empty-val { color: rgba(237,234,226,0.2); font-style: italic; }
+  .r-time { font-size: 11px; color: rgba(237,234,226,0.25); text-align: right; padding-top: 2px; }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-label">Warren James &nbsp;·&nbsp; Response Admin</div>
+    <input class="gate-input" id="gate-pw" type="password" placeholder="Password" autocomplete="off" />
+    <div class="gate-err" id="gate-err">Incorrect password.</div>
+    <button class="gate-btn" id="gate-btn">Enter</button>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="topbar">
+    <span class="topbar-title">WJ Onboarding &nbsp;·&nbsp; Responses</span>
+    <div style="display:flex;gap:12px;align-items:center">
+      <span class="topbar-meta" id="topbar-meta"></span>
+      <button class="refresh-btn" id="refresh-btn">Refresh</button>
+    </div>
+  </div>
+  <div class="page" id="page"><p class="empty">Loading...</p></div>
+</div>
+
+<script>
+const GATE_PW = '020311';
+const SECTION_LABELS = {
+  hypotheses: 'Initial Assessment', stack: 'Current Stack', plan: 'First 90 Days',
+  vision: 'Bigger Picture', questions: 'Questions', together: 'Working Together',
+  approach: 'The Approach', gaps: 'Honest Gaps', docs: 'Dive Deeper'
+};
+const Q_LABELS = ['Q1: Odoo experience', 'Q2: Biggest pain point', 'Q3: Falling through cracks', 'Q4: Shopify Plus', 'Q5: 90-day success signal', 'Q6: Tech vs Brand ownership'];
+
+function formatSection(type, key) {
+  if (type === 'qa') return Q_LABELS[parseInt(key)] || 'Q' + (parseInt(key)+1);
+  return SECTION_LABELS[key] || key;
+}
+
+function formatTime(ts) {
+  const d = new Date(ts);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' · ' +
+    d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+function render(rows) {
+  const page = document.getElementById('page');
+  document.getElementById('topbar-meta').textContent = rows.length + ' response' + (rows.length !== 1 ? 's' : '');
+  if (!rows.length) { page.innerHTML = '<p class="empty">No responses yet.</p>'; return; }
+
+  const byVisitor = {};
+  rows.forEach(r => {
+    if (!byVisitor[r.visitor]) byVisitor[r.visitor] = [];
+    byVisitor[r.visitor].push(r);
+  });
+
+  page.innerHTML = Object.entries(byVisitor).map(([visitor, items]) => `
+    <div class="visitor-block">
+      <div class="visitor-name">${visitor} <span class="visitor-count">${items.length} response${items.length !== 1 ? 's' : ''}</span></div>
+      ${items.map(r => `
+        <div class="response">
+          <div class="r-section">${formatSection(r.type, r.key)}</div>
+          <div class="r-type ${r.type}">${r.type}</div>
+          <div class="r-value ${!r.value ? 'empty-val' : ''}">${r.value ? r.value.replace(/</g,'&lt;') : 'cleared'}</div>
+          <div class="r-time">${formatTime(r.updated_at)}</div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+async function load() {
+  document.getElementById('page').innerHTML = '<p class="empty">Loading...</p>';
+  try {
+    const res = await fetch('/api/responses?secret=reza2025');
+    const rows = await res.json();
+    render(rows);
+  } catch (e) {
+    document.getElementById('page').innerHTML = '<p class="empty">Failed to load responses.</p>';
+  }
+}
+
+// Gate
+function unlock() {
+  const val = document.getElementById('gate-pw').value;
+  if (val === GATE_PW) {
+    document.getElementById('gate').classList.add('hidden');
+    document.getElementById('app').style.display = 'block';
+    load();
+  } else {
+    document.getElementById('gate-err').classList.add('show');
+    document.getElementById('gate-pw').value = '';
+  }
+}
+document.getElementById('gate-btn').addEventListener('click', unlock);
+document.getElementById('gate-pw').addEventListener('keydown', e => { if (e.key === 'Enter') unlock(); });
+document.getElementById('refresh-btn').addEventListener('click', load);
+</script>
+</body>
+</html>
