@@ -1994,17 +1994,13 @@
       el.textContent = name;
       el.title = 'Click to change name';
       el.onclick = () => {
-        sessionStorage.removeItem('wj_visitor_name');
-        window._wjVisitor = null;
-        el.textContent = '';
-        // Show name step of gate
-        const gate = document.getElementById('gate');
-        const app = document.getElementById('app');
-        const step2 = document.getElementById('gate-step2');
-        if (gate) { gate.classList.remove('hidden'); }
-        if (app) { app.style.display = 'none'; }
-        document.querySelectorAll('.gate-step').forEach(s => s.style.display = 'none');
-        if (step2) { step2.style.display = 'flex'; step2.querySelector('input') && step2.querySelector('input').focus(); }
+        const v = prompt('Change your name:', window._wjVisitor || '');
+        if (v && v.trim()) {
+          const name = v.trim();
+          sessionStorage.setItem('wj_visitor_name', name);
+          localStorage.setItem('wj_visitor_name', name);
+          setVisitorName(name);
+        }
       };
     }
   }
