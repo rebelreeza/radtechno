@@ -36,7 +36,25 @@
     color: var(--black);
     font-size: 14px;
     line-height: 1.6;
+    padding-top: 42px;
   }
+
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,10,0.94); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; gap: 4px;
+    padding: 0 24px; height: 42px;
+  }
+  .site-nav a {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); text-decoration: none;
+    padding: 4px 10px; border-radius: 3px; border: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .site-nav a.active, .site-nav a:hover { color: #fff; border-color: rgba(255,255,255,0.2); }
+  .nav-sep { color: rgba(255,255,255,0.12); font-size: 12px; margin: 0 2px; user-select: none; }
 
   header {
     background: var(--black);
@@ -102,6 +120,12 @@
   .rag-table td:nth-child(3) { width: 17%; }
   .rag-table td:nth-child(4) { width: 9%; }
   .rag-table td:nth-child(5) { width: 43%; }
+
+  .tools-table td:nth-child(1) { width: 14%; }
+  .tools-table td:nth-child(2) { width: 22%; }
+  .tools-table td:nth-child(3) { width: 12%; }
+  .tools-table td:nth-child(4) { width: 13%; }
+  .tools-table td:nth-child(5) { width: 39%; }
 
   tr:last-child td { border-bottom: none; }
 
@@ -184,6 +208,16 @@
 </head>
 <body data-page="cost-estimates">
 
+<nav class="site-nav">
+  <a href="/warrenjames/#stack">← Home</a>
+  <span class="nav-sep">|</span>
+  <a href="#existing-tools">Existing Tools</a>
+  <a href="#warehouse">Warehouse</a>
+  <a href="#rag">RAG & Knowledge</a>
+  <a href="#etl">ETL</a>
+  <a href="#totals">Totals</a>
+</nav>
+
 <header>
   <a class="breadcrumb" href="/warrenjames/#stack">← Home</a>
   <div class="eyebrow">Warren James · VP of Technology · Reza Dawood</div>
@@ -200,12 +234,12 @@
   <!-- ══════════════════════════════════════ -->
   <!-- EXISTING TOOLS -->
   <!-- ══════════════════════════════════════ -->
-  <div class="section-block">
+  <div class="section-block" id="existing-tools">
     <div class="section-label">Section 01</div>
     <h2>Existing Tools - Estimated Monthly</h2>
     <p class="section-intro">Based on assumed team size and typical plan tiers. Actuals pending audit - license counts, plan levels, and who pays (WJ vs. creators) are all unknowns today.</p>
 
-    <table>
+    <table class="tools-table">
       <thead>
         <tr>
           <th>Tool</th>
@@ -283,7 +317,7 @@
   <!-- ══════════════════════════════════════ -->
   <!-- DATA WAREHOUSE -->
   <!-- ══════════════════════════════════════ -->
-  <div class="section-block">
+  <div class="section-block" id="warehouse">
     <div class="section-label">Section 02</div>
     <h2>Data Warehouse Options</h2>
     <p class="section-intro">WJ's data volume at 70 stores is modest - a few million rows across orders, inventory, and financials. That's comfortably within the free tier of most warehouse products. The case for spending more only appears when query complexity, team size, or real-time requirements grow.</p>
@@ -317,7 +351,7 @@
   <!-- ══════════════════════════════════════ -->
   <!-- RAG ALTERNATIVES -->
   <!-- ══════════════════════════════════════ -->
-  <div class="section-block">
+  <div class="section-block" id="rag">
     <div class="section-label">Section 03</div>
     <h2>RAG & Knowledge Layer Options</h2>
     <p class="section-intro"><strong>RAG (Retrieval-Augmented Generation)</strong> is the pattern that lets an AI give answers grounded in your own documents rather than just its training data. Instead of asking Claude "what are our supplier lead times?" and getting a generic answer, RAG retrieves the relevant contract or SOP first, then passes it as context so the model can answer from the actual source. This is what makes AI useful for internal operations — the model becomes an interface to institutional knowledge rather than a generic assistant.</p>
@@ -387,7 +421,7 @@
   <!-- ══════════════════════════════════════ -->
   <!-- ETL -->
   <!-- ══════════════════════════════════════ -->
-  <div class="section-block">
+  <div class="section-block" id="etl">
     <div class="section-label">Section 04</div>
     <h2>ETL / Data Pipeline</h2>
     <p class="section-intro">The connector layer between Shopify, Odoo, and the warehouse. Cost varies enormously depending on whether it's self-hosted or managed.</p>
@@ -430,7 +464,7 @@
   <!-- ══════════════════════════════════════ -->
   <!-- TOTAL SUMMARY -->
   <!-- ══════════════════════════════════════ -->
-  <div class="section-block">
+  <div class="section-block" id="totals">
     <div class="section-label">Section 05</div>
     <h2>Total Monthly Estimate - New Infrastructure Only</h2>
     <p class="section-intro">Excluding existing tools (audited separately). These are the net-new costs introduced by the data and AI layer.</p>
@@ -494,5 +528,19 @@
 </main>
 
 <script src="/warrenjames/comments.js"></script>
+<script>
+  (function() {
+    const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
+    const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href')));
+    function update() {
+      const offset = 60;
+      let active = null;
+      sections.forEach((s, i) => { if (s && s.offsetTop - offset <= window.scrollY) active = i; });
+      navLinks.forEach((a, i) => a.classList.toggle('active', i === active));
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
 </body>
 </html>
