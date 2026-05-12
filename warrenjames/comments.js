@@ -235,7 +235,7 @@
       mic.classList.add('recording');
     });
 
-    /* save — Shift+Enter or button */
+    /* save - Shift+Enter or button */
     function doSave() {
       ensureVisitor(() => {
         const text = textarea.value.trim();

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WJ Cost Estimates — Infrastructure & AI</title>
+<title>WJ Cost Estimates - Infrastructure & AI</title>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <style>
   :root {
@@ -181,14 +181,14 @@
 <header>
   <a class="breadcrumb" href="/warrenjames/">← Home</a>
   <div class="eyebrow">Warren James · VP of Technology</div>
-  <h1>Cost Estimates — Infrastructure & AI</h1>
+  <h1>Cost Estimates - Infrastructure & AI</h1>
   <p class="subtitle">Projected monthly spend across existing tools, proposed data infrastructure, and AI use cases. Lean options first. Nothing sized beyond what the current stage actually warrants.</p>
 </header>
 
 <main>
 
   <div class="callout-banner">
-    <strong>The core principle:</strong> start with the cheapest option that solves the problem. Spend is justified by scale, not ambition. At WJ's current size, AI token costs run $1–5/month — the real investment is architect time to get the decisions right, not compute. Every recommendation here has an upgrade path but doesn't require it.
+    <strong>The core principle:</strong> start with the cheapest option that solves the problem. Spend is justified by scale, not ambition. At WJ's current size, AI token costs run $1–5/month - the real investment is architect time to get the decisions right, not compute. Every recommendation here has an upgrade path but doesn't require it.
   </div>
 
   <!-- ══════════════════════════════════════ -->
@@ -196,8 +196,8 @@
   <!-- ══════════════════════════════════════ -->
   <div class="section-block">
     <div class="section-label">Section 01</div>
-    <h2>Existing Tools — Estimated Monthly</h2>
-    <p class="section-intro">Based on assumed team size and typical plan tiers. Actuals pending audit — license counts, plan levels, and who pays (WJ vs. creators) are all unknowns today.</p>
+    <h2>Existing Tools - Estimated Monthly</h2>
+    <p class="section-intro">Based on assumed team size and typical plan tiers. Actuals pending audit - license counts, plan levels, and who pays (WJ vs. creators) are all unknowns today.</p>
 
     <table>
       <thead>
@@ -214,7 +214,7 @@
           <td>Odoo</td>
           <td>Community (open-source) + hosting, or Enterprise</td>
           <td>~10–15 users</td>
-          <td><span class="cost-unknown">TBD — audit first</span></td>
+          <td><span class="cost-unknown">TBD - audit first</span></td>
           <td>Community is free + $40–80/mo hosting. Enterprise is ~$25/user/mo (~$300–375/mo). Which one they're on changes the picture significantly.</td>
         </tr>
         <tr>
@@ -222,7 +222,7 @@
           <td>Basic ($29) or Shopify ($79) per store</td>
           <td>~70 stores</td>
           <td><span class="cost-lo">$0 to WJ</span></td>
-          <td>Creator-owned stores — creators pay their own subscriptions. WJ's Partner account is free. Confirm this assumption early.</td>
+          <td>Creator-owned stores - creators pay their own subscriptions. WJ's Partner account is free. Confirm this assumption early.</td>
         </tr>
         <tr>
           <td>Airtable</td>
@@ -236,7 +236,7 @@
           <td>Essential ($14.90) or Advanced ($27.90)</td>
           <td>~5 users</td>
           <td><span class="cost-lo">$75–140/mo</span></td>
-          <td>Low cost, but the fit question may lead to replacement — factor potential migration cost.</td>
+          <td>Low cost, but the fit question may lead to replacement - factor potential migration cost.</td>
         </tr>
         <tr>
           <td>Asana</td>
@@ -257,14 +257,14 @@
           <td>Jamf Now ($4/device/mo) or equivalent</td>
           <td>~20 devices</td>
           <td><span class="cost-lo">~$80/mo</span></td>
-          <td>Only if an MDM is in place. If there's no MDM currently, this is a new cost — but a necessary one.</td>
+          <td>Only if an MDM is in place. If there's no MDM currently, this is a new cost - but a necessary one.</td>
         </tr>
         <tr>
           <td>Notion</td>
           <td>Plus ($8/user/mo) or Business ($15)</td>
           <td>~10 users</td>
           <td><span class="cost-lo">$80–150/mo</span></td>
-          <td>If in use. Confirm during audit — may or may not exist.</td>
+          <td>If in use. Confirm during audit - may or may not exist.</td>
         </tr>
       </tbody>
     </table>
@@ -280,19 +280,19 @@
   <div class="section-block">
     <div class="section-label">Section 02</div>
     <h2>Data Warehouse Options</h2>
-    <p class="section-intro">WJ's data volume at 70 stores is modest — a few million rows across orders, inventory, and financials. That's comfortably within the free tier of most warehouse products. The case for spending more only appears when query complexity, team size, or real-time requirements grow.</p>
+    <p class="section-intro">WJ's data volume at 70 stores is modest - a few million rows across orders, inventory, and financials. That's comfortably within the free tier of most warehouse products. The case for spending more only appears when query complexity, team size, or real-time requirements grow.</p>
 
     <div class="option-grid">
       <div class="option-card recommended">
         <div class="option-name">BigQuery <span class="badge badge-start">Start here</span></div>
         <div class="option-cost">$0–80/mo</div>
-        <div class="option-desc">Pay-per-query with no migration risk — grows with you from day one. First 10GB storage and 1TB queries/month are free. At WJ's scale, likely stays under $30/mo for months. Mature ecosystem, native Looker Studio connector, native Anthropic/Claude integration via Vertex AI, strong AI integrations overall. No need to migrate later.</div>
-        <div class="option-when">Good until: query patterns get unpredictable and costs spike — use query budgets from day one</div>
+        <div class="option-desc">Pay-per-query with no migration risk - grows with you from day one. First 10GB storage and 1TB queries/month are free. At WJ's scale, likely stays under $30/mo for months. Mature ecosystem, native Looker Studio connector, native Anthropic/Claude integration via Vertex AI, strong AI integrations overall. No need to migrate later.</div>
+        <div class="option-when">Good until: query patterns get unpredictable and costs spike - use query budgets from day one</div>
       </div>
       <div class="option-card fallback">
         <div class="option-name">MotherDuck (DuckDB) <span class="badge badge-scale">Lightweight alt</span></div>
         <div class="option-cost">$10–30/mo</div>
-        <div class="option-desc">Cloud-hosted DuckDB — fast for read-heavy analytical SQL on small datasets. Reasonable starting point on paper, but migrating away at 50GB would be significant effort. Given BigQuery's free tier covers early months anyway, the migration risk isn't worth it.</div>
+        <div class="option-desc">Cloud-hosted DuckDB - fast for read-heavy analytical SQL on small datasets. Reasonable starting point on paper, but migrating away at 50GB would be significant effort. Given BigQuery's free tier covers early months anyway, the migration risk isn't worth it.</div>
         <div class="option-when">Skip unless: you have a strong DuckDB preference and are confident you won't outgrow it</div>
       </div>
       <div class="option-card avoid">
@@ -303,7 +303,7 @@
       </div>
     </div>
 
-    <p class="note">Recommendation: start with BigQuery free tier. It handles 70-store analytics comfortably with no migration risk as data grows. The ETL layer (Airbyte self-hosted) costs $20–40/mo on a small VM — no need for managed Fivetran at this stage.</p>
+    <p class="note">Recommendation: start with BigQuery free tier. It handles 70-store analytics comfortably with no migration risk as data grows. The ETL layer (Airbyte self-hosted) costs $20–40/mo on a small VM - no need for managed Fivetran at this stage.</p>
   </div>
 
   <hr>
@@ -314,7 +314,7 @@
   <div class="section-block">
     <div class="section-label">Section 03</div>
     <h2>RAG & Knowledge Layer Options</h2>
-    <p class="section-intro">The lightest option that works is the right option. For WJ's doc volume — SOPs, contracts, briefs, past reports — even a full-text search approach may be sufficient before reaching for vector embeddings. The upgrade path is clean; there's no reason to start at the top.</p>
+    <p class="section-intro">The lightest option that works is the right option. For WJ's doc volume - SOPs, contracts, briefs, past reports - even a full-text search approach may be sufficient before reaching for vector embeddings. The upgrade path is clean; there's no reason to start at the top.</p>
 
     <table>
       <thead>
@@ -330,7 +330,7 @@
         <tr>
           <td>Postgres full-text search (FTS) <span class="badge badge-start">Lightest</span></td>
           <td><span class="cost-lo">$0</span></td>
-          <td>Keyword match only — no semantic understanding</td>
+          <td>Keyword match only - no semantic understanding</td>
           <td>Hours</td>
           <td>Exact phrase search across SOPs and contracts. Surprisingly effective for structured internal docs where terminology is consistent.</td>
         </tr>
@@ -339,12 +339,12 @@
           <td><span class="cost-lo">$0–15/mo</span></td>
           <td>Excellent</td>
           <td>Hours</td>
-          <td>Managed, zero-ops, just an API key. Free tier covers WJ's current doc volume. Best fit given BigQuery is the warehouse — no Postgres instance to piggyback on.</td>
+          <td>Managed, zero-ops, just an API key. Free tier covers WJ's current doc volume. Best fit given BigQuery is the warehouse - no Postgres instance to piggyback on.</td>
         </tr>
         <tr>
           <td>pgvector on existing Postgres</td>
           <td><span class="cost-lo">$0–20/mo</span></td>
-          <td>Good — true vector similarity search</td>
+          <td>Good - true vector similarity search</td>
           <td>1–2 days</td>
           <td>Good option only if a Postgres instance already exists for another reason (e.g., Odoo backend). Don't spin up Postgres just for this.</td>
         </tr>
@@ -358,7 +358,7 @@
         <tr>
           <td>Weaviate Cloud</td>
           <td><span class="cost-lo">$0–25/mo</span></td>
-          <td>Excellent — built-in hybrid search</td>
+          <td>Excellent - built-in hybrid search</td>
           <td>1 day</td>
           <td>Adds BM25 + vector hybrid search out of the box. Useful if doc retrieval precision becomes a problem.</td>
         </tr>
@@ -382,7 +382,7 @@
   <!-- ══════════════════════════════════════ -->
   <div class="section-block">
     <div class="section-label">Section 04</div>
-    <h2>AI Use Cases — Token Costs</h2>
+    <h2>AI Use Cases - Token Costs</h2>
     <p class="section-intro">The key cost lever in AI is model selection. Haiku and GPT-4o-mini handle high-volume, structured tasks at a fraction of Sonnet cost. Reserve the more capable models for reasoning-heavy work. At WJ's current scale, total AI token spend should stay well under $10/month for months.</p>
 
     <table>
@@ -399,9 +399,9 @@
       <tbody>
         <tr>
           <td>CEO Dashboard</td>
-          <td>No AI — BI tool only</td>
-          <td>—</td>
-          <td>—</td>
+          <td>No AI - BI tool only</td>
+          <td>-</td>
+          <td>-</td>
           <td><span class="cost-lo">$0</span></td>
           <td>Metabase or Looker Studio queries BigQuery directly. No model involved.</td>
         </tr>
@@ -419,7 +419,7 @@
           <td>~50 queries</td>
           <td>~4,000 avg (incl. context chunks)</td>
           <td><span class="cost-lo">~$0.75/mo</span></td>
-          <td>Retrieval adds context tokens. Sonnet justified here — doc reasoning is where quality matters.</td>
+          <td>Retrieval adds context tokens. Sonnet justified here - doc reasoning is where quality matters.</td>
         </tr>
         <tr>
           <td>Automated weekly reports</td>
@@ -464,7 +464,7 @@
       </tbody>
     </table>
 
-    <p class="note"><strong>Total AI token cost at current scale: ~$2–3/month.</strong> Even at 10× usage growth, this stays under $30/month. The cost pressure in AI comes from context window mismanagement (stuffing too much into prompts) and over-indexing on premium models for routine tasks — both avoidable with intentional design.</p>
+    <p class="note"><strong>Total AI token cost at current scale: ~$2–3/month.</strong> Even at 10× usage growth, this stays under $30/month. The cost pressure in AI comes from context window mismanagement (stuffing too much into prompts) and over-indexing on premium models for routine tasks - both avoidable with intentional design.</p>
   </div>
 
   <hr>
@@ -507,7 +507,7 @@
         </tr>
       </tbody>
     </table>
-    <p class="note">Note: n8n and Make/Zapier are automation tools, not ETL — they lack schema management, incremental sync, and reliable warehouse loading. Keep them in the automation layer. For moving data from Odoo into BigQuery, use a purpose-built ETL tool like Airbyte.</p>
+    <p class="note">Note: n8n and Make/Zapier are automation tools, not ETL - they lack schema management, incremental sync, and reliable warehouse loading. Keep them in the automation layer. For moving data from Odoo into BigQuery, use a purpose-built ETL tool like Airbyte.</p>
   </div>
 
   <hr>
@@ -517,12 +517,12 @@
   <!-- ══════════════════════════════════════ -->
   <div class="section-block">
     <div class="section-label">Section 06</div>
-    <h2>Total Monthly Estimate — New Infrastructure Only</h2>
+    <h2>Total Monthly Estimate - New Infrastructure Only</h2>
     <p class="section-intro">Excluding existing tools (audited separately). These are the net-new costs introduced by the data and AI layer.</p>
 
     <div class="total-grid">
       <div class="total-card lean">
-        <div class="total-label">Lean — Start here</div>
+        <div class="total-label">Lean - Start here</div>
         <div class="total-amount">$20–95/mo</div>
         <div class="total-sub">
           BigQuery free tier ($0–30)<br>
@@ -532,7 +532,7 @@
         </div>
       </div>
       <div class="total-card moderate">
-        <div class="total-label">Moderate — After validation</div>
+        <div class="total-label">Moderate - After validation</div>
         <div class="total-amount">$80–200/mo</div>
         <div class="total-sub">
           BigQuery at light usage ($30–80)<br>
@@ -543,7 +543,7 @@
         </div>
       </div>
       <div class="total-card full">
-        <div class="total-label">Full build — Scale later</div>
+        <div class="total-label">Full build - Scale later</div>
         <div class="total-amount">$500–1,100/mo</div>
         <div class="total-sub">
           BigQuery or Snowflake at scale ($200–400)<br>

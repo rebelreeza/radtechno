@@ -620,7 +620,7 @@
         </div>
         <div class="bq-table">
           <p class="bq-table-name">inventory_snapshots</p>
-          <p class="bq-table-desc">Read copy from Odoo for trend analysis — not operational. Odoo owns live inventory; this is a snapshot for analytics only.</p>
+          <p class="bq-table-desc">Read copy from Odoo for trend analysis - not operational. Odoo owns live inventory; this is a snapshot for analytics only.</p>
         </div>
         <div class="bq-table">
           <p class="bq-table-name">financials</p>
@@ -660,7 +660,7 @@
     <!-- ═══════════════════════════════════ -->
     <div class="sec-label">
       <span class="sec-label-line"></span>
-      <span class="sec-label-text">Knowledge layer  —  unstructured docs, parallel to warehouse</span>
+      <span class="sec-label-text">Knowledge layer  -  unstructured docs, parallel to warehouse</span>
       <span class="sec-label-line"></span>
     </div>
 
@@ -670,7 +670,7 @@
         <p class="node-sub">SOPs, supplier contracts, creative briefs, past campaign reports, product specs, internal wikis. The institutional knowledge that lives in docs and emails rather than databases. Ingested on a schedule or triggered on upload.</p>
       </div>
       <div class="node node-rag">
-        <p class="node-title">Vector Store  —  Pinecone</p>
+        <p class="node-title">Vector Store  -  Pinecone</p>
         <p class="node-sub">Documents chunked and embedded. Semantic search retrieves the most relevant chunks before an AI generates a response. Handles questions the warehouse can't: "What did we agree with Supplier X on lead times?" or "What's the SOP for a drop going wrong?"</p>
       </div>
     </div>
@@ -683,7 +683,7 @@
     <div class="orch-wrap">
       <div class="node node-orch">
         <p class="node-title">AI Orchestration Layer</p>
-        <p class="node-sub">Routes each query to the right source — SQL against BigQuery for structured data questions, vector search against Pinecone for document and context questions. Both can be combined in a single response. Implemented as Claude tool-use, LangChain, or LlamaIndex. No additional cost — this is code, not a service.</p>
+        <p class="node-sub">Routes each query to the right source - SQL against BigQuery for structured data questions, vector search against Pinecone for document and context questions. Both can be combined in a single response. Implemented as Claude tool-use, LangChain, or LlamaIndex. No additional cost - this is code, not a service.</p>
       </div>
     </div>
 
@@ -707,7 +707,7 @@
       </div>
       <div class="node node-ai">
         <p class="node-title">Structured Q&A</p>
-        <p class="node-sub">AI with warehouse read access — natural language translated to SQL. "Top 5 SKUs last week across all stores?" Answered in seconds. Works on numbers and events, not documents.</p>
+        <p class="node-sub">AI with warehouse read access - natural language translated to SQL. "Top 5 SKUs last week across all stores?" Answered in seconds. Works on numbers and events, not documents.</p>
       </div>
       <div class="node node-rag">
         <p class="node-title">Knowledge Q&A (RAG)</p>
@@ -725,7 +725,7 @@
 
     <!-- RULES -->
     <div class="rules">
-      <p class="rules-label">Working principles  —  tentative</p>
+      <p class="rules-label">Working principles  -  tentative</p>
       <span class="rule rule-g">✓ Odoo is inventory source of truth</span>
       <span class="rule rule-g">✓ Odoo pushes inventory → Shopify</span>
       <span class="rule rule-g">✓ Shopify pushes orders → Odoo</span>
@@ -744,19 +744,19 @@
   <div class="callouts">
     <div class="callout">
       <h3 style="color:var(--c-shopify);">Why Odoo → Shopify for inventory</h3>
-      <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. The working assumption is that Odoo should be the authoritative source — when a PO is confirmed, it pushes updated quantities to Shopify. Whether that's actually how it's configured today is one of the first things to verify.</p>
+      <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. The working assumption is that Odoo should be the authoritative source - when a PO is confirmed, it pushes updated quantities to Shopify. Whether that's actually how it's configured today is one of the first things to verify.</p>
     </div>
     <div class="callout">
       <h3 style="color:var(--c-odoo);">Why pull from both in the ETL</h3>
-      <p>Shopify has data Odoo never receives — abandoned carts, discount code attribution, storefront behavior, influencer referral UTMs. Odoo has data Shopify never sees — landed costs, PO history, accounting entries. The hypothesis is that you need both to get a complete picture, which is why pulling from each independently makes sense.</p>
+      <p>Shopify has data Odoo never receives - abandoned carts, discount code attribution, storefront behavior, influencer referral UTMs. Odoo has data Shopify never sees - landed costs, PO history, accounting entries. The hypothesis is that you need both to get a complete picture, which is why pulling from each independently makes sense.</p>
     </div>
     <div class="callout">
-      <h3 style="color:var(--c-rag);">RAG vs. structured queries  —  two different pipelines</h3>
-      <p>BigQuery answers questions about events and numbers — things that were recorded as structured data. RAG answers questions about knowledge — things that live in documents, contracts, SOPs, and briefs. An AI interface can route to either depending on the question, but they're built differently and solve different problems. The hypothesis is that WJ needs both: the warehouse for operational intelligence, the vector store for institutional knowledge retrieval.</p>
+      <h3 style="color:var(--c-rag);">RAG vs. structured queries  -  two different pipelines</h3>
+      <p>BigQuery answers questions about events and numbers - things that were recorded as structured data. RAG answers questions about knowledge - things that live in documents, contracts, SOPs, and briefs. An AI interface can route to either depending on the question, but they're built differently and solve different problems. The hypothesis is that WJ needs both: the warehouse for operational intelligence, the vector store for institutional knowledge retrieval.</p>
     </div>
     <div class="callout">
       <h3 style="color:var(--c-bq);">Why BigQuery never feeds back up</h3>
-      <p>The warehouse layer should be historical and analytical — a record of what happened, not a trigger for what happens next. If an AI agent needs to trigger a reorder in Odoo, the intent is for it to call Odoo's API directly, not route through the warehouse. That said, the exact boundaries depend on what we find in the audit.</p>
+      <p>The warehouse layer should be historical and analytical - a record of what happened, not a trigger for what happens next. If an AI agent needs to trigger a reorder in Odoo, the intent is for it to call Odoo's API directly, not route through the warehouse. That said, the exact boundaries depend on what we find in the audit.</p>
     </div>
   </div>
 
