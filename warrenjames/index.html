@@ -982,6 +982,65 @@
   .gate-err.show { display: block; }
   .gate-step { display: none; flex-direction: column; gap: 16px; }
   .gate-step.active { display: flex; }
+
+  /* ── Suggest-a-tool ── */
+  .suggest-row {
+    padding: 18px 0 0;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .suggest-btn {
+    background: none;
+    border: 1px dashed rgba(128,128,128,0.3);
+    border-radius: 5px; padding: 7px 16px;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: inherit; cursor: pointer;
+    color: rgba(128,128,128,0.5);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .suggest-btn:hover { border-color: rgba(128,128,128,0.6); color: rgba(128,128,128,0.85); }
+  .suggest-note { font-size: 11px; color: rgba(128,128,128,0.3); }
+
+  /* suggested tool row badge */
+  .sc-flag.suggested {
+    background: rgba(139,92,246,0.15); color: #a78bfa;
+    border: 1px solid rgba(139,92,246,0.3);
+  }
+
+  /* Suggest modal */
+  .st-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+  }
+  .st-box {
+    background: #1c1c1c; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 28px; width: 420px; max-width: 92vw;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .st-title { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+  .st-field { display: flex; flex-direction: column; gap: 6px; }
+  .st-label { font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.06em; }
+  .st-input, .st-textarea {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 5px; padding: 9px 12px; color: #edeae2;
+    font-size: 13px; font-family: inherit; outline: none; width: 100%; box-sizing: border-box;
+  }
+  .st-input:focus, .st-textarea:focus { border-color: rgba(255,255,255,0.35); }
+  .st-textarea { min-height: 72px; resize: vertical; line-height: 1.5; }
+  .st-footer { display: flex; gap: 10px; justify-content: flex-end; align-items: center; }
+  .st-cancel {
+    background: none; border: none; cursor: pointer;
+    font-size: 12px; color: rgba(255,255,255,0.3); font-family: inherit;
+    padding: 0 4px; transition: color 0.15s;
+  }
+  .st-cancel:hover { color: rgba(255,255,255,0.6); }
+  .st-submit {
+    background: #edeae2; color: #111; border: none; border-radius: 5px;
+    padding: 9px 20px; font-size: 12px; font-weight: 700;
+    font-family: inherit; cursor: pointer; letter-spacing: 0.05em;
+    transition: opacity 0.15s;
+  }
+  .st-submit:hover { opacity: 0.88; }
+  .st-success { font-size: 12px; color: rgba(52,211,153,0.9); }
 </style>
 </head>
 <body data-page="home">
@@ -1201,6 +1260,11 @@
           </div>
           <div class="sc sc-purpose">Less about the tooling, more about the process. Is there an MDM? What happens when someone leaves? I've set up a process for this at Jaanuu that can be scrappy and secure. Not an AI integration target, but clean device and access hygiene is what makes the rest of the stack trustworthy.</div>
         </div>
+        <div id="suggested-tool-rows"></div>
+      </div>
+      <div class="suggest-row">
+        <button class="suggest-btn" id="suggest-tool-btn">+ Suggest a tool</button>
+        <span class="suggest-note">Submitted suggestions go to admin for review before publishing.</span>
       </div>
     </div>
   </div>
@@ -1970,5 +2034,113 @@
 
 </script>
 <script src="/warrenjames/comments.js"></script>
+
+<!-- Suggest-a-tool modal + logic -->
+<div id="st-overlay" class="st-overlay" style="display:none">
+  <div class="st-box">
+    <div class="st-title">Suggest a tool</div>
+    <div class="st-field">
+      <label class="st-label">Tool name <span style="color:#f87171">*</span></label>
+      <input class="st-input" id="st-name" placeholder="e.g. Notion, Loom, Figma" autocomplete="off" />
+    </div>
+    <div class="st-field">
+      <label class="st-label">Category</label>
+      <input class="st-input" id="st-category" placeholder="e.g. Documentation, Design, Analytics" autocomplete="off" />
+    </div>
+    <div class="st-field">
+      <label class="st-label">Assumed use</label>
+      <input class="st-input" id="st-use" placeholder="What does the team use it for?" autocomplete="off" />
+    </div>
+    <div class="st-field">
+      <label class="st-label">Who uses it</label>
+      <input class="st-input" id="st-users" placeholder="e.g. Marketing, Ops, All teams" autocomplete="off" />
+    </div>
+    <div class="st-field">
+      <label class="st-label">Notes / context</label>
+      <textarea class="st-textarea" id="st-pov" placeholder="Anything else worth flagging..."></textarea>
+    </div>
+    <div class="st-footer">
+      <span class="st-success" id="st-success" style="display:none">Submitted. Thanks!</span>
+      <button class="st-cancel" id="st-cancel">Cancel</button>
+      <button class="st-submit" id="st-submit">Submit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  function getVisitor() {
+    return sessionStorage.getItem('wj_visitor_name') || localStorage.getItem('wj_visitor_name') || 'Anonymous';
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  /* ── Load and render approved tools ── */
+  function renderApprovedTools(rows) {
+    const container = document.getElementById('suggested-tool-rows');
+    if (!container || !rows.length) return;
+    container.innerHTML = rows.map(r => {
+      let d = {};
+      try { d = JSON.parse(r.value); } catch {}
+      return `
+        <div class="stack-row">
+          <div class="sc sc-tool">
+            <strong>${esc(d.name || 'Unknown')}</strong>
+            <em>${esc(d.category || '')}</em>
+            <span class="sc-flag suggested">Community</span>
+          </div>
+          <div class="sc sc-purpose">${esc(d.assumedUse || '')}</div>
+          <div class="sc sc-users">${esc(d.users || '')}</div>
+          <div class="sc sc-purpose">${esc(d.pov || '')}</div>
+        </div>`;
+    }).join('');
+  }
+
+  fetch('/api/tools')
+    .then(r => r.json())
+    .then(renderApprovedTools)
+    .catch(() => {});
+
+  /* ── Suggest modal ── */
+  const overlay = document.getElementById('st-overlay');
+  const btn     = document.getElementById('suggest-tool-btn');
+  const cancel  = document.getElementById('st-cancel');
+  const submit  = document.getElementById('st-submit');
+  const success = document.getElementById('st-success');
+
+  function openModal() { overlay.style.display = 'flex'; document.getElementById('st-name').focus(); }
+  function closeModal() { overlay.style.display = 'none'; success.style.display = 'none'; }
+
+  btn.addEventListener('click', openModal);
+  cancel.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+
+  submit.addEventListener('click', () => {
+    const name = document.getElementById('st-name').value.trim();
+    if (!name) { document.getElementById('st-name').style.borderColor = 'rgba(220,38,38,0.6)'; return; }
+
+    const data = {
+      name,
+      category:   document.getElementById('st-category').value.trim(),
+      assumedUse: document.getElementById('st-use').value.trim(),
+      users:      document.getElementById('st-users').value.trim(),
+      pov:        document.getElementById('st-pov').value.trim(),
+    };
+
+    const key = 'tool-' + Date.now();
+    fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ visitor: getVisitor(), type: 'tool_suggestion', key, value: JSON.stringify(data) })
+    }).catch(() => {});
+
+    success.style.display = 'inline';
+    submit.disabled = true;
+    setTimeout(() => { closeModal(); submit.disabled = false; ['st-name','st-category','st-use','st-users','st-pov'].forEach(id => { document.getElementById(id).value = ''; }); }, 1800);
+  });
+})();
+</script>
 </body>
 </html>

@@ -83,6 +83,54 @@
   .r-value { font-size: 13px; line-height: 1.6; color: #edeae2; padding-right: 20px; }
   .r-value.empty-val { color: rgba(237,234,226,0.2); font-style: italic; }
   .r-time { font-size: 11px; color: rgba(237,234,226,0.25); text-align: right; padding-top: 2px; }
+
+  /* Tool suggestions */
+  .tools-section { margin-bottom: 56px; }
+  .tools-heading {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(237,234,226,0.35); margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .tools-count { font-weight: 400; color: rgba(237,234,226,0.25); }
+  .tool-card {
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+    padding: 18px 20px; margin-bottom: 12px;
+    display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start;
+  }
+  .tool-card.approved { border-color: rgba(52,211,153,0.25); background: rgba(52,211,153,0.04); }
+  .tool-card.rejected { border-color: rgba(255,255,255,0.05); opacity: 0.45; }
+  .tc-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .tc-category { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(237,234,226,0.35); margin-bottom: 10px; }
+  .tc-field { font-size: 12px; color: rgba(237,234,226,0.55); line-height: 1.6; margin-bottom: 4px; }
+  .tc-field strong { color: rgba(237,234,226,0.35); font-weight: 500; margin-right: 6px; }
+  .tc-meta { font-size: 11px; color: rgba(237,234,226,0.25); margin-top: 8px; }
+  .tc-actions { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .tc-approve {
+    background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.35);
+    color: #34d399; border-radius: 5px; padding: 6px 14px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: inherit; cursor: pointer; transition: background 0.15s;
+  }
+  .tc-approve:hover { background: rgba(52,211,153,0.28); }
+  .tc-reject {
+    background: none; border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(237,234,226,0.35); border-radius: 5px; padding: 6px 14px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: inherit; cursor: pointer; transition: background 0.15s;
+  }
+  .tc-reject:hover { background: rgba(255,255,255,0.06); }
+  .tc-status {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px;
+  }
+  .tc-status.approved { background: rgba(52,211,153,0.12); color: #34d399; }
+  .tc-status.rejected { background: rgba(255,255,255,0.06); color: rgba(237,234,226,0.3); }
+  .responses-heading {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(237,234,226,0.35); margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
 </style>
 </head>
 <body>
@@ -98,23 +146,33 @@
 
 <div id="app" style="display:none">
   <div class="topbar">
-    <span class="topbar-title">WJ Onboarding &nbsp;·&nbsp; Responses</span>
+    <span class="topbar-title">WJ Onboarding &nbsp;·&nbsp; Admin</span>
     <div style="display:flex;gap:12px;align-items:center">
       <span class="topbar-meta" id="topbar-meta"></span>
       <button class="refresh-btn" id="refresh-btn">Refresh</button>
     </div>
   </div>
-  <div class="page" id="page"><p class="empty">Loading...</p></div>
+  <div class="page">
+    <div id="tools-section" class="tools-section" style="display:none">
+      <div class="tools-heading">Tool Suggestions <span class="tools-count" id="tools-count"></span></div>
+      <div id="tools-list"></div>
+    </div>
+    <div id="responses-heading" class="responses-heading" style="display:none">Visitor Responses</div>
+    <div id="page"><p class="empty">Loading...</p></div>
+  </div>
 </div>
 
 <script>
 const GATE_PW = '020311';
+const ADMIN_SECRET = 'reza2025';
 const SECTION_LABELS = {
   hypotheses: 'Initial Assessment', stack: 'Current Stack', plan: 'First 90 Days',
   vision: 'Bigger Picture', questions: 'Questions', together: 'Working Together',
   approach: 'The Approach', gaps: 'Honest Gaps', docs: 'Dive Deeper'
 };
 const Q_LABELS = ['Q1: Odoo experience', 'Q2: Biggest pain point', 'Q3: Falling through cracks', 'Q4: Shopify Plus', 'Q5: 90-day success signal', 'Q6: Tech vs Brand ownership'];
+
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 function formatSection(type, key) {
   if (type === 'qa') return Q_LABELS[parseInt(key)] || 'Q' + (parseInt(key)+1);
@@ -127,25 +185,96 @@ function formatTime(ts) {
     d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 }
 
-function render(rows) {
+/* ── Tool suggestions ── */
+function renderTools(rows) {
+  const suggestions = rows.filter(r => r.type === 'tool_suggestion');
+  const approvedKeys = new Set(rows.filter(r => r.type === 'tool_approved' && r.visitor === 'admin').map(r => r.key));
+  const rejectedKeys = new Set(rows.filter(r => r.type === 'tool_rejected' && r.visitor === 'admin').map(r => r.key));
+
+  if (!suggestions.length) return;
+
+  const section = document.getElementById('tools-section');
+  const list    = document.getElementById('tools-list');
+  const count   = document.getElementById('tools-count');
+  const pending = suggestions.filter(r => !approvedKeys.has(r.key) && !rejectedKeys.has(r.key)).length;
+
+  section.style.display = 'block';
+  count.textContent = pending + ' pending · ' + suggestions.length + ' total';
+
+  list.innerHTML = suggestions.map(r => {
+    let d = {};
+    try { d = JSON.parse(r.value); } catch {}
+    const isApproved = approvedKeys.has(r.key);
+    const isRejected = rejectedKeys.has(r.key);
+    const statusClass = isApproved ? 'approved' : isRejected ? 'rejected' : '';
+
+    return `
+      <div class="tool-card ${statusClass}" id="tc-${r.key}">
+        <div>
+          <div class="tc-name">${esc(d.name || 'Unnamed tool')}</div>
+          <div class="tc-category">${esc(d.category || 'No category')}</div>
+          ${d.assumedUse ? `<div class="tc-field"><strong>Use</strong>${esc(d.assumedUse)}</div>` : ''}
+          ${d.users      ? `<div class="tc-field"><strong>Users</strong>${esc(d.users)}</div>` : ''}
+          ${d.pov        ? `<div class="tc-field"><strong>Notes</strong>${esc(d.pov)}</div>` : ''}
+          <div class="tc-meta">Submitted by ${esc(r.visitor)} · ${formatTime(r.updated_at)}</div>
+        </div>
+        <div class="tc-actions">
+          ${isApproved ? '<span class="tc-status approved">Published</span>' :
+            isRejected ? '<span class="tc-status rejected">Rejected</span>' : `
+            <button class="tc-approve" onclick="approveTool('${esc(r.key)}', '${esc(r.value.replace(/'/g,"\\'"))}')">Approve</button>
+            <button class="tc-reject"  onclick="rejectTool('${esc(r.key)}')">Reject</button>`}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function approveTool(key, value) {
+  const card = document.getElementById('tc-' + key);
+  if (card) card.style.opacity = '0.5';
+  await fetch('/api/approve-tool?secret=' + ADMIN_SECRET, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key, value, action: 'approve' })
+  });
+  load();
+}
+
+async function rejectTool(key) {
+  const card = document.getElementById('tc-' + key);
+  if (card) card.style.opacity = '0.5';
+  await fetch('/api/approve-tool?secret=' + ADMIN_SECRET, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ key, value: '', action: 'reject' })
+  });
+  load();
+}
+
+/* ── Visitor responses ── */
+function renderResponses(rows) {
   const page = document.getElementById('page');
-  document.getElementById('topbar-meta').textContent = rows.length + ' response' + (rows.length !== 1 ? 's' : '');
-  if (!rows.length) { page.innerHTML = '<p class="empty">No responses yet.</p>'; return; }
+  const excluded = new Set(['tool_suggestion','tool_approved','tool_rejected']);
+  const filtered = rows.filter(r => !excluded.has(r.type));
+
+  document.getElementById('topbar-meta').textContent = filtered.length + ' response' + (filtered.length !== 1 ? 's' : '');
+  if (!filtered.length) { page.innerHTML = '<p class="empty">No responses yet.</p>'; return; }
+
+  document.getElementById('responses-heading').style.display = 'block';
 
   const byVisitor = {};
-  rows.forEach(r => {
+  filtered.forEach(r => {
     if (!byVisitor[r.visitor]) byVisitor[r.visitor] = [];
     byVisitor[r.visitor].push(r);
   });
 
   page.innerHTML = Object.entries(byVisitor).map(([visitor, items]) => `
     <div class="visitor-block">
-      <div class="visitor-name">${visitor} <span class="visitor-count">${items.length} response${items.length !== 1 ? 's' : ''}</span></div>
+      <div class="visitor-name">${esc(visitor)} <span class="visitor-count">${items.length} response${items.length !== 1 ? 's' : ''}</span></div>
       ${items.map(r => `
         <div class="response">
-          <div class="r-section">${formatSection(r.type, r.key)}</div>
-          <div class="r-type ${r.type}">${r.type}</div>
-          <div class="r-value ${!r.value ? 'empty-val' : ''}">${r.value ? r.value.replace(/</g,'&lt;') : 'cleared'}</div>
+          <div class="r-section">${esc(formatSection(r.type, r.key))}</div>
+          <div class="r-type ${esc(r.type)}">${esc(r.type)}</div>
+          <div class="r-value ${!r.value ? 'empty-val' : ''}">${r.value ? esc(r.value) : 'cleared'}</div>
           <div class="r-time">${formatTime(r.updated_at)}</div>
         </div>
       `).join('')}
@@ -155,12 +284,15 @@ function render(rows) {
 
 async function load() {
   document.getElementById('page').innerHTML = '<p class="empty">Loading...</p>';
+  document.getElementById('tools-section').style.display = 'none';
+  document.getElementById('responses-heading').style.display = 'none';
   try {
-    const res = await fetch('/api/responses?secret=reza2025');
+    const res = await fetch('/api/responses?secret=' + ADMIN_SECRET);
     const rows = await res.json();
-    render(rows);
+    renderTools(rows);
+    renderResponses(rows);
   } catch (e) {
-    document.getElementById('page').innerHTML = '<p class="empty">Failed to load responses.</p>';
+    document.getElementById('page').innerHTML = '<p class="empty">Failed to load.</p>';
   }
 }
 
