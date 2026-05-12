@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warren James · 6–9 Month Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #edeae2;
+    --black: #0c0c0c;
+    --blue: #6ea8fe;
+    --bd: rgba(0,0,0,0.1);
+    --bdd: rgba(255,255,255,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    background: var(--cream);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── SECTION SYSTEM ─── */
+  .s {
+    width: 100%;
+    padding: 88px 56px;
+  }
+  .s.dark { background: var(--black); color: var(--cream); }
+  .s.cream { background: var(--cream); color: var(--black); }
+  .s.tight { padding-top: 56px; padding-bottom: 56px; }
+
+  .inner { max-width: 880px; margin: 0 auto; }
+
+  /* ─── LABELS ─── */
+  .lbl {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .dark .lbl { color: rgba(255,255,255,0.35); }
+  .cream .lbl { color: rgba(0,0,0,0.35); }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1 {
+    font-size: clamp(40px, 6.5vw, 76px);
+    font-weight: 300;
+    letter-spacing: -2.5px;
+    line-height: 1.0;
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-size: clamp(26px, 3.5vw, 44px);
+    font-weight: 300;
+    letter-spacing: -1.2px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+  .dark .lead { color: rgba(255,255,255,0.5); }
+  .cream .lead { color: rgba(0,0,0,0.5); }
+
+  /* ─── SCROLL FADE ─── */
+  .fade {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade.in { opacity: 1; transform: none; }
+
+  /* ─── HEADER ─── */
+  header.s {
+    min-height: 52vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 80px;
+    padding-bottom: 88px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 36px;
+  }
+
+  header .subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-top: 4px;
+    font-weight: 300;
+  }
+
+  /* ─── NAV ─── */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 8000;
+    background: rgba(12,12,12,0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transform: translateY(-100%);
+    transition: transform 0.35s ease;
+  }
+  .site-nav.visible { transform: translateY(0); }
+  .nav-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 56px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-link {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    padding: 14px 14px;
+    white-space: nowrap;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .nav-link:hover { color: rgba(255,255,255,0.65); }
+  .nav-link.active { color: var(--cream); border-bottom-color: var(--cream); }
+
+  /* ─── PHASE BLOCKS ─── */
+  .phase-lbl {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .dark .phase-lbl { color: rgba(255,255,255,0.28); }
+  .cream .phase-lbl { color: rgba(0,0,0,0.28); }
+
+  .phase-timing {
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .dark .phase-timing { color: rgba(255,255,255,0.22); }
+  .cream .phase-timing { color: rgba(0,0,0,0.22); }
+
+  .phase-h {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 300;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .phase-thesis {
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+  .dark .phase-thesis { color: rgba(255,255,255,0.5); }
+  .cream .phase-thesis { color: rgba(0,0,0,0.5); }
+
+  /* ─── TRACK CARDS ─── */
+  .track-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .track-card {
+    border-radius: 3px;
+    padding: 24px 26px;
+    transition: border-color 0.2s;
+  }
+  .dark .track-card { border: 1px solid var(--bdd); }
+  .cream .track-card { border: 1px solid var(--bd); }
+  .dark .track-card:hover { border-color: rgba(255,255,255,0.25); }
+  .cream .track-card:hover { border-color: rgba(0,0,0,0.3); }
+  .track-card.full { grid-column: 1 / -1; }
+
+  .tc-tag {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .dark .tc-tag { color: rgba(255,255,255,0.28); }
+  .cream .tc-tag { color: rgba(0,0,0,0.28); }
+  .tc-tag.blue { color: var(--blue); }
+
+  .track-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .dark .track-card h3 { color: var(--cream); }
+
+  .track-card p {
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+  .dark .track-card p { color: rgba(255,255,255,0.45); }
+  .cream .track-card p { color: rgba(0,0,0,0.5); }
+
+  .track-card ul { list-style: none; padding: 0; }
+  .track-card ul li {
+    font-size: 13px;
+    padding: 4px 0 4px 18px;
+    position: relative;
+    line-height: 1.55;
+  }
+  .dark .track-card ul li { color: rgba(255,255,255,0.55); }
+  .cream .track-card ul li { color: rgba(0,0,0,0.6); }
+  .track-card ul li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    font-size: 12px;
+    top: 5px;
+  }
+  .dark .track-card ul li::before { color: rgba(255,255,255,0.2); }
+  .cream .track-card ul li::before { color: rgba(0,0,0,0.22); }
+
+  .tc-note {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .dark .tc-note { background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); }
+  .cream .tc-note { background: rgba(0,0,0,0.04); color: rgba(0,0,0,0.5); }
+  .tc-note strong { font-weight: 600; }
+  .dark .tc-note strong { color: var(--cream); }
+  .cream .tc-note strong { color: var(--black); }
+
+  /* ─── BRIDGE CHECKPOINT ─── */
+  .bridge {
+    border-left: 2px solid rgba(255,255,255,0.12);
+    padding: 24px 28px;
+    margin-top: 48px;
+    border-radius: 0 3px 3px 0;
+  }
+  .bridge-lbl {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(255,255,255,0.28);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .bridge h3 {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    margin-bottom: 10px;
+    color: var(--cream);
+  }
+  .bridge p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.48);
+    line-height: 1.7;
+    max-width: 580px;
+  }
+  .bridge-signals {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .bridge-signal {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.14);
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ─── SUCCESS BAR ─── */
+  .success-bar {
+    display: flex;
+    gap: 0;
+    flex-wrap: wrap;
+    padding: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .success-group {
+    padding: 20px 28px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    flex: 1;
+    min-width: 200px;
+  }
+  .success-group:last-child { border-right: none; }
+  .success-group-lbl {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+    margin-bottom: 10px;
+    display: block;
+  }
+  .success-criterion {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+    line-height: 1.4;
+  }
+  .sc-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: rgba(255,255,255,0.15);
+  }
+  .sc-dot.on { background: var(--cream); }
+  .sc-dot.mid { background: rgba(255,255,255,0.45); }
+
+  /* ─── VISION CARDS ─── */
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+
+  .v-card {
+    border: 1px solid var(--bd);
+    border-radius: 3px;
+    padding: 24px 24px 22px;
+    transition: border-color 0.2s;
+  }
+  .v-card:hover { border-color: rgba(0,0,0,0.3); }
+  .v-card.full { grid-column: 1 / -1; }
+  .v-card.featured {
+    grid-column: span 2;
+    background: rgba(0,0,0,0.03);
+    border-color: rgba(0,0,0,0.15);
+  }
+
+  .v-lbl {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.3);
+    margin-bottom: 8px;
+    font-weight: 500;
+    display: block;
+  }
+  .v-card.featured .v-lbl { color: rgba(0,0,0,0.5); }
+
+  .v-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .v-card p { font-size: 13px; color: rgba(0,0,0,0.5); margin: 0 0 12px; line-height: 1.65; }
+
+  .v-outcome {
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 7px 12px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 3px;
+    line-height: 1.5;
+  }
+  .v-outcome::before { content: '→ '; color: rgba(0,0,0,0.3); }
+
+  /* ─── NOW / LATER ─── */
+  .nl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .nl-col { border-radius: 3px; padding: 28px 28px; }
+  .nl-col.now { background: var(--black); }
+  .nl-col.later { border: 1px solid var(--bd); }
+
+  .nl-col-lbl {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .nl-col.now .nl-col-lbl { color: rgba(255,255,255,0.28); }
+  .nl-col.later .nl-col-lbl { color: rgba(0,0,0,0.28); }
+
+  .nl-item {
+    padding: 10px 0;
+    border-bottom: 1px solid;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+  .nl-item:last-child { border-bottom: none; }
+  .nl-col.now .nl-item { border-color: rgba(255,255,255,0.07); color: rgba(255,255,255,0.65); }
+  .nl-col.later .nl-item { border-color: rgba(0,0,0,0.07); color: rgba(0,0,0,0.6); }
+
+  .nl-why {
+    font-size: 11.5px;
+    margin-top: 3px;
+    line-height: 1.5;
+  }
+  .nl-col.now .nl-why { color: rgba(255,255,255,0.3); }
+  .nl-col.later .nl-why { color: rgba(0,0,0,0.35); }
+
+  /* ─── SUCCESS TABLE ─── */
+  .success-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+  }
+  .success-table th {
+    text-align: left;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0 16px 12px 0;
+    color: rgba(0,0,0,0.3);
+    border-bottom: 1px solid var(--bd);
+  }
+  .success-table td {
+    padding: 13px 16px 13px 0;
+    font-size: 13px;
+    border-bottom: 1px solid var(--bd);
+    vertical-align: top;
+    line-height: 1.55;
+    color: rgba(0,0,0,0.6);
+  }
+  .success-table td:first-child { font-weight: 600; color: var(--black); max-width: 200px; }
+  .success-table tr:last-child td { border-bottom: none; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 56px;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+</style>
+</head>
+<body>
+
+<!-- Sticky Nav -->
+<nav class="site-nav" id="site-nav">
+  <div class="nav-inner">
+    <a class="nav-link" href="#phase1">Phase 1</a>
+    <a class="nav-link" href="#phase2">Phase 2</a>
+    <a class="nav-link" href="#phase3">Phase 3</a>
+    <a class="nav-link" href="#phase4">Phase 4</a>
+    <a class="nav-link" href="#nowlater">Now vs Later</a>
+    <a class="nav-link" href="#success">Success Map</a>
+    <a class="nav-link" href="#vision">Vision</a>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="s dark">
+  <div class="inner">
+    <div class="eyebrow fade">Warren James · VP of Technology</div>
+    <h1 class="fade">6–9 Month<br>Execution Roadmap</h1>
+    <p class="subtitle fade">Four phases. One clear direction: understand the system, stabilize what's broken, build leverage into it, then compound. Each phase unlocks the next.</p>
+  </div>
+</header>
+
+<!-- Success criteria bar -->
+<div class="s dark tight" style="padding-top:0">
+  <div class="inner fade">
+    <div class="success-bar">
+      <div class="success-group">
+        <span class="success-group-lbl">Minimum</span>
+        <div class="success-criterion"><span class="sc-dot on"></span>Odoo feels stable, not fragile</div>
+        <div class="success-criterion"><span class="sc-dot on"></span>Manual handoffs meaningfully reduced</div>
+        <div class="success-criterion"><span class="sc-dot on"></span>Leadership trusts the numbers</div>
+      </div>
+      <div class="success-group">
+        <span class="success-group-lbl">Target</span>
+        <div class="success-criterion"><span class="sc-dot mid"></span>Teams self-serve without asking permission</div>
+        <div class="success-criterion"><span class="sc-dot mid"></span>CEO has a true technical partner</div>
+      </div>
+      <div class="success-group">
+        <span class="success-group-lbl">Stretch</span>
+        <div class="success-criterion"><span class="sc-dot"></span>AI workflows embedded across every team</div>
+        <div class="success-criterion"><span class="sc-dot"></span>Data flywheel generating proprietary insight</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PHASE 1 ══════════ -->
+<section class="s cream" id="phase1">
+  <div class="inner">
+    <div class="fade">
+      <span class="phase-lbl">Phase 1</span>
+      <span class="phase-timing">Days 1 – 30</span>
+      <h2 class="phase-h">Orient and Listen</h2>
+      <p class="phase-thesis">The first 30 days are an audit, not a build sprint. Coming in with answers before understanding the problem is the biggest mistake this role can make. My output at the end of Phase 1 is a ranked list of what's actually broken, what the team has been working around, and where the highest-leverage problems are. One carefully chosen automation also ships in month one — not to impress, but to establish the pattern early.</p>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card fade">
+        <span class="tc-tag">ERP</span>
+        <h3>Map the Real State of Odoo</h3>
+        <p>Not what it's supposed to do — what it actually does. Where do people stop trusting it? Where is someone maintaining a parallel spreadsheet?</p>
+        <ul>
+          <li>Sit with every team that touches Odoo — ops, finance, merch — and ask where they go when they can't trust it</li>
+          <li>Pull a sample of orders and trace them end-to-end through both Shopify and Odoo — find where states diverge</li>
+          <li>Map every manual reconciliation that happens at month-end</li>
+          <li>Document every Odoo workaround currently running in production</li>
+        </ul>
+        <div class="tc-note"><strong>Decision rule:</strong> Don't fix anything in Phase 1 unless it's causing live operational damage. Everything else goes on the prioritized list.</div>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">Shopify</span>
+        <h3>Inventory the Shopify Reality</h3>
+        <p>~70 stores. Are they all on the same plan, under the same org, with consistent structure? The answer may not be yes — and I need to understand exactly what I've inherited.</p>
+        <ul>
+          <li>Audit which stores are on Plus vs standard — document what each is actually using</li>
+          <li>Map all active third-party apps across all stores and their cost</li>
+          <li>Identify which stores share infrastructure vs. which are completely siloed</li>
+          <li>Find out where Launchpad is used and how drops are currently coordinated</li>
+          <li>Understand the Shopify ↔ Odoo sync: direction, frequency, failure behavior</li>
+        </ul>
+        <div class="tc-note"><strong>Decision rule:</strong> Consolidation decisions belong in Phase 2. Phase 1 is observation only.</div>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">Listening</span>
+        <h3>Structured Listening Sessions</h3>
+        <p>Pain points surface in conversation, not in documentation. Every team gets a dedicated session — not a survey, not a form, an actual conversation about what's making their job harder than it needs to be.</p>
+        <ul>
+          <li>Shadow one person in each function for half a day — ops, finance, creative/merch, creator success</li>
+          <li>Ask: "What do you do every Monday that you wish you didn't have to?" and "What falls through the cracks most often?"</li>
+          <li>Map copy-paste chains: where does someone take data from system A and type it into system B?</li>
+          <li>Collect wishlists — what's working well and what isn't — and rank by time cost, frequency, and error rate</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">Governance</span>
+        <h3>SaaS and Vendor Audit</h3>
+        <p>A full picture of what's in the building before making any tooling decisions. There are likely consolidation and cost reduction opportunities waiting to be identified.</p>
+        <ul>
+          <li>Pull all active subscriptions from billing — credit cards, corporate accounts</li>
+          <li>Map who uses what and what they'd lose if it went away</li>
+          <li>Identify overlapping tools — multiple project managers, duplicate communication apps</li>
+          <li>Flag anything with no clear owner — that's a security risk</li>
+          <li>Note contract renewal dates coming up in the next 90 days</li>
+        </ul>
+        <div class="tc-note"><strong>Quick win:</strong> Canceling 2–3 unused subscriptions in week 2 is a visible signal that costs zero credibility and banks goodwill.</div>
+      </div>
+
+      <div class="track-card full fade">
+        <span class="tc-tag blue">Ships in Phase 1</span>
+        <h3>The One Automation That Ships in Month 1</h3>
+        <p>One high-visibility, low-risk AI automation goes live in week 2 — not to impress, but to prove the pattern early. I'll pick the highest-signal handoff from the listening sessions and build it before anyone asks. The profile is consistent across candidates: Slack or Asana as the trigger, Claude as the reasoning layer, n8n as the orchestration engine. Builds in hours, runs indefinitely, teams feel it immediately.</p>
+        <ul>
+          <li>Most likely candidate: inbound ops request triage — messages currently handled manually get classified, routed, and ticketed automatically</li>
+          <li>Add memory so the agent references prior tickets and updates rather than duplicates</li>
+          <li>Document it so ops can modify routing rules themselves — this is the template for every automation that follows</li>
+          <li>Measure usage weekly — first data point toward AI embedded across all teams</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PHASE 2 ══════════ -->
+<section class="s dark" id="phase2">
+  <div class="inner">
+    <div class="fade">
+      <span class="phase-lbl">Phase 2</span>
+      <span class="phase-timing">Months 2 – 3</span>
+      <h2 class="phase-h">Stabilize</h2>
+      <p class="phase-thesis">The foundational work that later phases depend on. Odoo can't feel stable until the data going in is clean and the sync to Shopify is reliable. This is also when the data pipeline gets turned on — not to build dashboards yet, but to start the clock on accumulating clean, structured data that Phase 3 will surface.</p>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card fade">
+        <span class="tc-tag">ERP</span>
+        <h3>Fix the Shopify ↔ Odoo Sync</h3>
+        <p>Almost certainly the root cause of every "the numbers don't match" conversation. The fix isn't glamorous but it's the highest-leverage item in the roadmap.</p>
+        <ul>
+          <li>Identify all failure modes in the current sync — silent failures, conflict resolution, rate limits</li>
+          <li>Add monitoring so failures are visible immediately instead of discovered days later</li>
+          <li>Define the conflict resolution rule: when Shopify and Odoo disagree on inventory, which wins and why?</li>
+          <li>Test the sync under campaign load — what happens when ~70 stores get a surge simultaneously?</li>
+          <li>Document it so anyone on the team can debug it without me</li>
+        </ul>
+        <div class="tc-note"><strong>Success signal:</strong> A measurable reduction in "the inventory numbers are wrong" conversations. That's when Phase 2 is working.</div>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">ERP</span>
+        <h3>Close the Top 3 Data Model Gaps</h3>
+        <p>Based on Phase 1 audit. These are the specific fields, records, or structures producing unreliable outputs. Fix the sources, not the outputs.</p>
+        <ul>
+          <li>Establish data entry standards: required fields, dropdown over free text, naming conventions</li>
+          <li>Deduplicate critical records — vendors, products, contacts — starting with the ones impacting finance</li>
+          <li>Move any load-bearing spreadsheet data into Odoo with proper structure</li>
+          <li>Close the "notes field as structured data" problem — create proper metafields for recurring use cases</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">AI / Automation</span>
+        <h3>Ship the 3 Highest-ROI Automations</h3>
+        <p>From the Phase 1 pain map. Pick the handoffs that are most frequent, most error-prone, and most manual. Build with n8n. Measure before and after.</p>
+        <ul>
+          <li>Likely: new creator onboarding → database entry → Asana kickoff → Slack notification (eliminate the Google Sheet)</li>
+          <li>Likely: order anomaly detection — flag orders where Shopify and Odoo state diverges for more than X minutes</li>
+          <li>Likely: campaign launch checklist — when a drop is scheduled, auto-prep checklist across Asana, notify the creator team, confirm inventory is staged</li>
+          <li>Each automation gets a Slack alert on failure — it never silently breaks</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">Data</span>
+        <h3>Start the Data Pipeline</h3>
+        <p>This isn't about building dashboards yet. It's about turning on the pipeline so clean data starts accumulating — because Phase 3 dashboards are only useful if the data flowing into them has been trustworthy for months.</p>
+        <ul>
+          <li>Set up BigQuery — begin syncing Shopify and Odoo via Fivetran or Airbyte</li>
+          <li>Define the 5 metrics leadership looks at every week — build those first, nothing else</li>
+          <li>Validate outputs against source systems before anyone sees them</li>
+          <li>No dashboards shipped in Phase 2 — only the pipeline. Dashboards come once there's confidence in what they show.</li>
+        </ul>
+        <div class="tc-note"><strong>Why this ordering matters:</strong> Two months of clean data need to flow through before campaign analytics mean anything. Start the clock now so Phase 3 has something real to work with.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PHASE 3 ══════════ -->
+<section class="s cream" id="phase3">
+  <div class="inner">
+    <div class="fade">
+      <span class="phase-lbl">Phase 3</span>
+      <span class="phase-timing">Months 4 – 6</span>
+      <h2 class="phase-h">Build: Automate, Surface Intelligence, Ship Dashboards</h2>
+      <p class="phase-thesis">The foundation is stable and the pipeline has been running for two months. Now I build what actually changes how the business operates — dashboards leadership can trust, a RAG layer that makes AI outputs grounded in what Warren James actually knows, non-obvious automations across every team, and a launch readiness system that makes drops less chaotic.</p>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card fade">
+        <span class="tc-tag">Data</span>
+        <h3>Portfolio Intelligence Dashboard</h3>
+        <p>Not 40 dashboards. One view that opens Monday morning and answers: how is the portfolio doing, where are the problems, and what needs a decision today.</p>
+        <ul>
+          <li>Portfolio GMV vs. prior week, month, same period last year — across all stores</li>
+          <li>Top and bottom performing stores ranked by this week's sell-through rate</li>
+          <li>Active campaigns: what's live, what's closing, what's pending</li>
+          <li>Odoo health signal: sync status, anomalies flagged in the last 7 days</li>
+          <li>AI-generated weekly narrative: "The story of last week in 3 bullets" — synthesized automatically from the data</li>
+        </ul>
+        <div class="tc-note"><strong>Why Phase 3, not earlier:</strong> This dashboard is only credible once the underlying data pipeline has been running and validated for 2+ months. Shipping it earlier means showing the CEO numbers that can't be trusted yet.</div>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag blue">AI / RAG</span>
+        <h3>RAG Layer for AI Outputs</h3>
+        <p>Retrieval-Augmented Generation means AI doesn't answer from general knowledge — it answers from Warren James's own history. Campaign briefs, creator performance data, product records, what worked and what didn't — indexed and retrievable by any AI workflow.</p>
+        <ul>
+          <li>Index campaign history, creator briefs, and product data into a searchable vector store</li>
+          <li>Wire the RAG layer into Phase 2 automations so outputs improve automatically as data accumulates</li>
+          <li>Campaign brief generator: pull a creator's performance history, generate a tailored launch strategy grounded in what actually worked for similar stores</li>
+          <li>Finance month-end assistant: flags discrepancies and drafts summaries from actual historical patterns, not generic logic</li>
+        </ul>
+        <div class="tc-note"><strong>What RAG changes:</strong> Without it, AI outputs are generic. With it, they reflect the specific context of the creator, the store, and the campaign history — and get better the longer the system runs.</div>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">AI / Automation</span>
+        <h3>Launch Readiness Agent</h3>
+        <p>Drops at Warren James involve coordination across creator success, ops, merch, and Shopify. Right now that coordination is manual and prone to gaps. The launch readiness agent makes it systematic.</p>
+        <ul>
+          <li>When a drop is scheduled, automatically audit: inventory staged in Odoo, Launchpad configured, creator briefed, social content ready</li>
+          <li>Flag any missing step more than 48 hours before launch — not at T-minus 2 hours</li>
+          <li>Post-launch: track sell-through velocity in the first 4 hours and alert if it's tracking below forecast</li>
+          <li>Encode each launch outcome into a structured record — feeds the campaign intelligence layer in Phase 4</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">AI / Automation</span>
+        <h3>Non-Obvious Automations</h3>
+        <p>Beyond the Phase 2 quick wins, Phase 3 is about automations that require stable data and cross-system context to work — the ones that weren't possible before the foundation was solid.</p>
+        <ul>
+          <li>Cross-store audience profile builder: cluster stores by shared audience characteristics — age band, category affinity, price point, engagement pattern</li>
+          <li>Automated weekly store digest per creator — no one manually compiling reports</li>
+          <li>Vendor lead time intelligence: flag when any vendor has historically caused inventory gaps during launches</li>
+          <li>Internal AI office hours: teach every team to build simple n8n workflows themselves — the goal is self-sufficiency, not dependence</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">Shopify</span>
+        <h3>Shopify Infrastructure Consolidation</h3>
+        <p>Based on Phase 1 findings. Remove the debt — redundant apps, inconsistent store structures, manual coordination at launch time.</p>
+        <ul>
+          <li>Standardize app stack across stores — one approved set, remove redundant installs</li>
+          <li>Every coordinated creator drop uses Launchpad, not manual "everyone go live at 9am"</li>
+          <li>Shopify Flow for cross-store order tagging — automated campaign attribution starts here</li>
+          <li>Evaluate Shopify Plus consolidation ROI if stores are on split plans — present the math with a clear recommendation</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">Governance</span>
+        <h3>Access Management and Offboarding</h3>
+        <p>~70 stores, a fast-growing company, and already a key tech departure on record. The offboarding risk is real — fix it before the next one.</p>
+        <ul>
+          <li>Audit current Shopify admin access across every store</li>
+          <li>Implement SSO where possible — Google Workspace as the identity layer</li>
+          <li>Offboarding checklist that covers all systems in under 30 minutes</li>
+          <li>Quarterly access review — 2-hour audit once per quarter, not a bureaucratic process</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bridge checkpoint -->
+    <div class="bridge fade">
+      <span class="bridge-lbl">End of Phase 3 · Readiness check before Phase 4</span>
+      <h3>Operations should feel materially different here</h3>
+      <p>By the end of month 6, the problems that defined day one should feel like the distant past. The Shopify-Odoo sync is reliable and monitored. Leadership has a dashboard they trust. Automations are running across every team. The data pipeline has been flowing for four months. The RAG layer is grounded in real history. Phase 4 only compounds what's already solid — it doesn't paper over what isn't.</p>
+      <div class="bridge-signals">
+        <span class="bridge-signal">Sync failures visible in minutes</span>
+        <span class="bridge-signal">Portfolio dashboard live</span>
+        <span class="bridge-signal">RAG layer indexed</span>
+        <span class="bridge-signal">Launch readiness automated</span>
+        <span class="bridge-signal">Teams building own workflows</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════ PHASE 4 ══════════ -->
+<section class="s dark" id="phase4">
+  <div class="inner">
+    <div class="fade">
+      <span class="phase-lbl">Phase 4</span>
+      <span class="phase-timing">Months 7 – 9</span>
+      <h2 class="phase-h">Compound: Where the Data Flywheel Kicks In</h2>
+      <p class="phase-thesis">By month 7, the foundation is solid, the workflows are running, and six months of tagged campaign data have accumulated. Phase 4 is where the system starts generating intelligence that compounds — each launch teaches the portfolio, purchasing power consolidates, and patterns that were invisible when stores operated in isolation become actionable. This phase only works because of what came before it.</p>
+    </div>
+
+    <div class="track-grid">
+
+      <div class="track-card fade">
+        <span class="tc-tag blue">AI / Flagship</span>
+        <h3>Cross-Store Campaign Pattern Matching</h3>
+        <p>The flagship intelligence use case. A successful campaign in Store A auto-generates a brief for the stores with the most similar audience profiles. Over time this becomes a proprietary playbook library that no competitor can replicate without the same data history.</p>
+        <ul>
+          <li>Cross-store similarity engine — which stores share audience type, price band, category, engagement pattern?</li>
+          <li>Post-campaign AI debrief: structured analysis of what drove success, encoded into the store's profile</li>
+          <li>Proactive playbook generation: "Store 12 just had a breakout drop — here are the 4 stores most likely to replicate it and why"</li>
+          <li>Inputs: BigQuery campaign data + social analytics from Instagram/TikTok API</li>
+        </ul>
+        <div class="tc-note"><strong>Why this only works now:</strong> This requires 6+ months of tagged campaign data and 2+ months of audience profiles before similarity matching produces signal rather than noise. Attempting it in month 2 would be guesswork.</div>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">AI / Automation</span>
+        <h3>Predictive Drop Timing</h3>
+        <p>Patterns in campaign data reveal which days, times, and seasonal windows produce the highest sell-through for each store's audience type. The system stops being reactive — it recommends the highest-probability launch window based on months of actual performance data.</p>
+        <ul>
+          <li>Analyze sell-through velocity by day-of-week, time-of-day, and seasonal window per store cluster</li>
+          <li>Surface timing recommendations as part of the launch readiness agent flow</li>
+          <li>Track prediction accuracy and continuously update the model as new launches complete</li>
+          <li>Anomaly detection: flag when a scheduled launch time looks mismatched against the store's historical pattern</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">ERP / Data</span>
+        <h3>Purchasing Consolidation</h3>
+        <p>Fifteen stores buying from the same manufacturer appear as fifteen separate relationships — each negotiating independently, each blind to the others. With cross-store vendor data consolidated, Warren James sees its true aggregate spend per supplier and can act accordingly.</p>
+        <ul>
+          <li>Map shared vendor relationships across all ~70 stores — total spend per vendor in Odoo</li>
+          <li>Identify top vendors by total WJ portfolio spend — present consolidated leverage case</li>
+          <li>Automate reorder alerts: when any store's stock for a shared SKU-category drops below threshold, flag it</li>
+          <li>Lead time intelligence: which vendors deliver on time vs. which create inventory gaps during launches</li>
+        </ul>
+      </div>
+
+      <div class="track-card fade">
+        <span class="tc-tag">Data</span>
+        <h3>Proprietary Playbook Library</h3>
+        <p>Every successful launch that gets encoded into the system becomes a reusable asset for the whole portfolio. By month 9, the RAG layer is grounded in a growing library of documented wins — not generic best practices, but Warren James-specific patterns that accumulate over time.</p>
+        <ul>
+          <li>Structured post-campaign debriefs automatically populate the playbook after each launch</li>
+          <li>Playbooks organized by store cluster, product category, campaign type, and seasonality</li>
+          <li>New creator onboarding query: "What have our top-performing stores in this category done in their first 3 launches?"</li>
+          <li>This library is the moat — it compounds in value the longer the system runs and cannot be replicated without the same history</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ NOW VS LATER ══════════ -->
+<section class="s cream" id="nowlater">
+  <div class="inner">
+    <div class="fade">
+      <span class="lbl">Prioritization</span>
+      <h2>What to Build Now vs Later</h2>
+      <p class="lead">Some decisions are time-sensitive. Others look urgent but can wait until the foundation is solid. This is the current strong intuition on that distinction.</p>
+    </div>
+
+    <div class="nl-grid">
+      <div class="nl-col now fade">
+        <span class="nl-col-lbl">Build now · Months 1–3</span>
+
+        <div class="nl-item">
+          Shopify ↔ Odoo sync monitoring
+          <div class="nl-why">Root cause of leadership distrust. Everything else depends on this being reliable.</div>
+        </div>
+        <div class="nl-item">
+          BigQuery pipeline (Shopify + Odoo → warehouse)
+          <div class="nl-why">Data needs to accumulate before it's useful. Start the clock in month 2.</div>
+        </div>
+        <div class="nl-item">
+          SaaS audit and consolidation
+          <div class="nl-why">Likely free money, zero risk. Do it in week 2.</div>
+        </div>
+        <div class="nl-item">
+          3 highest-frequency manual handoff automations
+          <div class="nl-why">Operationally visible, teams feel the difference immediately.</div>
+        </div>
+        <div class="nl-item">
+          Odoo data standards
+          <div class="nl-why">Cheap to establish, expensive to fix later. Set before more dirty data goes in.</div>
+        </div>
+        <div class="nl-item">
+          Month 1 AI automation (proof of pattern)
+          <div class="nl-why">Establishes the methodology and template for every automation that follows.</div>
+        </div>
+      </div>
+
+      <div class="nl-col later fade">
+        <span class="nl-col-lbl">Build later · Months 4–9</span>
+
+        <div class="nl-item">
+          Portfolio intelligence dashboard
+          <div class="nl-why">Only credible once pipeline data has been running and validated for 2+ months.</div>
+        </div>
+        <div class="nl-item">
+          RAG layer
+          <div class="nl-why">Needs a populated index of real campaign history, briefs, and outcomes to be useful.</div>
+        </div>
+        <div class="nl-item">
+          Cross-store campaign pattern matching
+          <div class="nl-why">Requires 6 months of tagged campaign data. Premature before that.</div>
+        </div>
+        <div class="nl-item">
+          Predictive drop timing
+          <div class="nl-why">Needs the historical dataset from Phase 3 campaign tracking to generate meaningful signal.</div>
+        </div>
+        <div class="nl-item">
+          Shopify Plus evaluation
+          <div class="nl-why">Meaningful cost decision. Worth a structured evaluation after the store audit — not a default assumption.</div>
+        </div>
+        <div class="nl-item">
+          Headless / Hydrogen storefronts
+          <div class="nl-why">Not on the roadmap unless a specific store's revenue clearly justifies the engineering overhead.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SUCCESS MAP ══════════ -->
+<section class="s dark" id="success">
+  <div class="inner">
+    <div class="fade">
+      <span class="lbl">Success Criteria</span>
+      <h2>Where Each Gets Checked Off</h2>
+    </div>
+
+    <table class="success-table fade" style="color:rgba(255,255,255,0.6)">
+      <thead>
+        <tr>
+          <th style="color:rgba(255,255,255,0.25)">Criterion</th>
+          <th style="color:rgba(255,255,255,0.25)">When</th>
+          <th style="color:rgba(255,255,255,0.25)">How You Know It's Real</th>
+          <th style="color:rgba(255,255,255,0.25)">Key Levers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--cream)">AI workflows used weekly across teams</td>
+          <td>Month 1 (first), all teams by Month 5</td>
+          <td>Slack routing runs in production week 2; by month 5 every team has at least one workflow they rely on daily</td>
+          <td>n8n, Claude, Slack integrations, internal office hours</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cream)">Manual handoffs meaningfully reduced</td>
+          <td>Month 3</td>
+          <td>Time spent on the top 3 handoffs measurably down. Automations running without anyone asking if they ran.</td>
+          <td>n8n automations, Shopify Flow, Odoo triggers</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cream)">Odoo feels stable, not fragile</td>
+          <td>Month 3–4</td>
+          <td>Measurable reduction in "the numbers are wrong" conversations. Finance stops building reconciliation spreadsheets as a matter of course.</td>
+          <td>Sync monitoring, data standards, deduplication</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cream)">Leadership has reliable data, fast</td>
+          <td>Month 4 (basic), Month 6 (full)</td>
+          <td>CEO opens a dashboard Monday morning instead of asking someone to pull a report. Numbers match what a manual check would show.</td>
+          <td>BigQuery, Looker Studio / Metabase, Airbyte/Fivetran</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cream)">Teams self-serve without asking permission</td>
+          <td>Month 5–6</td>
+          <td>Teams are building their own simple n8n workflows without looping me in. Decisions happen in the system, not in a Slack thread.</td>
+          <td>AI office hours, documented templates, self-serve dashboards</td>
+        </tr>
+        <tr>
+          <td style="color:var(--cream)">CEO has a technical partner</td>
+          <td>Ongoing from Day 1</td>
+          <td>Weekly sync where I bring the architecture direction. No surprises — issues surface before they become problems.</td>
+          <td>Proactive communication, CEO dashboard, clear "here's what I'm building and why" cadence</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════ VISION ══════════ -->
+<section class="s cream" id="vision">
+  <div class="inner">
+    <div class="fade">
+      <span class="lbl">Vision Horizon</span>
+      <h2>Where This Leads</h2>
+      <p class="lead">The 6–9 month roadmap stabilizes the foundation and proves the pattern. Every use case below is impossible without clean data, a reliable sync layer, and AI workflows already embedded in how teams operate. The foundation isn't the goal — it's the prerequisite.</p>
+    </div>
+
+    <div class="vision-grid">
+
+      <div class="v-card featured fade">
+        <span class="v-lbl">Campaign Intelligence · Flagship</span>
+        <h3>Cross-Store Campaign Pattern Matching</h3>
+        <p>After every successful launch, an AI agent extracts the characteristics that drove performance — audience profile, product category, price band, scarcity mechanics, sell-through velocity — and encodes them as a store fingerprint. When Store A has a breakout drop, the system automatically identifies the stores with the most similar profiles and generates a tailored campaign brief for each. Over time this becomes a proprietary playbook library that no competitor can replicate without the same data history.</p>
+        <div class="v-outcome">Every successful launch teaches the whole portfolio. One win becomes five.</div>
+      </div>
+
+      <div class="v-card fade">
+        <span class="v-lbl">Creator Intelligence</span>
+        <h3>New Creator Fit Predictor</h3>
+        <p>Signing a new creator is one of the most capital-intensive decisions Warren James makes. Today it's largely qualitative. With store fingerprint data, it becomes predictive — score any prospective creator against the audience profiles and product categories where WJ consistently wins.</p>
+        <div class="v-outcome">Data-driven creator acquisition. Ranked probability, not gut feel.</div>
+      </div>
+
+      <div class="v-card fade">
+        <span class="v-lbl">Revenue Intelligence</span>
+        <h3>Revenue Anomaly Explainer</h3>
+        <p>When revenue spikes or drops unexpectedly, someone currently investigates manually across Shopify, Odoo, and social. The AI agent does this automatically: detects the anomaly, traces it to the most likely cause, and surfaces the explanation before anyone asks.</p>
+        <div class="v-outcome">Monday meeting starts with explanations, not questions.</div>
+      </div>
+
+      <div class="v-card fade">
+        <span class="v-lbl">Product Intelligence</span>
+        <h3>Launch Inventory Optimizer</h3>
+        <p>With historical sell-through velocity by store, category, and campaign type, the system recommends launch inventory quantities and flags when a planned allocation looks mismatched against the store's historical demand curve.</p>
+        <div class="v-outcome">Less stockout. Less dead inventory. Better margin on every launch.</div>
+      </div>
+
+      <div class="v-card fade">
+        <span class="v-lbl">Audience Intelligence</span>
+        <h3>Cross-Store Buyer Identity Graph</h3>
+        <p>A customer who bought from Creator A's store and Creator B's store is a high-value repeat buyer across the WJ portfolio — but if each store is siloed they're invisible as such. Connecting buyer identities reveals the true lifetime value of the WJ audience and where cross-promotion is most likely to convert.</p>
+        <div class="v-outcome">The WJ audience is worth more than the sum of ~70 individual stores.</div>
+      </div>
+
+      <div class="v-card fade">
+        <span class="v-lbl">Ops Intelligence</span>
+        <h3>Portfolio Vendor Leverage</h3>
+        <p>Fifteen stores buying from the same manufacturer appear as fifteen separate relationships — each negotiating independently. With cross-store vendor data consolidated, Warren James sees its true aggregate spend per supplier and can negotiate accordingly.</p>
+        <div class="v-outcome">Buying power of a portfolio, not ~70 individual stores.</div>
+      </div>
+
+    </div>
+
+    <div class="tc-note fade" style="margin-top:24px; padding: 18px 24px; border-radius:3px; background: rgba(0,0,0,0.05); font-size:13px; line-height:1.7; color:rgba(0,0,0,0.5)">
+      <strong style="color:var(--black)">Why none of this works without the foundation:</strong> Clean campaign tagging starts in Phase 3. Store fingerprints require 6+ months of tagged data. Cross-store buyer identity requires consistent customer records in Odoo. Vendor leverage requires unified spend data in BigQuery. The 6–9 month roadmap isn't a delay before the interesting work — it's what makes the interesting work possible.
+    </div>
+  </div>
+</section>
+
+<footer>Warren James · VP of Technology · 6–9 Month Roadmap · Prepared by Reza</footer>
+
+<script>
+// Scroll fade
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade').forEach((el, i) => {
+  el.style.transitionDelay = (i % 6 * 0.07) + 's';
+  observer.observe(el);
+});
+
+// Sticky nav
+const nav = document.getElementById('site-nav');
+const header = document.querySelector('header');
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = ['phase1','phase2','phase3','phase4','nowlater','success','vision'].map(id => document.getElementById(id));
+
+const headerObserver = new IntersectionObserver(([e]) => {
+  nav.classList.toggle('visible', !e.isIntersecting);
+}, { threshold: 0 });
+headerObserver.observe(header);
+
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const link = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (link) link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+sections.forEach(s => s && sectionObserver.observe(s));
+</script>
+</body>
+</html>
