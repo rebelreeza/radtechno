@@ -276,7 +276,7 @@
     s.textContent = CSS;
     document.head.appendChild(s);
 
-    const sel = '.f-card, .e-card, .explainer-block, .q-list li, .track-card, .v-card, .uc-card';
+    const sel = '.f-card, .e-card, .explainer-block, .q-list li, .track-card, .v-card, .uc-card, .a-card, .ap-card, .collab-card';
     document.querySelectorAll(sel).forEach((card, i) => buildWidget(card, slug(card, i)));
   }
 
