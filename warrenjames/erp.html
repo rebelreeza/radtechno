@@ -48,6 +48,15 @@
     margin-bottom: 12px;
   }
 
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(0,0,0,0.28); text-decoration: none;
+    margin-bottom: 28px;
+    transition: color 0.15s;
+  }
+  .breadcrumb:hover { color: rgba(0,0,0,0.6); }
+
   header h1 {
     font-size: 30px;
     font-weight: 700;
@@ -290,6 +299,7 @@
 <body data-page="erp">
 
 <header>
+  <a class="breadcrumb" href="/warrenjames/">← Warren James</a>
   <div class="eyebrow">Warren James - VP of Technology</div>
   <h1>ERP: What Good Looks Like</h1>
   <div class="subtitle">A framework for evaluating the current Odoo state and defining what a trustworthy system looks like for Warren James specifically - across 70 creator stores, a live Shopify sync, and a finance team that needs to close cleanly every month.</div>

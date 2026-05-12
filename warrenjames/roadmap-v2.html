@@ -113,6 +113,15 @@
     margin-bottom: 36px;
   }
 
+  .breadcrumb {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.15s;
+  }
+  .breadcrumb:hover { color: rgba(255,255,255,0.6); }
+
   header .subtitle {
     font-size: 16px;
     color: rgba(255,255,255,0.45);
@@ -499,6 +508,7 @@
 <!-- Header -->
 <header class="s dark">
   <div class="inner">
+    <a class="breadcrumb fade" href="/warrenjames/">← Warren James</a>
     <div class="eyebrow fade">Warren James · VP of Technology</div>
     <h1 class="fade">6–9 Month<br>Execution Roadmap</h1>
     <p class="subtitle fade">Four phases. One clear direction: understand the system, stabilize what's broken, build leverage into it, then compound. Each phase unlocks the next.</p>
