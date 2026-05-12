@@ -95,12 +95,13 @@
 
   td { padding: 13px 14px; vertical-align: top; border-bottom: 1px solid var(--gray-2); }
 
-  td:first-child { font-weight: 600; color: var(--gray-5); width: 22%; }
-  td:nth-child(2) { width: 14%; }
-  td:nth-child(3) { width: 12%; }
-  td:nth-child(4) { width: 10%; }
-  td:nth-child(5) { width: 11%; }
-  td:nth-child(6) { width: 31%; }
+  td:first-child { font-weight: 600; color: var(--gray-5); }
+
+  .rag-table td:nth-child(1) { width: 22%; }
+  .rag-table td:nth-child(2) { width: 9%; }
+  .rag-table td:nth-child(3) { width: 17%; }
+  .rag-table td:nth-child(4) { width: 9%; }
+  .rag-table td:nth-child(5) { width: 43%; }
 
   tr:last-child td { border-bottom: none; }
 
@@ -322,7 +323,7 @@
     <p class="section-intro"><strong>RAG (Retrieval-Augmented Generation)</strong> is the pattern that lets an AI give answers grounded in your own documents rather than just its training data. Instead of asking Claude "what are our supplier lead times?" and getting a generic answer, RAG retrieves the relevant contract or SOP first, then passes it as context so the model can answer from the actual source. This is what makes AI useful for internal operations — the model becomes an interface to institutional knowledge rather than a generic assistant.</p>
     <p class="section-intro" style="margin-top: 12px;">The lightest option that works is the right option. For WJ's doc volume — SOPs, contracts, briefs, past reports — even a full-text search approach may be sufficient before reaching for vector embeddings. The upgrade path is clean; there's no reason to start at the top.</p>
 
-    <table>
+    <table class="rag-table">
       <thead>
         <tr>
           <th>Option</th>
@@ -366,7 +367,7 @@
           <td><span class="cost-lo">$0–25/mo</span></td>
           <td>Excellent - built-in hybrid search</td>
           <td>1 day</td>
-          <td>Adds BM25 + vector hybrid search out of the box. Useful if doc retrieval precision becomes a problem with pure vector search.</td>
+          <td>Adds hybrid search (keyword + vector) out of the box. Useful if pure vector retrieval misses too many exact matches.</td>
         </tr>
         <tr>
           <td>OpenAI File Search (Assistants API)</td>
