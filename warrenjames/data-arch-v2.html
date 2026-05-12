@@ -296,6 +296,32 @@
   .rule-g { background: rgba(52,211,153,0.06); color: #34D399; border: 1px solid rgba(52,211,153,0.15); }
   .rule-r { background: rgba(248,113,113,0.06); color: #F87171; border: 1px solid rgba(248,113,113,0.15); }
 
+  /* CALLOUTS */
+  .callouts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.9rem 1rem;
+  }
+  .callout h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .callout p { font-size: 0.78rem; color: #4A5568; line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .callouts { grid-template-columns: 1fr; }
+  }
+
   footer {
     text-align: center;
     font-family: 'IBM Plex Mono', monospace;
@@ -449,6 +475,33 @@
     </div>
 
   </div><!-- end .diagram-wrap -->
+
+  <div class="callouts">
+    <div class="callout">
+      <h3 style="color:var(--c-shopify);">Why Odoo pushes inventory to Shopify</h3>
+      <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. The working assumption is that Odoo should be the authoritative source - when a PO is confirmed, it pushes updated quantities to Shopify. Whether that's actually how it's configured today is one of the first things to verify.</p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-sync);">Why ETL pulls from both Shopify and Odoo</h3>
+      <p>Shopify has data Odoo never receives - abandoned carts, discount code attribution, storefront behavior, campaign referral UTMs. Odoo has data Shopify never sees - landed costs, PO history, accounting entries. You need both to get a complete picture, which is why pulling from each independently makes sense.</p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-bq);">Why BigQuery never writes back</h3>
+      <p>The warehouse is historical and analytical - a record of what happened, not a trigger for what happens next. If an AI agent needs to trigger a reorder in Odoo, it calls Odoo's API directly, not through the warehouse. That boundary keeps the analytical layer clean and prevents accidental writes to production data.</p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-rag);">BigQuery vs. Pinecone - two different questions</h3>
+      <p>BigQuery answers questions about events and numbers - things recorded as structured data. "What were the top 5 SKUs last week?" Pinecone answers questions about knowledge - things that live in documents, contracts, SOPs, and briefs. "What did we agree with Supplier X on lead times?" The orchestration layer routes to the right source depending on the question.</p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-orch);">What the orchestration layer actually does</h3>
+      <p>It's not a service you buy - it's code. When a query comes in, the orchestration layer decides: does this need structured data (SQL against BigQuery) or contextual knowledge (vector search against Pinecone)? It can call both and combine the results in a single response. Implemented as Claude tool-use, LangChain, or LlamaIndex depending on complexity.</p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-ai);">Why Metabase over Looker</h3>
+      <p>Looker Enterprise is $3-5k/mo and built for teams of analysts. Looker Studio is free but limited. Metabase self-hosted is free, open-source, connects natively to BigQuery, and has a clean enough UI that a CEO or store manager can actually use it without help. Scheduled email reports are built in. When WJ outgrows it, Metabase Cloud is ~$500/mo - still far cheaper than Looker.</p>
+    </div>
+  </div>
 
   <footer>Warren James - Data Architecture - Tentative - Prepared by Reza</footer>
 
