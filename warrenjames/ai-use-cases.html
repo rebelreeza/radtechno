@@ -137,15 +137,16 @@
     font-size: 0.6rem;
     padding: 0.25rem 0.6rem;
     border-radius: 3px;
-    border: 1px solid var(--border);
-    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.5);
     text-decoration: none;
     letter-spacing: 0.04em;
     transition: all 0.15s;
     white-space: nowrap;
   }
   .nav-links a:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
-  .nav-links a.nav-home { border-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); margin-right: 4px; }
+  .nav-links a.active { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
+  .nav-links a.nav-home { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.55); margin-right: 4px; }
   .nav-links a.nav-home:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
   .nav-sep { width: 1px; height: 14px; background: rgba(255,255,255,0.12); margin: 0 4px; align-self: center; flex-shrink: 0; }
 
@@ -890,6 +891,27 @@
   <footer>WARREN JAMES · STRATEGIC AI USE CASES · 28 APPLICATIONS ACROSS 7 CATEGORIES · PREPARED BY REZA</footer>
 
 </div>
+<script>
+  (function() {
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const sections = Array.from(document.querySelectorAll('.cat-section[id]'));
+    const offset = 90;
+
+    function update() {
+      const scrollY = window.scrollY + offset;
+      let active = sections[0];
+      for (const s of sections) {
+        if (s.offsetTop <= scrollY) active = s;
+      }
+      navLinks.forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + active.id);
+      });
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
 <script src="/warrenjames/comments.js"></script>
 </body>
 </html>
