@@ -162,7 +162,7 @@
   .total-amount { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; }
   .total-card.lean .total-amount { color: var(--green-text); }
   .total-card.moderate .total-amount { color: var(--amber-text); }
-  .total-card.full .total-amount { color: #991b1b; }
+  .total-card.full .total-amount { color: #991b1b; font-size: 22px; }
 
   .total-sub { font-size: 12px; color: var(--gray-4); line-height: 1.55; margin-top: 8px; }
 
@@ -188,7 +188,7 @@
 <main>
 
   <div class="callout-banner">
-    <strong>The core principle:</strong> start with the cheapest option that solves the problem. Spend is justified by scale, not ambition. At WJ's current size, AI token costs run $1–5/month - the real investment is architect time to get the decisions right, not compute. Every recommendation here has an upgrade path but doesn't require it.
+    <strong>The core principle:</strong> start with the cheapest option that solves the problem. Spend is justified by scale, not ambition. AI token costs start low (~$5–15/mo for a handful of use cases) but grow meaningfully as more workflows go live across 70 stores — a full 31-use-case deployment runs $150–400/mo in tokens, still cheap relative to the analyst hours it replaces. Every recommendation here has an upgrade path but doesn't require it.
   </div>
 
   <!-- ══════════════════════════════════════ -->
@@ -383,14 +383,14 @@
   <div class="section-block">
     <div class="section-label">Section 04</div>
     <h2>AI Use Cases - Token Costs</h2>
-    <p class="section-intro">The key cost lever in AI is model selection. Haiku and GPT-4o-mini handle high-volume, structured tasks at a fraction of Sonnet cost. Reserve the more capable models for reasoning-heavy work. At WJ's current scale, total AI token spend should stay well under $10/month for months.</p>
+    <p class="section-intro">The full use case map spans 31 AI-powered workflows across 7 categories. Many run continuously across 70 stores — per-order triggers, daily monitoring, per-creator scoring — so volume adds up fast as more use cases go live. The key cost lever is model selection: route high-frequency structured tasks to Haiku, reserve Sonnet for reasoning-heavy synthesis. Below: per-use-case estimates for the foundation tier, then realistic monthly ranges by deployment stage.</p>
 
     <table>
       <thead>
         <tr>
           <th>Use case</th>
-          <th>Model recommendation</th>
-          <th>Est. volume / mo</th>
+          <th>Model</th>
+          <th>Volume / mo</th>
           <th>Tokens / call</th>
           <th>Est. monthly cost</th>
           <th>Notes</th>
@@ -398,73 +398,146 @@
       </thead>
       <tbody>
         <tr>
-          <td>CEO Dashboard</td>
-          <td>No AI - BI tool only</td>
-          <td>-</td>
-          <td>-</td>
+          <td>CEO Dashboard / Portfolio View</td>
+          <td>No AI – BI tool only</td>
+          <td>—</td>
+          <td>—</td>
           <td><span class="cost-lo">$0</span></td>
-          <td>Metabase (self-hosted) queries BigQuery directly. No model involved.</td>
+          <td>Metabase queries BigQuery directly. Real-Time Portfolio View is a dashboard, not a generation task.</td>
         </tr>
         <tr>
           <td>Structured Q&A (text-to-SQL)</td>
           <td>Claude Haiku <span class="badge badge-rec">Recommended</span></td>
-          <td>~100 queries</td>
+          <td>~300 queries</td>
           <td>~2,000 avg</td>
-          <td><span class="cost-lo">~$0.05/mo</span></td>
-          <td>Haiku is fast and cheap for schema-aware SQL generation. Use Sonnet only if query complexity regularly fails.</td>
+          <td><span class="cost-lo">~$0.50/mo</span></td>
+          <td>Haiku handles schema-aware SQL well. Escalate to Sonnet only when query complexity regularly fails.</td>
         </tr>
         <tr>
           <td>Knowledge Q&A (RAG)</td>
           <td>Claude Sonnet</td>
-          <td>~50 queries</td>
-          <td>~4,000 avg (incl. context chunks)</td>
-          <td><span class="cost-lo">~$0.75/mo</span></td>
-          <td>Retrieval adds context tokens. Sonnet justified here - doc reasoning is where quality matters.</td>
+          <td>~100 queries</td>
+          <td>~4,000 avg (incl. context)</td>
+          <td><span class="cost-lo">~$1.50/mo</span></td>
+          <td>Context chunks add tokens. Sonnet justified — doc reasoning is where quality matters.</td>
         </tr>
         <tr>
-          <td>Automated weekly reports</td>
+          <td>Automated reports (weekly, per store)</td>
           <td>Claude Haiku</td>
-          <td>~16 reports</td>
+          <td>~280 reports (70 stores × 4 wks)</td>
           <td>~5,000 avg</td>
-          <td><span class="cost-lo">~$0.02/mo</span></td>
-          <td>Scheduled, structured summarization. Haiku is more than capable. Run via n8n or Make.</td>
+          <td><span class="cost-lo">~$1.12/mo</span></td>
+          <td>Scheduled summarization scales linearly with store count. Haiku is more than capable.</td>
         </tr>
         <tr>
           <td>Inventory alerts / anomaly detection</td>
           <td>Claude Haiku</td>
-          <td>~1,000 checks</td>
+          <td>~5,000 checks (70 stores, daily)</td>
           <td>~500 avg</td>
-          <td><span class="cost-lo">~$0.13/mo</span></td>
-          <td>High volume, simple pattern. Haiku built for this. Only escalate to Sonnet when alert logic becomes complex.</td>
+          <td><span class="cost-lo">~$2/mo</span></td>
+          <td>High volume, simple pattern matching. The cost is per-check, and 70 stores running daily adds up to meaningful volume.</td>
+        </tr>
+        <tr>
+          <td>Margin leakage detection (continuous)</td>
+          <td>Claude Haiku</td>
+          <td>~2,100 scans (70 stores, daily)</td>
+          <td>~3,000 avg</td>
+          <td><span class="cost-lo">~$5/mo</span></td>
+          <td>Runs continuously against BigQuery. Per-scan cost is low; frequency across 70 stores makes this the highest-volume Haiku task.</td>
+        </tr>
+        <tr>
+          <td>Post-purchase / win-back triggers</td>
+          <td>Claude Haiku</td>
+          <td>~3,000 events (order-triggered)</td>
+          <td>~800 avg</td>
+          <td><span class="cost-lo">~$2.40/mo</span></td>
+          <td>Triggered per qualifying order or lapsed customer event. Volume depends on drop frequency across the portfolio.</td>
         </tr>
         <tr>
           <td>Cross-store campaign pattern matching</td>
           <td>Claude Sonnet</td>
-          <td>~10 analyses</td>
-          <td>~6,000 avg</td>
-          <td><span class="cost-lo">~$0.90/mo</span></td>
-          <td>The flagship AI use case. Rich multi-store data synthesis justifies the model tier. Still cheap at this volume.</td>
+          <td>~40 analyses</td>
+          <td>~8,000 avg</td>
+          <td><span class="cost-lo">~$4/mo</span></td>
+          <td>Flagship use case. Rich multi-store synthesis warrants Sonnet. Runs post-campaign, not continuously.</td>
         </tr>
         <tr>
           <td>Campaign brief generation</td>
           <td>Claude Sonnet</td>
-          <td>~10 briefs</td>
-          <td>~4,000 output tokens</td>
-          <td><span class="cost-lo">~$0.60/mo</span></td>
-          <td>Output-heavy. Sonnet for quality. Consider caching brief templates to reduce generation calls.</td>
+          <td>~40 briefs</td>
+          <td>~5,000 avg (output-heavy)</td>
+          <td><span class="cost-lo">~$4/mo</span></td>
+          <td>Output-heavy generation at quality threshold. Cache brief templates to avoid re-generating boilerplate.</td>
         </tr>
         <tr>
-          <td>Creator onboarding / comms drafts</td>
-          <td>Claude Haiku</td>
-          <td>~20 drafts</td>
-          <td>~1,500 avg</td>
-          <td><span class="cost-lo">&lt;$0.01/mo</span></td>
-          <td>Light templating task. Haiku is fine. Human review before send.</td>
+          <td>Creator health scores + debrief reports</td>
+          <td>Claude Sonnet</td>
+          <td>~280 (70 creators × weekly)</td>
+          <td>~4,000 avg</td>
+          <td><span class="cost-lo">~$5/mo</span></td>
+          <td>Per-creator scoring + post-campaign debrief generation. Quality matters for creator-facing outputs.</td>
+        </tr>
+        <tr>
+          <td>Launch readiness scoring</td>
+          <td>Claude Sonnet</td>
+          <td>~30 launches</td>
+          <td>~4,000 avg</td>
+          <td><span class="cost-lo">~$1/mo</span></td>
+          <td>Pre-launch multi-signal assessment. Runs per launch event, not continuously.</td>
+        </tr>
+        <tr>
+          <td>Revenue anomaly explainer</td>
+          <td>Claude Sonnet</td>
+          <td>~50 events</td>
+          <td>~5,000 avg</td>
+          <td><span class="cost-lo">~$1.50/mo</span></td>
+          <td>Event-triggered, not continuous. Only fires when anomaly detection (Haiku) escalates a flag.</td>
+        </tr>
+        <tr>
+          <td>Remaining use cases (fit predictor, return intel, trend signals, bundle analysis, etc.)</td>
+          <td>Haiku / Sonnet mix</td>
+          <td>Varies</td>
+          <td>Varies</td>
+          <td><span class="cost-mid">~$10–30/mo</span></td>
+          <td>~20 additional use cases across Creator Intelligence, Product Intelligence, Audience Intelligence, and Risk Detection. Individually cheap; collectively meaningful at full deployment.</td>
         </tr>
       </tbody>
     </table>
 
-    <p class="note"><strong>Total AI token cost at current scale: ~$2–3/month.</strong> Even at 10× usage growth, this stays under $30/month. The cost pressure in AI comes from context window mismanagement (stuffing too much into prompts) and over-indexing on premium models for routine tasks - both avoidable with intentional design.</p>
+    <div class="note" style="margin-top: 24px;">
+      <strong>Realistic monthly token spend by deployment stage:</strong>
+      <table style="margin-top: 14px; width: 100%;">
+        <thead>
+          <tr>
+            <th>Stage</th>
+            <th>Active use cases</th>
+            <th>Est. monthly cost</th>
+            <th>What's running</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Early</strong> (months 1–3)</td>
+            <td>4–6</td>
+            <td><span class="cost-lo">$5–15/mo</span></td>
+            <td>SQL Q&A, RAG, weekly reports, inventory alerts, anomaly detection</td>
+          </tr>
+          <tr>
+            <td><strong>Growing</strong> (months 4–9)</td>
+            <td>12–18</td>
+            <td><span class="cost-mid">$40–100/mo</span></td>
+            <td>+ campaign matching, brief generation, creator scoring, post-purchase triggers, margin monitoring</td>
+          </tr>
+          <tr>
+            <td><strong>Full deployment</strong> (12+ months)</td>
+            <td>25–31</td>
+            <td><span class="cost-mid">$150–400/mo</span></td>
+            <td>All 31 use cases live, full 70-store volume, continuous monitoring running around the clock</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 12px;">At full deployment, $150–400/mo in AI token spend is generating outputs that would otherwise require multiple analyst hours per week per store. The ROI math is straightforward. The cost pressure to watch: context window bloat (stuffing too much into prompts) and over-indexing on Sonnet for tasks Haiku handles fine — both controllable with intentional system design from day one.</p>
+    </div>
   </div>
 
   <hr>
@@ -523,40 +596,40 @@
     <div class="total-grid">
       <div class="total-card lean">
         <div class="total-label">Lean - Start here</div>
-        <div class="total-amount">$13–50/mo</div>
+        <div class="total-amount">$15–60/mo</div>
         <div class="total-sub">
           BigQuery free tier ($0–30)<br>
           Pinecone Serverless free tier ($0)<br>
           Small VM for Airbyte ($10–15)<br>
           Airbyte self-hosted ETL ($0 software)<br>
-          AI tokens (~$3–5)
+          AI tokens, 4–6 use cases (~$5–15)
         </div>
       </div>
       <div class="total-card moderate">
         <div class="total-label">Moderate - After validation</div>
-        <div class="total-amount">$80–200/mo</div>
+        <div class="total-amount">$150–350/mo</div>
         <div class="total-sub">
           BigQuery at light usage ($30–80)<br>
           Pinecone Serverless ($10–25)<br>
           Airbyte self-hosted ($20–40)<br>
-          AI tokens ($5–20)<br>
+          AI tokens, 12–18 use cases ($40–100)<br>
           MDM if new ($80)
         </div>
       </div>
       <div class="total-card full">
         <div class="total-label">Full build - Scale later</div>
-        <div class="total-amount">$500–1,100/mo</div>
+        <div class="total-amount">$600–1,300/mo</div>
         <div class="total-sub">
           BigQuery or Snowflake at scale ($200–400)<br>
           Pinecone dedicated ($70–150)<br>
           Airbyte Cloud ($200–300)<br>
-          AI tokens at 10× volume ($30–100)<br>
+          AI tokens, 31 use cases at full volume ($150–400)<br>
           Additional tooling
         </div>
       </div>
     </div>
 
-    <p class="note">The lean setup handles months 1–3 comfortably. Nothing in the moderate tier needs to be purchased until the data pipeline is proven and query volume is real. The full build is a 12–18 month conversation, not a day-one commitment. The goal is to design the architecture so upgrading any layer is a swap, not a rebuild.</p>
+    <p class="note">The lean setup handles months 1–3 comfortably. The jump from lean to moderate is mostly driven by AI token volume as more use cases go live — the infra costs (BigQuery, Airbyte) barely move. Nothing in the moderate tier needs to be purchased until the pipeline is proven and query volume is real. The full build is a 12–18 month conversation, not a day-one commitment. The goal is to design the architecture so upgrading any layer is a swap, not a rebuild.</p>
 
     <table style="margin-top: 24px;">
       <thead>
