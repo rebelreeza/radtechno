@@ -224,6 +224,22 @@
   .sc-purpose { color: rgba(255,255,255,0.5); line-height: 1.55; }
   .sc-users { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5; }
 
+  .sc-flag {
+    display: inline-block; margin-top: 7px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 3px;
+  }
+  .sc-flag.needs-work {
+    background: rgba(251,146,60,0.12);
+    color: rgba(251,146,60,0.85);
+    border: 1px solid rgba(251,146,60,0.25);
+  }
+  .sc-flag.review {
+    background: rgba(148,163,184,0.1);
+    color: rgba(148,163,184,0.7);
+    border: 1px solid rgba(148,163,184,0.2);
+  }
+
   .rx-group { display: flex; flex-wrap: wrap; gap: 5px; padding: 14px 16px; border-right: 1px solid var(--bdd); }
 
   .rx-btn {
@@ -1096,7 +1112,7 @@
           <div class="sc">My POV</div>
         </div>
         <div class="stack-row">
-          <div class="sc sc-tool"><strong>Odoo</strong><em>ERP</em></div>
+          <div class="sc sc-tool"><strong>Odoo</strong><em>ERP</em><span class="sc-flag needs-work">Needs work</span></div>
           <div class="sc sc-purpose">Inventory, order flow, purchasing, and accounting. The operational system of record, or supposed to be.</div>
           <div class="sc sc-users">Ops, Finance, Merch</div>
           <div class="rx-group">
@@ -1135,7 +1151,7 @@
           <div class="sc sc-purpose">Great bridge tool, fast and flexible. The risk is it becomes a shadow system of record, holding logic or data that should live upstream. Worth auditing what's actually in here and why.</div>
         </div>
         <div class="stack-row">
-          <div class="sc sc-tool"><strong>PipeDrive</strong><em>CRM</em></div>
+          <div class="sc sc-tool"><strong>PipeDrive</strong><em>CRM</em><span class="sc-flag review">Review fit</span></div>
           <div class="sc sc-purpose">Creator pipeline and partnership management. Should be coordinating cleanly with Asana but my guess is that handoff is manual today.</div>
           <div class="sc sc-users">Partnerships, Sales</div>
           <div class="rx-group">
@@ -1161,7 +1177,7 @@
           <div class="sc sc-purpose">Good tool, strong integrations. Only works if adoption is real. Active users vs. license count will tell a lot. Worth pulling that data early.</div>
         </div>
         <div class="stack-row">
-          <div class="sc sc-tool"><strong>Make / Zapier</strong><em>Automation</em></div>
+          <div class="sc sc-tool"><strong>Make / Zapier</strong><em>Automation</em><span class="sc-flag needs-work">Audit first</span></div>
           <div class="sc sc-purpose">Low-code automation between systems. Likely powering some existing workflows. I'll audit what's running, what's broken, and what should be rebuilt properly.</div>
           <div class="sc sc-users">Ops, whoever set it up</div>
           <div class="rx-group">
