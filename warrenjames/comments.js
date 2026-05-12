@@ -42,13 +42,6 @@
       display: flex; flex-direction: column; gap: 7px;
     }
 
-    .cw-preview {
-      font-size: 12px; font-style: italic;
-      color: rgba(128,128,128,0.65);
-      background: rgba(128,128,128,0.06);
-      border-radius: 4px; padding: 7px 10px; line-height: 1.5;
-    }
-
     .cw-input-row { display: flex; gap: 6px; align-items: flex-start; }
 
     .cw-textarea {
@@ -165,6 +158,9 @@
 
   /* ─── Build widget ─── */
   function buildWidget(card, id) {
+    /* skip cards that already have a built-in answer interface */
+    if (card.querySelector('.q-answer')) return;
+
     const cache = getCache(id);
     const hasNote = !!cache.text;
 
@@ -176,7 +172,6 @@
         <button class="cw-toggle${hasNote ? ' has-note' : ''}">${hasNote ? '💬 Edit note' : '+ Add note'}</button>
       </div>
       <div class="cw-panel" style="display:none">
-        ${hasNote ? `<div class="cw-preview">${esc(cache.text)}</div>` : ''}
         <div class="cw-input-row">
           <textarea class="cw-textarea" placeholder="Leave a note about this...">${hasNote ? esc(cache.text) : ''}</textarea>
           <button class="cw-mic" title="Voice input">
@@ -196,14 +191,13 @@
 
     target(card).appendChild(cw);
 
-    const thumb  = cw.querySelector('.cw-thumb');
-    const toggle = cw.querySelector('.cw-toggle');
-    const panel  = cw.querySelector('.cw-panel');
-    const preview = cw.querySelector('.cw-preview');
+    const thumb    = cw.querySelector('.cw-thumb');
+    const toggle   = cw.querySelector('.cw-toggle');
+    const panel    = cw.querySelector('.cw-panel');
     const textarea = cw.querySelector('.cw-textarea');
-    const mic    = cw.querySelector('.cw-mic');
-    const submit = cw.querySelector('.cw-submit');
-    const status = cw.querySelector('.cw-status');
+    const mic      = cw.querySelector('.cw-mic');
+    const submit   = cw.querySelector('.cw-submit');
+    const status   = cw.querySelector('.cw-status');
 
     /* thumbs up */
     thumb.addEventListener('click', () => {
@@ -218,8 +212,7 @@
     toggle.addEventListener('click', () => {
       const open = panel.style.display !== 'none';
       panel.style.display = open ? 'none' : 'flex';
-      if (!open) { if (preview) preview.style.display = 'none'; textarea.focus(); }
-      else if (preview && getCache(id).text) preview.style.display = 'block';
+      if (!open) textarea.focus();
     });
 
     /* mic STT */
@@ -242,32 +235,23 @@
       mic.classList.add('recording');
     });
 
-    /* submit */
-    submit.addEventListener('click', () => {
+    /* save — Shift+Enter or button */
+    function doSave() {
       ensureVisitor(() => {
         const text = textarea.value.trim();
         const c = getCache(id); c.text = text; setCache(id, c);
         dbSave('comment', id, text);
 
-        /* update toggle label */
         toggle.textContent = text ? '💬 Edit note' : '+ Add note';
         toggle.classList.toggle('has-note', !!text);
 
-        /* update/create preview */
-        if (text) {
-          if (preview) { preview.textContent = text; preview.style.display = 'block'; }
-          else {
-            const p = document.createElement('div');
-            p.className = 'cw-preview'; p.textContent = text;
-            panel.insertBefore(p, panel.querySelector('.cw-input-row'));
-          }
-        }
-
         status.textContent = 'Saved ✓';
-        setTimeout(() => { status.textContent = ''; }, 2500);
-        if (!text) { panel.style.display = 'none'; }
+        setTimeout(() => { status.textContent = ''; panel.style.display = 'none'; }, 1200);
       });
-    });
+    }
+
+    submit.addEventListener('click', doSave);
+    textarea.addEventListener('keydown', e => { if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); doSave(); } });
   }
 
   /* ─── Init ─── */

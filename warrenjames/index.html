@@ -456,6 +456,15 @@
     transition: opacity 0.15s;
   }
   .q-submit-btn:hover { opacity: 0.78; }
+  .q-save-btn {
+    font-family: inherit; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 5px; border: 1px solid rgba(0,0,0,0.18);
+    background: none; color: rgba(0,0,0,0.4); cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .q-save-btn:hover { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.7); }
+  .q-save-btn.saved { color: rgba(22,163,74,0.85); border-color: rgba(22,163,74,0.3); }
   .mic-btn:hover { background: rgba(0,0,0,0.12); color: var(--black); }
   .mic-btn.recording { color: #dc2626 !important; background: rgba(220,38,38,0.08); animation: pulse 1s infinite; }
 
@@ -1407,7 +1416,7 @@
 <section class="s cream" id="questions">
   <div class="inner">
     <span class="lbl fade">Help Me Move Fast</span>
-    <h2 class="fade">What I Need From You</h2>
+    <h2 class="fade">Open Questions</h2>
     <p class="lead fade">These are the things I can't learn from the outside. Your answers in the first week save me a month of wrong assumptions. Type or use the mic.</p>
 
     <ul class="q-list">
@@ -2014,11 +2023,25 @@
 
     textareas.forEach((ta, i) => {
       if (answers[i]) ta.value = answers[i];
-      ta.addEventListener('input', () => {
+      ta.addEventListener('input', () => { answers[i] = ta.value; saveAnswers(answers); });
+
+      /* per-question save button */
+      const saveBtn = document.createElement('button');
+      saveBtn.className = 'q-save-btn';
+      saveBtn.textContent = 'Save';
+      ta.closest('.q-answer').appendChild(saveBtn);
+
+      function saveAnswer() {
         answers[i] = ta.value;
         saveAnswers(answers);
         dbSave('qa', String(i), ta.value);
-      });
+        saveBtn.textContent = 'Saved ✓';
+        saveBtn.classList.add('saved');
+        setTimeout(() => { saveBtn.textContent = 'Save'; saveBtn.classList.remove('saved'); }, 2000);
+      }
+
+      saveBtn.addEventListener('click', saveAnswer);
+      ta.addEventListener('keydown', e => { if (e.key === 'Enter' && e.shiftKey) { e.preventDefault(); saveAnswer(); } });
     });
 
     document.getElementById('q-submit-btn').addEventListener('click', () => {
