@@ -819,6 +819,22 @@
   }
   .cream .jd-tag { background: rgba(0,0,0,0.06); color: rgba(0,0,0,0.45); border: 1px solid rgba(0,0,0,0.1); }
   .dark .jd-tag  { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.12); }
+  .jd-tag[data-tag="erp"]         { background: rgba(99,102,241,0.1);  color: #4f46e5; border-color: rgba(99,102,241,0.25); }
+  .jd-tag[data-tag="shopify"]     { background: rgba(16,185,129,0.1);  color: #059669; border-color: rgba(16,185,129,0.25); }
+  .jd-tag[data-tag="ai"]          { background: rgba(59,130,246,0.12); color: #2563eb; border-color: rgba(59,130,246,0.25); }
+  .jd-tag[data-tag="automation"]  { background: rgba(245,158,11,0.1);  color: #b45309; border-color: rgba(245,158,11,0.3);  }
+  .jd-tag[data-tag="creator"]     { background: rgba(236,72,153,0.1);  color: #be185d; border-color: rgba(236,72,153,0.25); }
+  .jd-tag[data-tag="data"]        { background: rgba(249,115,22,0.1);  color: #c2410c; border-color: rgba(249,115,22,0.25); }
+  .jd-tag[data-tag="reporting"]   { background: rgba(100,116,139,0.1); color: #475569; border-color: rgba(100,116,139,0.25); }
+  .jd-tag[data-tag="portfolio"]   { background: rgba(168,85,247,0.1);  color: #7c3aed; border-color: rgba(168,85,247,0.25); }
+  .dark .jd-tag[data-tag="erp"]        { color: #818cf8; background: rgba(99,102,241,0.15);  border-color: rgba(99,102,241,0.3); }
+  .dark .jd-tag[data-tag="shopify"]    { color: #34d399; background: rgba(16,185,129,0.12);  border-color: rgba(16,185,129,0.3); }
+  .dark .jd-tag[data-tag="ai"]         { color: #60a5fa; background: rgba(59,130,246,0.15);  border-color: rgba(59,130,246,0.3); }
+  .dark .jd-tag[data-tag="automation"] { color: #fbbf24; background: rgba(245,158,11,0.12);  border-color: rgba(245,158,11,0.3); }
+  .dark .jd-tag[data-tag="creator"]    { color: #f472b6; background: rgba(236,72,153,0.12);  border-color: rgba(236,72,153,0.3); }
+  .dark .jd-tag[data-tag="data"]       { color: #fb923c; background: rgba(249,115,22,0.12);  border-color: rgba(249,115,22,0.3); }
+  .dark .jd-tag[data-tag="reporting"]  { color: #94a3b8; background: rgba(100,116,139,0.12); border-color: rgba(100,116,139,0.3); }
+  .dark .jd-tag[data-tag="portfolio"]  { color: #c084fc; background: rgba(168,85,247,0.12);  border-color: rgba(168,85,247,0.3); }
   /* ─── FEEDBACK DRAWER ─── */
   .feedback-drawer {
     position: fixed;
@@ -1302,11 +1318,11 @@
           <li>Ship one high-visibility AI automation early to prove the pattern, not to impress, to establish the template</li>
         </ul>
         <div class="jd-tags">
-          <span class="jd-tag">ERP / Odoo</span>
-          <span class="jd-tag">Shopify Sync</span>
-          <span class="jd-tag">AI Enablement</span>
-          <span class="jd-tag">Automation</span>
-          <span class="jd-tag">Creator Scale</span>
+          <span class="jd-tag" data-tag="erp">ERP / Odoo</span>
+          <span class="jd-tag" data-tag="shopify">Shopify Sync</span>
+          <span class="jd-tag" data-tag="ai">AI Enablement</span>
+          <span class="jd-tag" data-tag="automation">Automation</span>
+          <span class="jd-tag" data-tag="creator">Creator Scale</span>
         </div>
       </div>
       <div class="tl-item fade">
@@ -1321,10 +1337,10 @@
           <li>Stand up the data pipeline to a central warehouse so Phase 3 has clean data to work with</li>
         </ul>
         <div class="jd-tags">
-          <span class="jd-tag">Shopify Sync</span>
-          <span class="jd-tag">ERP / Odoo</span>
-          <span class="jd-tag">Automation</span>
-          <span class="jd-tag">Data Pipeline</span>
+          <span class="jd-tag" data-tag="shopify">Shopify Sync</span>
+          <span class="jd-tag" data-tag="erp">ERP / Odoo</span>
+          <span class="jd-tag" data-tag="automation">Automation</span>
+          <span class="jd-tag" data-tag="data">Data Pipeline</span>
         </div>
       </div>
       <div class="tl-item fade">
@@ -1340,10 +1356,10 @@
           <li>Non-obvious handoff automations: inventory pre-positioning ahead of drops, creator sign-to-ops handoff, sell-through velocity alerts</li>
         </ul>
         <div class="jd-tags">
-          <span class="jd-tag">AI Enablement</span>
-          <span class="jd-tag">Reporting</span>
-          <span class="jd-tag">Automation</span>
-          <span class="jd-tag">Creator Scale</span>
+          <span class="jd-tag" data-tag="ai">AI Enablement</span>
+          <span class="jd-tag" data-tag="reporting">Reporting</span>
+          <span class="jd-tag" data-tag="automation">Automation</span>
+          <span class="jd-tag" data-tag="creator">Creator Scale</span>
         </div>
       </div>
       <div class="tl-bridge fade">
@@ -1370,10 +1386,10 @@
           <li>Proprietary playbook library: every successful drop encodes its performance drivers. An institutional intelligence layer that compounds with time and is structurally hard to replicate from scratch</li>
         </ul>
         <div class="jd-tags">
-          <span class="jd-tag">Creator Intelligence</span>
-          <span class="jd-tag">AI Enablement</span>
-          <span class="jd-tag">Portfolio Visibility</span>
-          <span class="jd-tag">Automation</span>
+          <span class="jd-tag" data-tag="creator">Creator Intelligence</span>
+          <span class="jd-tag" data-tag="ai">AI Enablement</span>
+          <span class="jd-tag" data-tag="portfolio">Portfolio Visibility</span>
+          <span class="jd-tag" data-tag="automation">Automation</span>
         </div>
       </div>
     </div>
