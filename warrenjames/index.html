@@ -388,7 +388,7 @@
     width: 100%;
     border: 1px solid var(--bd);
     border-radius: 3px;
-    padding: 10px 12px 10px 38px;
+    padding: 10px 12px 10px 42px;
     font-family: inherit;
     font-size: 13px;
     color: var(--black);
@@ -404,25 +404,33 @@
 
   .mic-btn {
     position: absolute;
-    left: 10px;
-    top: 10px;
-    background: none;
+    left: 8px;
+    top: 8px;
+    background: rgba(0,0,0,0.06);
     border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    font-size: 15px;
-    color: rgba(0,0,0,0.22);
-    padding: 2px;
+    color: rgba(0,0,0,0.45);
+    padding: 0;
     line-height: 1;
-    transition: color 0.15s;
+    transition: background 0.15s, color 0.15s;
+    z-index: 1;
   }
 
   /* ── Q submit */
-  .q-submit-row { margin-top: 32px; display: flex; justify-content: flex-end; }
+  .q-submit-row { margin-top: 28px; display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+  .q-submit-status { font-size: 12px; color: rgba(0,0,0,0.35); display: none; }
+  .q-submit-status.show { display: block; }
   .q-submit-btn {
     font-family: inherit;
     font-size: 13px;
     font-weight: 600;
-    padding: 10px 22px;
+    padding: 10px 24px;
     border-radius: 6px;
     border: none;
     background: var(--black);
@@ -431,8 +439,8 @@
     transition: opacity 0.15s;
   }
   .q-submit-btn:hover { opacity: 0.78; }
-  .mic-btn:hover { color: var(--black); }
-  .mic-btn.recording { color: #dc2626; animation: pulse 1s infinite; }
+  .mic-btn:hover { background: rgba(0,0,0,0.12); color: var(--black); }
+  .mic-btn.recording { color: #dc2626 !important; background: rgba(220,38,38,0.08); animation: pulse 1s infinite; }
 
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
@@ -1367,7 +1375,8 @@
     </ul>
 
     <div class="q-submit-row">
-      <button class="q-submit-btn" id="q-submit-btn">Email answers to Reza</button>
+      <span class="q-submit-status" id="q-submit-status">Answers saved.</span>
+      <button class="q-submit-btn" id="q-submit-btn">Submit Answers</button>
     </div>
   </div>
 </section>
@@ -1886,14 +1895,13 @@
     });
 
     document.getElementById('q-submit-btn').addEventListener('click', () => {
-      const visitor = window._wjVisitor || sessionStorage.getItem('wj_visitor_name') || 'Anonymous';
-      const lines = QUESTIONS.map((q, i) => {
-        const a = (answers[i] || '').trim();
-        return 'Q' + (i+1) + ': ' + q + '\n' + (a || '(no answer)');
-      }).join('\n\n');
-      const sub = encodeURIComponent('WJ Onboarding Brief - Answers from ' + visitor);
-      const bod = encodeURIComponent('Hey Reza,\n\nHere are my answers:\n\n' + lines + '\n');
-      window.location.href = 'mailto:rdawood@gmail.com?subject=' + sub + '&body=' + bod;
+      textareas.forEach((ta, i) => {
+        if (ta.value.trim()) dbSave('qa', String(i), ta.value);
+      });
+      const status = document.getElementById('q-submit-status');
+      status.classList.add('show');
+      document.getElementById('q-submit-btn').textContent = 'Submitted';
+      setTimeout(() => { status.classList.remove('show'); }, 3000);
     });
   })();
 
