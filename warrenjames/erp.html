@@ -364,6 +364,50 @@
     text-transform: uppercase;
     border-top: 1px solid var(--gray-2);
   }
+
+  /* Sticky nav */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--gray-2);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 64px;
+    height: 44px;
+  }
+
+  .site-nav a {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--gray-3);
+    padding: 0 16px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+  }
+
+  .site-nav a:hover { color: var(--black); }
+  .site-nav a.active { color: var(--black); border-bottom-color: var(--black); }
+  .site-nav a.nav-home {
+    color: var(--gray-3);
+    border-right: 1px solid var(--gray-2);
+    margin-right: 8px;
+    padding-left: 0;
+  }
+  .site-nav a.nav-home:hover { color: var(--black); }
+
+  html { scroll-padding-top: 52px; }
+  .section-block { scroll-margin-top: 52px; }
 </style>
 </head>
 <body data-page="erp">
@@ -375,10 +419,18 @@
   <div class="subtitle">A framework for evaluating the current Odoo state and defining what a trustworthy system looks like for Warren James specifically - across 70 creator stores, a live Shopify sync, and a finance team that needs to close cleanly every month.</div>
 </header>
 
+<nav class="site-nav" id="site-nav">
+  <a class="nav-home" href="/warrenjames/#stack">Home</a>
+  <a href="#benchmark">Benchmark</a>
+  <a href="#accounting">Accounting Layer</a>
+  <a href="#diagnostics">Diagnostics</a>
+  <a href="#discovery">Discovery</a>
+</nav>
+
 <main>
 
   <!-- IDEAL STATE -->
-  <div class="section-block">
+  <div class="section-block" id="benchmark">
     <div class="section-label">Benchmark</div>
     <h2>Ideal State vs. Likely Current State</h2>
     <p class="section-intro">The goal isn't a perfect ERP - it's a trusted one. These are the eight areas where "trust" either exists or breaks down, and what each looks like when it's working versus when it isn't.</p>
@@ -439,7 +491,7 @@
   <hr class="divider">
 
   <!-- HOW THE ACCOUNTING LAYER WORKS -->
-  <div class="section-block">
+  <div class="section-block" id="accounting">
     <div class="section-label">Accounting Layer</div>
     <h2>How Odoo Handles the Commerce Flow</h2>
     <p class="section-intro">In a DTC eCommerce context, Odoo's accounting module is mostly an internal ledger - not a customer-facing invoicing system. Understanding how the flow works (and where it breaks) matters for diagnosing financial close problems.</p>
@@ -465,7 +517,7 @@
   <hr class="divider">
 
   <!-- FAILURE MODES -->
-  <div class="section-block">
+  <div class="section-block" id="diagnostics">
     <div class="section-label">Diagnostics</div>
     <h2>Common Failure Modes</h2>
     <p class="section-intro">These are the patterns that cause trust in an ERP to collapse - and the fixes are usually more organizational than technical.</p>
@@ -507,7 +559,7 @@
   <hr class="divider">
 
   <!-- DIAGNOSTIC QUESTIONS -->
-  <div class="section-block">
+  <div class="section-block" id="discovery">
     <div class="section-label">Discovery</div>
     <h2>Questions That Provide Initial Insight</h2>
     <p class="section-intro">These are the questions that help uncover diagnostic understanding of the current Odoo implementation.</p>
@@ -584,6 +636,21 @@
 <footer>Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology</footer>
 
 <script src="/warrenjames/comments.js"></script>
+<script>
+(function() {
+  const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
+  const sections = ['benchmark','accounting','diagnostics','discovery'].map(id => document.getElementById(id)).filter(Boolean);
+  const offset = 60;
+  function updateNav() {
+    const scrollY = window.scrollY + offset;
+    let active = sections[0];
+    for (const s of sections) { if (s.offsetTop <= scrollY) active = s; }
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active.id));
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+})();
+</script>
 <script>
 (function() {
   const PAGE = 'erp';
