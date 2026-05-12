@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warren James - Data Architecture</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C14;
+    --surface: #0F1623;
+    --border: rgba(255,255,255,0.06);
+    --text: #E2E8F0;
+    --muted: #4A5568;
+    --dim: #2D3748;
+
+    --c-shopify: #96BF48;
+    --c-shopify-bg: rgba(150,191,72,0.08);
+    --c-shopify-border: rgba(150,191,72,0.3);
+
+    --c-odoo: #A78BFA;
+    --c-odoo-bg: rgba(167,139,250,0.08);
+    --c-odoo-border: rgba(167,139,250,0.3);
+
+    --c-sync: #FB923C;
+    --c-sync-bg: rgba(251,146,60,0.08);
+    --c-sync-border: rgba(251,146,60,0.3);
+
+    --c-bq: #34D399;
+    --c-bq-bg: rgba(52,211,153,0.08);
+    --c-bq-border: rgba(52,211,153,0.3);
+
+    --c-ai: #F472B6;
+    --c-ai-bg: rgba(244,114,182,0.08);
+    --c-ai-border: rgba(244,114,182,0.3);
+
+    --c-supplier: #38BDF8;
+    --c-supplier-bg: rgba(56,189,248,0.08);
+    --c-supplier-border: rgba(56,189,248,0.3);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    padding: 2rem;
+  }
+
+  .page { max-width: 960px; margin: 0 auto; }
+
+  .hdr {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+  .hdr h1 { font-size: 1.4rem; font-weight: 600; color: #fff; margin-bottom: 0.3rem; }
+  .hdr p { font-size: 0.78rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.28rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* MAIN DIAGRAM GRID */
+  .diagram {
+    display: grid;
+    grid-template-columns: 1fr 80px 1fr;
+    grid-template-rows: auto auto auto auto auto auto auto auto auto;
+    gap: 0;
+    align-items: center;
+  }
+
+  /* NODES */
+  .node {
+    border-radius: 6px;
+    padding: 1.1rem 1.2rem;
+  }
+  .node-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.03em;
+  }
+  .node-sub {
+    font-size: 0.78rem;
+    color: #94A3B8;
+    line-height: 1.55;
+  }
+
+  .node-shopify { background: var(--c-shopify-bg); border: 1px solid var(--c-shopify-border); }
+  .node-shopify .node-title { color: var(--c-shopify); }
+
+  .node-odoo { background: var(--c-odoo-bg); border: 1px solid var(--c-odoo-border); }
+  .node-odoo .node-title { color: var(--c-odoo); }
+
+  .node-supplier { background: var(--c-supplier-bg); border: 1px solid var(--c-supplier-border); }
+  .node-supplier .node-title { color: var(--c-supplier); }
+
+  .node-bq {
+    background: var(--c-bq-bg);
+    border: 2px solid var(--c-bq-border);
+    grid-column: 1 / -1;
+  }
+  .node-bq .node-title { color: var(--c-bq); font-size: 0.85rem; }
+
+  .node-sync {
+    background: var(--c-sync-bg);
+    border: 1px solid var(--c-sync-border);
+    grid-column: 1 / -1;
+  }
+  .node-sync .node-title { color: var(--c-sync); }
+
+  /* ARROW COLUMN (center) */
+  .arrow-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.25rem;
+  }
+
+  /* BIDIRECTIONAL ARROWS */
+  .bidir {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    grid-column: 2;
+    padding: 0.5rem 0;
+  }
+
+  .arrow-right, .arrow-left, .arrow-down-single {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    white-space: nowrap;
+  }
+
+  .arrow-right { color: var(--c-shopify); }
+  .arrow-left  { color: var(--c-odoo); }
+
+  .arr-line {
+    height: 1px;
+    width: 32px;
+    flex-shrink: 0;
+  }
+  .arr-line-green { background: var(--c-shopify); }
+  .arr-line-violet { background: var(--c-odoo); }
+
+  /* FULL WIDTH CONNECTORS */
+  .connector-full {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.6rem 0;
+  }
+  .connector-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .connector-arrow-down {
+    width: 2px;
+    height: 28px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .connector-arrow-down::before {
+    content: '';
+    flex: 1;
+    width: 1px;
+    background: var(--c-sync);
+  }
+  .connector-arrow-down::after {
+    content: '▼';
+    font-size: 0.5rem;
+    color: var(--c-sync);
+  }
+
+  /* SECTION LABELS */
+  .sec-label {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0 0.4rem;
+  }
+  .sec-label-line { flex: 1; height: 1px; background: var(--border); }
+  .sec-label-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dim);
+    white-space: nowrap;
+  }
+
+  /* SUPPLIER ROW */
+  .supplier-row {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .supplier-node-wrap {
+    width: calc(50% - 40px);
+  }
+
+  /* SUPPLIER ARROW going down into Odoo */
+  .supplier-arrow {
+    grid-column: 3;
+    display: flex;
+    justify-content: center;
+    padding: 0.4rem 0;
+  }
+  .supplier-arrow-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.56rem;
+    color: var(--c-supplier);
+  }
+  .supplier-arrow-inner::before {
+    content: '';
+    width: 1px;
+    height: 20px;
+    background: var(--c-supplier);
+    opacity: 0.5;
+  }
+  .supplier-arrow-inner::after {
+    content: '▼';
+    font-size: 0.45rem;
+  }
+
+  /* BQ TABLES */
+  .bq-tables {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-top: 0.9rem;
+  }
+  .bq-table {
+    background: rgba(52,211,153,0.05);
+    border: 1px solid rgba(52,211,153,0.12);
+    border-radius: 4px;
+    padding: 0.55rem 0.7rem;
+  }
+  .bq-table-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--c-bq);
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+  .bq-table-desc {
+    font-size: 0.7rem;
+    color: #4A5568;
+    line-height: 1.4;
+  }
+
+  /* AI LAYER */
+  .ai-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  .node-ai {
+    background: var(--c-ai-bg);
+    border: 1px solid var(--c-ai-border);
+  }
+  .node-ai .node-title { color: var(--c-ai); }
+
+  /* RULE STRIP */
+  .rules {
+    grid-column: 1 / -1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .rules-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    width: 100%;
+    margin-bottom: 0.2rem;
+  }
+  .rule {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+  .rule-g { background: var(--c-bq-bg); color: var(--c-bq); border: 1px solid var(--c-bq-border); }
+  .rule-r { background: rgba(239,68,68,0.07); color: #F87171; border: 1px solid rgba(239,68,68,0.2); }
+
+  /* CALLOUTS */
+  .callouts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  .callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.9rem 1rem;
+  }
+  .callout h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .callout p { font-size: 0.78rem; color: #4A5568; line-height: 1.6; }
+  .callout p strong { color: #94A3B8; font-weight: 500; }
+
+  /* FLOW TAG */
+  .flow-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    padding: 0.12rem 0.4rem;
+    border-radius: 2px;
+    margin-right: 0.3rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  /* SINGLE DOWN ARROW for supplier → Odoo area */
+  .down-arrow-right {
+    grid-column: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.3rem 0;
+    gap: 0.1rem;
+  }
+  .down-arrow-right span:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--c-supplier);
+    letter-spacing: 0.05em;
+  }
+  .dar-line {
+    width: 1px;
+    height: 22px;
+    background: linear-gradient(to bottom, var(--c-supplier), rgba(56,189,248,0.2));
+  }
+  .dar-tip {
+    font-size: 0.45rem;
+    color: var(--c-supplier);
+  }
+
+  footer {
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--dim);
+    text-align: center;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 680px) {
+    .diagram { grid-template-columns: 1fr; }
+    .bidir { grid-column: 1; }
+    .bq-tables { grid-template-columns: 1fr 1fr; }
+    .ai-grid { grid-template-columns: 1fr 1fr; }
+    .callouts { grid-template-columns: 1fr; }
+    .supplier-node-wrap { width: 100%; }
+    .supplier-row { justify-content: stretch; }
+    .down-arrow-right { display: none; }
+  }
+</style>
+</head>
+<body data-page="data-architecture">
+<div class="page">
+
+  <div class="hdr">
+    <a style="display:inline-flex;align-items:center;gap:5px;font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.2);text-decoration:none;margin-bottom:1.5rem;transition:color 0.15s" href="/warrenjames/" onmouseover="this.style.color='rgba(255,255,255,0.55)'" onmouseout="this.style.color='rgba(255,255,255,0.2)'">← Warren James</a>
+    <p class="eyebrow">Technical Reference · Warren James</p>
+    <h1>Data Architecture  -  Corrected & Complete</h1>
+    <p>Bidirectional Shopify ↔ Odoo flow · Supplier chain · BigQuery as read-only analytical layer</p>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-supplier)"></span>Suppliers</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-shopify)"></span>Shopify</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-odoo)"></span>Odoo ERP</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-sync)"></span>Sync / ETL</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-bq)"></span>BigQuery Warehouse</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-ai)"></span>AI & Reporting</div>
+  </div>
+
+  <div class="diagram">
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- SECTION: OPERATIONAL LAYER -->
+    <!-- ═══════════════════════════════════ -->
+    <div class="sec-label">
+      <span class="sec-label-line"></span>
+      <span class="sec-label-text">Operational layer  -  live transactions, real time</span>
+      <span class="sec-label-line"></span>
+    </div>
+
+    <!-- Shopify (left) | center gap | Odoo (right) -->
+    <div class="node node-shopify">
+      <p class="node-title">Shopify  -  40 Stores</p>
+      <p class="node-sub">
+        Storefront, checkout, payments, customer records, discount codes, marketing attribution.<br><br>
+        <span class="flow-tag" style="background:var(--c-shopify-bg);color:var(--c-shopify);border:1px solid var(--c-shopify-border);">Receives</span> inventory quantities from Odoo<br>
+        <span class="flow-tag" style="background:var(--c-shopify-bg);color:var(--c-shopify);border:1px solid var(--c-shopify-border);">Sends</span> orders to Odoo for fulfillment
+      </p>
+    </div>
+
+    <!-- BIDIRECTIONAL ARROWS in center column -->
+    <div class="bidir">
+      <div class="arrow-right">
+        <span>orders →</span>
+        <span class="arr-line arr-line-green"></span>
+        <span>▶</span>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:var(--dim);text-align:center;line-height:1.4;">customer<br>buys</div>
+      <div style="width:1px;height:8px;background:var(--border);margin:0 auto;"></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.52rem;color:var(--dim);text-align:center;line-height:1.4;">stock<br>confirmed</div>
+      <div class="arrow-left">
+        <span>◀</span>
+        <span class="arr-line arr-line-violet"></span>
+        <span>← inventory</span>
+      </div>
+    </div>
+
+    <div class="node node-odoo">
+      <p class="node-title">Odoo ERP</p>
+      <p class="node-sub">
+        Inventory management, purchase orders, warehouse operations, accounting, vendor management, fulfillment.<br><br>
+        <span class="flow-tag" style="background:var(--c-odoo-bg);color:var(--c-odoo);border:1px solid var(--c-odoo-border);">Receives</span> orders from Shopify<br>
+        <span class="flow-tag" style="background:var(--c-odoo-bg);color:var(--c-odoo);border:1px solid var(--c-odoo-border);">Pushes</span> inventory quantities to Shopify<br>
+        <span class="flow-tag" style="background:var(--c-odoo-bg);color:var(--c-odoo);border:1px solid var(--c-odoo-border);">Receives</span> stock from suppliers
+      </p>
+    </div>
+
+    <!-- SUPPLIER ROW -->
+    <!-- empty left col -->
+    <div></div>
+    <!-- center: down arrow -->
+    <div class="down-arrow-right" style="grid-column:2;"></div>
+    <!-- supplier sits above Odoo on right -->
+    <div style="display:flex;flex-direction:column;align-items:center;padding:0.75rem 0;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:0.55rem;color:var(--c-supplier);letter-spacing:0.06em;margin-bottom:0.25rem;">goods received</div>
+      <div style="width:1px;height:22px;background:linear-gradient(to bottom,var(--c-supplier),rgba(56,189,248,0.15));"></div>
+      <div style="font-size:0.45rem;color:var(--c-supplier);">▼</div>
+    </div>
+
+    <!-- empty left -->
+    <div></div>
+    <div></div>
+    <!-- supplier node right-aligned -->
+    <div class="node node-supplier">
+      <p class="node-title">Suppliers / Manufacturers</p>
+      <p class="node-sub">Physical inventory arrives. Odoo receives it via purchase order confirmation, updates on-hand quantities, then pushes updated availability to Shopify. This is the start of the inventory chain.</p>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- CONNECTOR DOWN TO SYNC -->
+    <!-- ═══════════════════════════════════ -->
+    <div class="connector-full">
+      <p class="connector-label">Airbyte / Fivetran pulls from both Shopify API + Odoo Postgres every 15–60 min</p>
+      <div class="connector-arrow-down"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- SYNC LAYER -->
+    <!-- ═══════════════════════════════════ -->
+    <div class="sec-label">
+      <span class="sec-label-line"></span>
+      <span class="sec-label-text">Sync / ETL layer  -  one-way copy, read only from sources</span>
+      <span class="sec-label-line"></span>
+    </div>
+
+    <div class="node node-sync" style="grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+      <div>
+        <p class="node-title">ETL / Sync Tool</p>
+        <p class="node-sub">Reads from Shopify's API and Odoo's Postgres database on a schedule. Transforms data into consistent schemas. Loads into BigQuery. Never writes back to either source.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;justify-content:center;gap:0.4rem;">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.2rem;">Tool options</p>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.63rem;padding:0.22rem 0.55rem;border-radius:3px;background:var(--c-sync-bg);border:1px solid var(--c-sync-border);color:var(--c-sync);">Airbyte  -  open source, self-hosted</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.63rem;padding:0.22rem 0.55rem;border-radius:3px;background:var(--c-sync-bg);border:1px solid var(--c-sync-border);color:var(--c-sync);">Fivetran  -  paid, zero config</span>
+        </div>
+        <p style="font-size:0.75rem;color:#4A5568;margin-top:0.2rem;">Why pull from both? Shopify has marketing attribution, abandoned carts, storefront data that never reaches Odoo. Odoo has cost of goods, PO history, financials Shopify never sees. You need both to get the full picture.</p>
+      </div>
+    </div>
+
+    <!-- CONNECTOR DOWN TO WAREHOUSE -->
+    <div class="connector-full">
+      <p class="connector-label">Loads into warehouse  -  historical, append-only, never modified</p>
+      <div class="connector-arrow-down"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- BIGQUERY WAREHOUSE -->
+    <!-- ═══════════════════════════════════ -->
+    <div class="sec-label">
+      <span class="sec-label-line"></span>
+      <span class="sec-label-text">Data warehouse  -  analytical layer, read-only, single source of truth</span>
+      <span class="sec-label-line"></span>
+    </div>
+
+    <div class="node node-bq">
+      <p class="node-title">BigQuery  -  Central Data Warehouse</p>
+      <p class="node-sub">Every business event from every source accumulates here permanently. Optimized for analytical queries. Nothing is ever deleted. No live transactions. This is where every dashboard, report, and AI tool reads from.</p>
+
+      <div class="bq-tables">
+        <div class="bq-table">
+          <p class="bq-table-name">orders</p>
+          <p class="bq-table-desc">All orders across 40 stores. Store, creator, SKU, amount, channel, influencer attribution, date.</p>
+        </div>
+        <div class="bq-table">
+          <p class="bq-table-name">inventory_snapshots</p>
+          <p class="bq-table-desc">Historical inventory levels over time. Odoo is source of truth. Shopify quantities reconciled against it.</p>
+        </div>
+        <div class="bq-table">
+          <p class="bq-table-name">financials</p>
+          <p class="bq-table-desc">P&L per store, COGS, fulfillment cost, gross margin. From Odoo accounting module.</p>
+        </div>
+        <div class="bq-table">
+          <p class="bq-table-name">customers</p>
+          <p class="bq-table-desc">Unified identity across all stores. Multi-store buyers surfaced. LTV calculated.</p>
+        </div>
+        <div class="bq-table">
+          <p class="bq-table-name">products</p>
+          <p class="bq-table-desc">All SKUs tagged with shared taxonomy  -  category, material, price tier, manufacturer.</p>
+        </div>
+        <div class="bq-table">
+          <p class="bq-table-name">influencers</p>
+          <p class="bq-table-desc">Attribution data. Which influencer drove which orders. Commission tracking. Tier performance.</p>
+        </div>
+        <div class="bq-table">
+          <p class="bq-table-name">creators</p>
+          <p class="bq-table-desc">Per-store performance. Revenue, returns, AOV, repeat rate. Cross-store comparisons.</p>
+        </div>
+        <div class="bq-table">
+          <p class="bq-table-name">purchase_orders</p>
+          <p class="bq-table-desc">Supplier PO history, lead times, landed costs. From Odoo purchasing module.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONNECTOR DOWN TO AI -->
+    <div class="connector-full">
+      <p class="connector-label">All consumption is read-only  -  nothing writes back up the chain</p>
+      <div class="connector-arrow-down"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- AI & CONSUMPTION LAYER -->
+    <!-- ═══════════════════════════════════ -->
+    <div class="sec-label">
+      <span class="sec-label-line"></span>
+      <span class="sec-label-text">AI & consumption layer  -  where value is delivered</span>
+      <span class="sec-label-line"></span>
+    </div>
+
+    <div class="ai-grid">
+      <div class="node node-ai">
+        <p class="node-title">CEO Dashboard</p>
+        <p class="node-sub">All 40 stores in one view. Revenue, inventory health, creator performance. Looker Studio or Metabase connected to BigQuery. No manual reports.</p>
+      </div>
+      <div class="node node-ai">
+        <p class="node-title">AI Q&A</p>
+        <p class="node-sub">Claude or GPT with BigQuery read access. Natural language questions against real business data. "Top 5 SKUs last week across all stores?" Answered in seconds.</p>
+      </div>
+      <div class="node node-ai">
+        <p class="node-title">Automated Reports</p>
+        <p class="node-sub">Scheduled BigQuery queries that generate and email weekly summaries to the CEO and store managers. Nobody manually pulls these.</p>
+      </div>
+      <div class="node node-ai">
+        <p class="node-title">AI Agents / Alerts</p>
+        <p class="node-sub">Automated workflows reading warehouse data  -  reorder alerts when inventory drops below threshold, anomaly flags, influencer commission processing via n8n or Make.</p>
+      </div>
+    </div>
+
+    <!-- RULES -->
+    <div class="rules">
+      <p class="rules-label">Architecture rules</p>
+      <span class="rule rule-g">✓ Odoo is inventory source of truth</span>
+      <span class="rule rule-g">✓ Odoo pushes inventory → Shopify</span>
+      <span class="rule rule-g">✓ Shopify pushes orders → Odoo</span>
+      <span class="rule rule-g">✓ ETL pulls from both independently</span>
+      <span class="rule rule-g">✓ AI reads from BigQuery only</span>
+      <span class="rule rule-g">✓ BigQuery is append-only, historical</span>
+      <span class="rule rule-r">✗ BigQuery never pushes to Odoo or Shopify</span>
+      <span class="rule rule-r">✗ AI never writes to production systems</span>
+      <span class="rule rule-r">✗ Never run analytics against Odoo directly</span>
+      <span class="rule rule-r">✗ No Supabase needed  -  no custom apps yet</span>
+    </div>
+
+  </div><!-- end diagram -->
+
+  <!-- CALLOUTS -->
+  <div class="callouts">
+    <div class="callout">
+      <h3 style="color:var(--c-shopify);">Why Odoo → Shopify for inventory</h3>
+      <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. <strong>Odoo is authoritative.</strong> When a PO is received and confirmed in Odoo, it pushes the updated quantity to Shopify. Shopify doesn't calculate inventory  -  it displays what Odoo tells it.</p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-odoo);">Why pull from both in the ETL</h3>
+      <p>Shopify has data Odoo never receives  -  abandoned carts, discount code attribution, storefront behavior, influencer referral UTMs. Odoo has data Shopify never sees  -  landed costs, PO history, accounting entries. <strong>Both are needed for the full picture.</strong></p>
+    </div>
+    <div class="callout">
+      <h3 style="color:var(--c-bq);">Why BigQuery never feeds back up</h3>
+      <p>BigQuery is a record of what happened  -  it's historical and analytical. <strong>It does not make things happen.</strong> If an AI agent needs to trigger a reorder in Odoo, it calls Odoo's API directly, not through BigQuery. The warehouse only ever receives data, never sends it.</p>
+    </div>
+  </div>
+
+  <footer>WARREN JAMES · DATA ARCHITECTURE v2  -  CORRECTED BIDIRECTIONAL FLOW · PREPARED BY REZA</footer>
+
+</div>
+<script src="/warrenjames/comments.js"></script>
+</body>
+</html>
