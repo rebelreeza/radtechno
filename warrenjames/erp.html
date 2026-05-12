@@ -154,6 +154,41 @@
     border-left: 3px solid var(--red-border);
   }
 
+  .ideal-table td.status-col {
+    width: 180px;
+    vertical-align: middle;
+  }
+
+  .status-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .status-tag {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--gray-2);
+    background: none;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--gray-3);
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+  }
+
+  .status-tag:hover { border-color: var(--gray-3); color: var(--gray-5); }
+
+  .status-tag.selected-great { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); }
+  .status-tag.selected-good  { background: rgba(251,191,36,0.1); color: #b45309; border-color: rgba(251,191,36,0.45); }
+  .status-tag.selected-bad   { background: var(--red-bg); color: var(--red-text); border-color: var(--red-border); }
+  .status-tag.selected-none  { background: rgba(0,0,0,0.06); color: var(--gray-4); border-color: var(--gray-3); }
+
   /* Failure modes */
   .failure-grid {
     display: grid;
@@ -397,7 +432,7 @@
 <nav class="site-nav" id="site-nav">
   <a class="nav-home" href="/warrenjames/#stack">Home</a>
   <a href="#benchmark">Benchmark</a>
-  <a href="#accounting">Accounting Layer</a>
+  <a href="#accounting">Shopify–Odoo Flow</a>
   <a href="#diagnostics">Diagnostics</a>
   <a href="#discovery">Discovery</a>
 </nav>
@@ -416,6 +451,7 @@
           <th>Area</th>
           <th>Ideal State</th>
           <th>Broken State</th>
+          <th>Current State</th>
         </tr>
       </thead>
       <tbody>
@@ -423,41 +459,89 @@
           <td>Inventory accuracy</td>
           <td class="ideal">Odoo is the single number. Shopify displays what Odoo says. No reconciliation needed.</td>
           <td class="broken">Shopify and Odoo show different counts. Team manually checks which is right before making decisions.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-inventory">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
         <tr>
           <td>Order flow</td>
           <td class="ideal">Every Shopify order appears in Odoo within minutes. Fulfillment state stays in sync automatically.</td>
           <td class="broken">Orders appear late or with wrong status. Someone checks for stuck orders daily and manually fixes them.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-orders">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
         <tr>
           <td>Financial close</td>
           <td class="ideal">Month-end close takes 1-2 days. Revenue in Odoo matches Shopify payouts with explainable variance only.</td>
           <td class="broken">Month-end takes a week. Finance exports from Shopify, exports from Odoo, reconciles in Excel.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-close">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
         <tr>
           <td>Purchasing</td>
           <td class="ideal">Purchase orders in Odoo flow to vendor, goods receipt auto-updates inventory, landed cost captured cleanly.</td>
           <td class="broken">POs managed in email or spreadsheet. Goods receipt entered manually. Landed cost guessed or ignored.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-purchasing">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
         <tr>
           <td>Reporting</td>
           <td class="ideal">Leadership pulls one number. It's right. No caveat of "well, that's the Shopify number, Odoo says something different."</td>
           <td class="broken">Every report comes with an asterisk. Leadership has learned not to trust it and asks for manual confirmation.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-reporting">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
         <tr>
           <td>Multi-store management</td>
           <td class="ideal">70 stores in one Odoo instance. Inventory per store, roll-up reporting across all. One place to look.</td>
           <td class="broken">Some stores share an Odoo company, others are siloed. Cross-store reporting requires manual aggregation.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-multistore">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
         <tr>
           <td>Data discipline</td>
           <td class="ideal">Required fields enforced. Naming conventions followed. No notes fields being used as a database.</td>
           <td class="broken">Free-text fields everywhere. Same vendor entered three different ways. Reports can't aggregate correctly.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-discipline">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
         <tr>
           <td>Failure visibility</td>
           <td class="ideal">When the Shopify sync fails, someone gets a Slack alert within minutes. Root cause is logged.</td>
           <td class="broken">Sync fails silently. Discovered days later when inventory is wrong and nobody knows why.</td>
+          <td class="status-col"><div class="status-tags" data-key="erp-bench-visibility">
+            <button class="status-tag" data-val="great">Working great</button>
+            <button class="status-tag" data-val="good">Mostly good</button>
+            <button class="status-tag" data-val="bad">Bad</button>
+            <button class="status-tag" data-val="none">Doesn't exist</button>
+          </div></td>
         </tr>
       </tbody>
     </table>
@@ -465,27 +549,30 @@
 
   <hr class="divider">
 
-  <!-- HOW THE ACCOUNTING LAYER WORKS -->
+  <!-- SHOPIFY-ODOO FLOW -->
   <div class="section-block" id="accounting">
-    <div class="section-label">Accounting Layer</div>
-    <h2>How Odoo Handles the Commerce Flow</h2>
-    <p class="section-intro">In a DTC eCommerce context, Odoo's accounting module is mostly an internal ledger - not a customer-facing invoicing system. Understanding how the flow works (and where it breaks) matters for diagnosing financial close problems.</p>
+    <div class="section-label">Shopify–Odoo Flow</div>
+    <h2>How Data Moves Between Shopify and Odoo</h2>
+    <p class="section-intro">The connector between Shopify and Odoo is the most load-bearing piece of the entire stack. Everything downstream - inventory accuracy, financial close, reporting - depends on it behaving correctly under all conditions, not just the happy path.</p>
 
     <div class="explainer-block">
-      <h3>The happy path</h3>
-      <p>Customer pays Shopify at checkout. In Odoo's data model, the Shopify order syncs in as a Sales Order. Odoo auto-generates an invoice and immediately marks it paid. It exists as an accounting record, not a customer document. The relevant question is whether Odoo's books match what Shopify actually collected.</p>
+      <h3>The core sync loop</h3>
+      <p>Shopify is the customer-facing system of record for orders, products, and payments. Odoo is the operational and financial system of record. The connector's job is to translate between them in near-real-time. In practice, this means: Shopify orders become Odoo Sales Orders, product catalog changes flow both directions, inventory levels push from Odoo to Shopify, and fulfillment status syncs back. When this loop is tight and reliable, everything else works. When it isn't, the failure ripples everywhere.</p>
     </div>
 
     <div class="explainer-block">
-      <h3>Returns - where most implementations break</h3>
-      <p>The correct flow: return processed in Shopify triggers a credit note (reverse invoice) in Odoo, which cancels the original invoice and restocks inventory automatically. If the connector doesn't handle this cleanly, inventory counts drift and open invoices accumulate that should be closed.</p>
-      <p>At 70 creator stores running drops, return spikes are common post-launch. A broken returns flow at this scale isn't an edge case - it's a recurring source of inventory and accounting noise.</p>
+      <h3>What Odoo does with a Shopify order</h3>
+      <p>An order paid in Shopify syncs into Odoo as a Sales Order. Odoo auto-generates an invoice and marks it paid immediately - it's an accounting record, not a customer document. The connector then needs to handle the fulfillment lifecycle: pick, pack, ship, delivered. Each state change in Shopify should update Odoo, and vice versa. Where most connectors fall short is the full returns and refund cycle: a return in Shopify needs to create a credit note in Odoo, restock inventory, and close the loop on the original invoice cleanly.</p>
     </div>
 
     <div class="explainer-block">
-      <h3>Chargebacks - the hardest edge case</h3>
-      <p>A hard payment decline never creates a Shopify order, so Odoo never sees it. Chargebacks are different - they happen after the order ships and the invoice is already closed as paid in Odoo. The cash then gets clawed back by the bank. Unless the Shopify-Odoo sync handles chargebacks explicitly, you're left with paid invoices on the books for revenue that no longer exists. Someone is reconciling that manually. Shopify Payments holds (fraud flags) create the same mismatch.</p>
-      <p>A mature integration handles the happy path. A well-implemented one handles returns, chargebacks, partial refunds, and payment holds too - with each case logged and visible.</p>
+      <h3>Inventory: the most contested field</h3>
+      <p>Inventory is the single most common source of Shopify-Odoo disagreement. Both systems want to be authoritative, and connectors often let each win in different scenarios - creating drift. The only sustainable rule: Odoo is authoritative, Shopify is display-only. That means inventory edits happen in Odoo, and the connector pushes them out. Direct edits in Shopify need to be locked down for staff. Without this rule enforced, you get divergence that compounds over time and is very hard to unwind.</p>
+    </div>
+
+    <div class="explainer-block">
+      <h3>Edge cases that expose implementation quality</h3>
+      <p>Chargebacks are the hardest: the order is already shipped and invoiced as paid in Odoo when the bank claws the cash back. Shopify Payments holds (fraud flags) create the same mismatch. Partial refunds, split fulfillments, and creator-specific discount logic are other common failure modes. A connector that handles the happy path is table stakes. The question worth asking is which of these edge cases are currently handled automatically versus reconciled manually - and how often.</p>
     </div>
   </div>
 
@@ -697,6 +784,24 @@
     });
   });
 })();
+
+// Benchmark status tags
+document.querySelectorAll('.status-tags').forEach(group => {
+  const key = group.dataset.key;
+  const saved = localStorage.getItem(key);
+  const tags = group.querySelectorAll('.status-tag');
+  if (saved) tags.forEach(t => { if (t.dataset.val === saved) t.classList.add('selected-' + saved); });
+  tags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      const val = tag.dataset.val;
+      tags.forEach(t => t.className = 'status-tag');
+      tag.classList.add('selected-' + val);
+      localStorage.setItem(key, val);
+      fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ key, value: val, visitor: localStorage.getItem('visitor-name') || '' }) }).catch(() => {});
+    });
+  });
+});
 </script>
 </body>
 </html>
