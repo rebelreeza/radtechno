@@ -699,6 +699,7 @@
           <li>Odoo health signal: sync status, anomalies flagged in the last 7 days</li>
           <li>AI-generated weekly narrative: "The story of last week in 3 bullets", synthesized automatically from the data</li>
         </ul>
+        <div class="tc-note"><strong>Tooling approach:</strong> No Looker, no Tableau. Either Metabase (open source, self-hostable, connects directly to the warehouse) or a custom-built dashboard using AI, which at this scale is faster to build and cheaper to run than any BI license. The goal is something leadership actually opens, not a tool that requires a data analyst to maintain it.</div>
         <div class="tc-note"><strong>Why Phase 3, not earlier:</strong> This dashboard is only credible once the underlying data pipeline has been running and validated for 2+ months. Shipping it earlier means showing the CEO numbers that can't be trusted yet.</div>
       </div>
 
