@@ -412,47 +412,6 @@
   }
   .v-outcome::before { content: '→ '; color: rgba(0,0,0,0.3); }
 
-  /* ─── NOW / LATER ─── */
-  .nl-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 4px;
-  }
-
-  .nl-col { border-radius: 3px; padding: 28px 28px; }
-  .nl-col.now { background: var(--black); }
-  .nl-col.later { border: 1px solid var(--bd); }
-
-  .nl-col-lbl {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 20px;
-    display: block;
-  }
-  .nl-col.now .nl-col-lbl { color: rgba(255,255,255,0.28); }
-  .nl-col.later .nl-col-lbl { color: rgba(0,0,0,0.28); }
-
-  .nl-item {
-    padding: 10px 0;
-    border-bottom: 1px solid;
-    font-size: 13px;
-    line-height: 1.55;
-  }
-  .nl-item:last-child { border-bottom: none; }
-  .nl-col.now .nl-item { border-color: rgba(255,255,255,0.07); color: rgba(255,255,255,0.65); }
-  .nl-col.later .nl-item { border-color: rgba(0,0,0,0.07); color: rgba(0,0,0,0.6); }
-
-  .nl-why {
-    font-size: 11.5px;
-    margin-top: 3px;
-    line-height: 1.5;
-  }
-  .nl-col.now .nl-why { color: rgba(255,255,255,0.3); }
-  .nl-col.later .nl-why { color: rgba(0,0,0,0.35); }
-
   /* ─── SUCCESS TABLE ─── */
   .success-table {
     width: 100%;
@@ -505,7 +464,6 @@
     /* Grids → single column */
     .track-grid { grid-template-columns: 1fr; }
     .track-card.full { grid-column: auto; }
-    .nl-grid { grid-template-columns: 1fr; }
     .vision-grid { grid-template-columns: 1fr; }
     .v-card.featured { grid-column: auto; }
     /* Success bar */
@@ -532,7 +490,6 @@
     <a class="nav-link" href="#phase2">Phase 2</a>
     <a class="nav-link" href="#phase3">Phase 3</a>
     <a class="nav-link" href="#phase4">Phase 4</a>
-    <a class="nav-link" href="#nowlater">Now vs Later</a>
     <a class="nav-link" href="#success">Success Map</a>
     <a class="nav-link" href="#vision">Vision</a>
   </div>
@@ -890,76 +847,6 @@
   </div>
 </section>
 
-<!-- ══════════ NOW VS LATER ══════════ -->
-<section class="s cream" id="nowlater">
-  <div class="inner">
-    <div class="fade">
-      <span class="lbl">Prioritization</span>
-      <h2>What to Build Now vs Later</h2>
-      <p class="lead">Some decisions are time-sensitive. Others look urgent but can wait until the foundation is solid. This is the current strong intuition on that distinction.</p>
-    </div>
-
-    <div class="nl-grid">
-      <div class="nl-col now fade">
-        <span class="nl-col-lbl">Build now · Months 1–3</span>
-
-        <div class="nl-item">
-          Shopify ↔ Odoo sync monitoring
-          <div class="nl-why">Root cause of leadership distrust. Everything else depends on this being reliable.</div>
-        </div>
-        <div class="nl-item">
-          BigQuery pipeline (Shopify + Odoo → warehouse)
-          <div class="nl-why">Data needs to accumulate before it's useful. Start the clock in month 2.</div>
-        </div>
-        <div class="nl-item">
-          SaaS audit and consolidation
-          <div class="nl-why">Likely free money, zero risk. Do it in week 2.</div>
-        </div>
-        <div class="nl-item">
-          3 highest-frequency manual handoff automations
-          <div class="nl-why">Operationally visible, teams feel the difference immediately.</div>
-        </div>
-        <div class="nl-item">
-          Odoo data standards
-          <div class="nl-why">Cheap to establish, expensive to fix later. Set before more dirty data goes in.</div>
-        </div>
-        <div class="nl-item">
-          Month 1 AI automation (proof of pattern)
-          <div class="nl-why">Establishes the methodology and template for every automation that follows.</div>
-        </div>
-      </div>
-
-      <div class="nl-col later fade">
-        <span class="nl-col-lbl">Build later · Months 4–9</span>
-
-        <div class="nl-item">
-          Portfolio intelligence dashboard
-          <div class="nl-why">Only credible once pipeline data has been running and validated for 2+ months.</div>
-        </div>
-        <div class="nl-item">
-          RAG layer
-          <div class="nl-why">Needs a populated index of real campaign history, briefs, and outcomes to be useful.</div>
-        </div>
-        <div class="nl-item">
-          Cross-store campaign pattern matching
-          <div class="nl-why">Requires 6 months of tagged campaign data. Premature before that.</div>
-        </div>
-        <div class="nl-item">
-          Predictive drop timing
-          <div class="nl-why">Needs the historical dataset from Phase 3 campaign tracking to generate meaningful signal.</div>
-        </div>
-        <div class="nl-item">
-          Shopify Plus evaluation
-          <div class="nl-why">Meaningful cost decision. Worth a structured evaluation after the store audit, not a default assumption.</div>
-        </div>
-        <div class="nl-item">
-          Headless / Hydrogen storefronts
-          <div class="nl-why">Not on the roadmap unless a specific store's revenue clearly justifies the engineering overhead.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ══════════ SUCCESS MAP ══════════ -->
 <section class="s dark" id="success">
@@ -1100,7 +987,7 @@ document.querySelectorAll('.fade').forEach((el, i) => {
 const nav = document.getElementById('site-nav');
 const header = document.querySelector('header');
 const navLinks = document.querySelectorAll('.nav-link');
-const sections = ['phase1','phase2','phase3','phase4','nowlater','success','vision'].map(id => document.getElementById(id));
+const sections = ['phase1','phase2','phase3','phase4','success','vision'].map(id => document.getElementById(id));
 
 const headerObserver = new IntersectionObserver(([e]) => {
   nav.classList.toggle('visible', !e.isIntersecting);
