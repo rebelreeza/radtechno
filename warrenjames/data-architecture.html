@@ -566,7 +566,7 @@
     <!-- CONNECTOR DOWN TO SYNC -->
     <!-- ═══════════════════════════════════ -->
     <div class="connector-full">
-      <p class="connector-label">Airbyte / Fivetran pulls from both Shopify API + Odoo Postgres every 15–60 min</p>
+      <p class="connector-label">Airbyte pulls from Shopify API + Odoo Postgres (read-only user) every 15–60 min</p>
       <div class="connector-arrow-down"></div>
     </div>
 
@@ -582,13 +582,13 @@
     <div class="node node-sync" style="grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
       <div>
         <p class="node-title">ETL / Sync Tool</p>
-        <p class="node-sub">Reads from Shopify's API and Odoo's Postgres database on a schedule. Transforms data into consistent schemas. Loads into BigQuery. Never writes back to either source.</p>
+        <p class="node-sub">Shopify via native Airbyte connector (API). Odoo via Airbyte's Postgres connector against a read-only DB user - more reliable than Odoo's community Airbyte connector. Transforms into consistent schemas and loads into BigQuery. Never writes back to either source.</p>
       </div>
       <div style="display:flex;flex-direction:column;justify-content:center;gap:0.4rem;">
         <p style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.2rem;">Tool options</p>
         <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.63rem;padding:0.22rem 0.55rem;border-radius:3px;background:var(--c-sync-bg);border:1px solid var(--c-sync-border);color:var(--c-sync);">Airbyte  -  open source, self-hosted</span>
-          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.63rem;padding:0.22rem 0.55rem;border-radius:3px;background:var(--c-sync-bg);border:1px solid var(--c-sync-border);color:var(--c-sync);">Fivetran  -  paid, zero config</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.63rem;padding:0.22rem 0.55rem;border-radius:3px;background:var(--c-sync-bg);border:1px solid var(--c-sync-border);color:var(--c-sync);">Airbyte self-hosted - start here ($10-15/mo VM)</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:0.63rem;padding:0.22rem 0.55rem;border-radius:3px;background:var(--c-sync-bg);border:1px solid var(--c-sync-border);color:var(--c-sync);">Fivetran - paid, zero config, scale later</span>
         </div>
         <p style="font-size:0.75rem;color:#4A5568;margin-top:0.2rem;">Why pull from both? Shopify has marketing attribution, abandoned carts, storefront data that never reaches Odoo. Odoo has cost of goods, PO history, financials Shopify never sees. You need both to get the full picture.</p>
       </div>

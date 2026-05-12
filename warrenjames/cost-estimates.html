@@ -489,9 +489,9 @@
       <tbody>
         <tr>
           <td>Airbyte self-hosted <span class="badge badge-start">Start here</span></td>
-          <td><span class="cost-lo">$20–40/mo</span></td>
-          <td>Purpose-built, 300+ connectors, open-source, schema management built-in</td>
-          <td>Needs a dedicated VM; some operational overhead</td>
+          <td><span class="cost-lo">$0 software + $10–15/mo VM</span></td>
+          <td>Purpose-built, 300+ connectors, open-source. Shopify via native connector. Odoo via Postgres connector (read-only DB user) - more reliable than Odoo's community Airbyte connector.</td>
+          <td>VM adds a small fixed cost; Odoo schema is complex so initial table mapping takes time</td>
         </tr>
         <tr>
           <td>Airbyte Cloud</td>
@@ -523,11 +523,12 @@
     <div class="total-grid">
       <div class="total-card lean">
         <div class="total-label">Lean - Start here</div>
-        <div class="total-amount">$20–95/mo</div>
+        <div class="total-amount">$13–50/mo</div>
         <div class="total-sub">
           BigQuery free tier ($0–30)<br>
           Pinecone Serverless free tier ($0)<br>
-          Airbyte self-hosted ETL ($20–40)<br>
+          Small VM for Airbyte ($10–15)<br>
+          Airbyte self-hosted ETL ($0 software)<br>
           AI tokens (~$3–5)
         </div>
       </div>

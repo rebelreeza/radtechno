@@ -482,8 +482,8 @@
       <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. The working assumption is that Odoo should be the authoritative source - when a PO is confirmed, it pushes updated quantities to Shopify. Whether that's actually how it's configured today is one of the first things to verify.</p>
     </div>
     <div class="callout">
-      <h3 style="color:var(--c-sync);">Why ETL pulls from both Shopify and Odoo</h3>
-      <p>Shopify has data Odoo never receives - abandoned carts, discount code attribution, storefront behavior, campaign referral UTMs. Odoo has data Shopify never sees - landed costs, PO history, accounting entries. You need both to get a complete picture, which is why pulling from each independently makes sense.</p>
+      <h3 style="color:var(--c-sync);">How ETL pulls from Shopify and Odoo</h3>
+      <p>Shopify uses Airbyte's native Shopify connector (API-based, well maintained). Odoo uses Airbyte's Postgres connector against a read-only database user - more reliable than Odoo's community Airbyte connector, which has inconsistent maintenance. Odoo's schema is complex so initial table mapping takes time, but it's a one-off task. Both land in BigQuery via Airbyte's native destination.</p>
     </div>
     <div class="callout">
       <h3 style="color:var(--c-bq);">Why BigQuery never writes back</h3>
