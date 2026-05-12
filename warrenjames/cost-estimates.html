@@ -284,16 +284,16 @@
 
     <div class="option-grid">
       <div class="option-card recommended">
-        <div class="option-name">MotherDuck (DuckDB) <span class="badge badge-start">Start here</span></div>
-        <div class="option-cost">$10–30/mo</div>
-        <div class="option-desc">Cloud-hosted DuckDB. Runs analytical SQL directly on Parquet or CSV files. No infrastructure to manage. Blazing fast for the read-heavy patterns needed here. Postgres-compatible enough for most BI tools.</div>
-        <div class="option-when">Good until: data volume exceeds ~50GB or concurrent user demand requires more</div>
+        <div class="option-name">BigQuery <span class="badge badge-start">Start here</span></div>
+        <div class="option-cost">$0–80/mo</div>
+        <div class="option-desc">Pay-per-query with no migration risk — grows with you from day one. First 10GB storage and 1TB queries/month are free. At WJ's scale, likely stays under $30/mo for months. Mature ecosystem, native Looker Studio connector, strong AI integrations. No need to migrate later.</div>
+        <div class="option-when">Good until: query patterns get unpredictable and costs spike — use query budgets from day one</div>
       </div>
       <div class="option-card fallback">
-        <div class="option-name">BigQuery <span class="badge badge-scale">Scale option</span></div>
-        <div class="option-cost">$0–80/mo</div>
-        <div class="option-desc">Pay-per-query. First 10GB storage and 1TB queries/month are free. At WJ's scale, likely stays under $30/mo for months. Mature ecosystem, native Looker Studio connector, strong for AI integrations.</div>
-        <div class="option-when">Good until: query patterns get unpredictable and costs spike — use query budgets from day one</div>
+        <div class="option-name">MotherDuck (DuckDB) <span class="badge badge-scale">Lightweight alt</span></div>
+        <div class="option-cost">$10–30/mo</div>
+        <div class="option-desc">Cloud-hosted DuckDB — fast for read-heavy analytical SQL on small datasets. Reasonable starting point on paper, but migrating away at 50GB would be significant effort. Given BigQuery's free tier covers early months anyway, the migration risk isn't worth it.</div>
+        <div class="option-when">Skip unless: you have a strong DuckDB preference and are confident you won't outgrow it</div>
       </div>
       <div class="option-card avoid">
         <div class="option-name">Snowflake / Fivetran <span class="badge badge-avoid">Overkill now</span></div>
@@ -303,7 +303,7 @@
       </div>
     </div>
 
-    <p class="note">Recommendation: start with MotherDuck or BigQuery free tier. Either can handle 70-store analytics comfortably. The ETL layer (Airbyte self-hosted or n8n) costs $0–40/mo on a small VM — no need for managed Fivetran at this stage.</p>
+    <p class="note">Recommendation: start with BigQuery free tier. It handles 70-store analytics comfortably with no migration risk as data grows. The ETL layer (Airbyte self-hosted) costs $20–40/mo on a small VM — no need for managed Fivetran at this stage.</p>
   </div>
 
   <hr>
@@ -488,15 +488,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>n8n self-hosted <span class="badge badge-start">Start here</span></td>
-          <td><span class="cost-lo">$0–20/mo</span></td>
-          <td>Free, already likely in use, MCP-native for AI integration</td>
-          <td>Requires maintenance; not purpose-built for data pipelines</td>
-        </tr>
-        <tr>
-          <td>Airbyte self-hosted</td>
+          <td>Airbyte self-hosted <span class="badge badge-start">Start here</span></td>
           <td><span class="cost-lo">$20–40/mo</span></td>
-          <td>Purpose-built, 300+ connectors, open-source</td>
+          <td>Purpose-built, 300+ connectors, open-source, schema management built-in</td>
           <td>Needs a dedicated VM; some operational overhead</td>
         </tr>
         <tr>
@@ -513,6 +507,7 @@
         </tr>
       </tbody>
     </table>
+    <p class="note">Note: n8n and Make/Zapier are automation tools, not ETL — they lack schema management, incremental sync, and reliable warehouse loading. Keep them in the automation layer. For moving data from Odoo into BigQuery, use a purpose-built ETL tool like Airbyte.</p>
   </div>
 
   <hr>
@@ -528,11 +523,11 @@
     <div class="total-grid">
       <div class="total-card lean">
         <div class="total-label">Lean — Start here</div>
-        <div class="total-amount">$10–75/mo</div>
+        <div class="total-amount">$20–95/mo</div>
         <div class="total-sub">
-          MotherDuck or BigQuery free tier ($0–30)<br>
+          BigQuery free tier ($0–30)<br>
           pgvector on existing Postgres ($0–20)<br>
-          n8n self-hosted ETL ($0–20)<br>
+          Airbyte self-hosted ETL ($20–40)<br>
           AI tokens (~$3–5)
         </div>
       </div>
