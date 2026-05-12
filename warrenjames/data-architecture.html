@@ -616,7 +616,7 @@
       <div class="bq-tables">
         <div class="bq-table">
           <p class="bq-table-name">orders</p>
-          <p class="bq-table-desc">All orders across 40 stores. Store, creator, SKU, amount, channel, influencer attribution, date.</p>
+          <p class="bq-table-desc">All orders across 40 stores. Store, creator, SKU, amount, channel, campaign attribution, date.</p>
         </div>
         <div class="bq-table">
           <p class="bq-table-name">inventory_snapshots</p>
@@ -635,8 +635,8 @@
           <p class="bq-table-desc">All SKUs tagged with shared taxonomy  -  category, material, price tier, manufacturer.</p>
         </div>
         <div class="bq-table">
-          <p class="bq-table-name">influencers</p>
-          <p class="bq-table-desc">Attribution data. Which influencer drove which orders. Commission tracking. Tier performance.</p>
+          <p class="bq-table-name">campaigns</p>
+          <p class="bq-table-desc">Campaign attribution data. Which campaigns drove which orders. UTM tracking, channel performance, commission tracking.</p>
         </div>
         <div class="bq-table">
           <p class="bq-table-name">creators</p>
@@ -719,7 +719,7 @@
       </div>
       <div class="node node-ai">
         <p class="node-title">AI Agents / Alerts</p>
-        <p class="node-sub">Automated workflows reading warehouse data  -  reorder alerts when inventory drops below threshold, anomaly flags, influencer commission processing via n8n or Make.</p>
+        <p class="node-sub">Automated workflows reading warehouse data  -  reorder alerts when inventory drops below threshold, anomaly flags, campaign commission processing via n8n or Make.</p>
       </div>
     </div>
 
@@ -748,7 +748,7 @@
     </div>
     <div class="callout">
       <h3 style="color:var(--c-odoo);">Why pull from both in the ETL</h3>
-      <p>Shopify has data Odoo never receives - abandoned carts, discount code attribution, storefront behavior, influencer referral UTMs. Odoo has data Shopify never sees - landed costs, PO history, accounting entries. The hypothesis is that you need both to get a complete picture, which is why pulling from each independently makes sense.</p>
+      <p>Shopify has data Odoo never receives - abandoned carts, discount code attribution, storefront behavior, campaign referral UTMs. Odoo has data Shopify never sees - landed costs, PO history, accounting entries. The hypothesis is that you need both to get a complete picture, which is why pulling from each independently makes sense.</p>
     </div>
     <div class="callout">
       <h3 style="color:var(--c-rag);">RAG vs. structured queries  -  two different pipelines</h3>

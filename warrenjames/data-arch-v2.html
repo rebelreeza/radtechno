@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Architecture v2 - Preview</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080C14;
+    --surface: #0F1623;
+    --border: rgba(255,255,255,0.06);
+    --text: #E2E8F0;
+    --muted: #4A5568;
+    --dim: #2D3748;
+
+    --c-shopify: #96BF48;
+    --c-shopify-bg: rgba(150,191,72,0.08);
+    --c-shopify-border: rgba(150,191,72,0.3);
+
+    --c-odoo: #A78BFA;
+    --c-odoo-bg: rgba(167,139,250,0.08);
+    --c-odoo-border: rgba(167,139,250,0.3);
+
+    --c-sync: #FB923C;
+    --c-sync-bg: rgba(251,146,60,0.08);
+    --c-sync-border: rgba(251,146,60,0.3);
+
+    --c-bq: #34D399;
+    --c-bq-bg: rgba(52,211,153,0.08);
+    --c-bq-border: rgba(52,211,153,0.3);
+
+    --c-ai: #F472B6;
+    --c-ai-bg: rgba(244,114,182,0.08);
+    --c-ai-border: rgba(244,114,182,0.3);
+
+    --c-supplier: #38BDF8;
+    --c-supplier-bg: rgba(56,189,248,0.08);
+    --c-supplier-border: rgba(56,189,248,0.3);
+
+    --c-rag: #FBBF24;
+    --c-rag-bg: rgba(251,191,36,0.08);
+    --c-rag-border: rgba(251,191,36,0.3);
+
+    --c-orch: #A0AEC0;
+    --c-orch-bg: rgba(160,174,192,0.07);
+    --c-orch-border: rgba(160,174,192,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    padding: 2rem;
+  }
+
+  .page { max-width: 1280px; margin: 0 auto; }
+
+  /* HEADER */
+  .hdr {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .preview-pill {
+    display: inline-block;
+    background: rgba(251,146,60,0.12);
+    border: 1px solid rgba(251,146,60,0.35);
+    color: var(--c-sync);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.22rem 0.7rem;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+  .hdr h1 { font-size: 1.4rem; font-weight: 600; color: #fff; margin-bottom: 0.3rem; }
+  .hdr p { font-size: 0.78rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.28rem 0.65rem;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* DIAGRAM */
+  .diagram-wrap {
+    position: relative;
+    margin-bottom: 3rem;
+  }
+
+  #connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 10;
+  }
+
+  .zones {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    min-height: 560px;
+  }
+
+  /* ZONE PANELS */
+  .zone {
+    flex: 1;
+    background: rgba(255,255,255,0.012);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .zone-sources { flex: 1.1; }
+  .zone-storage { flex: 0.75; justify-content: space-around; }
+  .zone-consumption { flex: 1.1; }
+
+  /* gap between zones - where SVG lines will pass through */
+  .zone-gap { flex: 0 0 72px; }
+
+  .zone-header {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+    text-align: center;
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.9rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* NODES */
+  .node {
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+  }
+  .node-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.03em;
+  }
+  .node-sub {
+    font-size: 0.73rem;
+    color: #94A3B8;
+    line-height: 1.5;
+  }
+
+  .node-shopify { background: var(--c-shopify-bg); border: 1px solid var(--c-shopify-border); }
+  .node-shopify .node-title { color: var(--c-shopify); }
+
+  .node-odoo { background: var(--c-odoo-bg); border: 1px solid var(--c-odoo-border); }
+  .node-odoo .node-title { color: var(--c-odoo); }
+
+  .node-supplier { background: var(--c-supplier-bg); border: 1px solid var(--c-supplier-border); }
+  .node-supplier .node-title { color: var(--c-supplier); }
+
+  .node-bq { background: var(--c-bq-bg); border: 2px solid var(--c-bq-border); }
+  .node-bq .node-title { color: var(--c-bq); }
+
+  .node-pinecone { background: var(--c-rag-bg); border: 1px solid var(--c-rag-border); }
+  .node-pinecone .node-title { color: var(--c-rag); }
+
+  .node-orch { background: var(--c-orch-bg); border: 1px solid var(--c-orch-border); text-align: center; }
+  .node-orch .node-title { color: var(--c-orch); }
+
+  .node-ai { background: var(--c-ai-bg); border: 1px solid var(--c-ai-border); }
+  .node-ai .node-title { color: var(--c-ai); }
+
+  .node-rag-out { background: var(--c-rag-bg); border: 1px solid var(--c-rag-border); }
+  .node-rag-out .node-title { color: var(--c-rag); }
+
+  .node-docs {
+    background: rgba(160,174,192,0.04);
+    border: 1px dashed rgba(160,174,192,0.18);
+  }
+  .node-docs .node-title { color: var(--c-orch); }
+
+  /* Internal connectors (within source zone) */
+  .internal-conn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.3rem 0;
+    gap: 0.1rem;
+  }
+  .ic-line {
+    width: 1px;
+    height: 14px;
+  }
+  .ic-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ic-arrows {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.62rem;
+  }
+
+  .zone-divider {
+    border: none;
+    border-top: 1px dashed rgba(255,255,255,0.05);
+    margin: 0.85rem 0;
+  }
+
+  .zone-sublabel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 0.55rem;
+  }
+
+  /* Consumption zone */
+  .orch-down {
+    text-align: center;
+    font-size: 0.6rem;
+    color: var(--dim);
+    padding: 0.3rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 0.06em;
+  }
+  .outputs { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  /* RULES */
+  .rules {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .rules-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+  .rule {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    padding: 0.22rem 0.6rem;
+    border-radius: 3px;
+  }
+  .rule-g { background: rgba(52,211,153,0.06); color: #34D399; border: 1px solid rgba(52,211,153,0.15); }
+  .rule-r { background: rgba(248,113,113,0.06); color: #F87171; border: 1px solid rgba(248,113,113,0.15); }
+
+  footer {
+    text-align: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.52rem;
+    color: var(--dim);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 2rem 0 1rem;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <div class="preview-pill">Preview - not deployed</div>
+    <div class="eyebrow">Technical Reference - Warren James</div>
+    <h1>Data Architecture - Tentative Thinking</h1>
+    <p>Horizontal layout showing parallel data paths and actual connection flows</p>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-shopify)"></span> Shopify</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-odoo)"></span> Odoo ERP</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-supplier)"></span> Suppliers</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-sync)"></span> Sync / ETL</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-bq)"></span> BigQuery Warehouse</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-rag)"></span> RAG / Knowledge</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--c-ai)"></span> AI & Reporting</div>
+  </div>
+
+  <div class="diagram-wrap">
+    <svg id="connections"></svg>
+
+    <div class="zones">
+
+      <!-- ZONE 1: SOURCES -->
+      <div class="zone zone-sources">
+        <div class="zone-header">Operational Sources - live, real-time</div>
+
+        <div id="n-shopify" class="node node-shopify">
+          <p class="node-title">Shopify - 40 Stores</p>
+          <p class="node-sub">Orders, customers, payments, inventory availability. Storefront behavior, discount attribution, campaign UTMs. Each store is a separate instance.</p>
+        </div>
+
+        <div class="internal-conn">
+          <div class="ic-line" style="background: linear-gradient(var(--c-shopify), var(--c-odoo));"></div>
+          <div class="ic-arrows">
+            <span style="color: var(--c-shopify); font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem;">orders →</span>
+            <span style="color: var(--c-odoo); font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem;">← inventory</span>
+          </div>
+          <div class="ic-label">real-time sync</div>
+          <div class="ic-line" style="background: linear-gradient(var(--c-odoo), var(--c-shopify));"></div>
+        </div>
+
+        <div id="n-odoo" class="node node-odoo">
+          <p class="node-title">Odoo ERP</p>
+          <p class="node-sub">Inventory management, purchase orders, fulfillment, accounting, vendor management. Source of truth for what is actually in stock.</p>
+        </div>
+
+        <div class="internal-conn" style="align-items: flex-end; padding-right: 20%;">
+          <div class="ic-line" style="background: var(--c-supplier);"></div>
+          <div class="ic-label" style="color: var(--c-supplier);">goods received</div>
+        </div>
+
+        <div id="n-supplier" class="node node-supplier">
+          <p class="node-title">Suppliers / Manufacturers</p>
+          <p class="node-sub">Physical inventory arrives. PO confirmation into Odoo updates on-hand quantities, which then pushes to Shopify availability.</p>
+        </div>
+
+        <hr class="zone-divider">
+        <div class="zone-sublabel">Document sources</div>
+
+        <div id="n-docs" class="node node-docs">
+          <p class="node-title">SOPs, Contracts, Briefs</p>
+          <p class="node-sub">Institutional knowledge that lives outside databases. Ingested and embedded on upload or schedule. Not operational - analytical and contextual.</p>
+        </div>
+      </div>
+
+      <!-- GAP 1 (SVG arrows pass through here) -->
+      <div class="zone-gap"></div>
+
+      <!-- ZONE 2: STORAGE -->
+      <div class="zone zone-storage">
+        <div class="zone-header">Storage Layer</div>
+
+        <div id="n-bq" class="node node-bq">
+          <p class="node-title">BigQuery</p>
+          <p class="node-sub">Read-only analytical warehouse. Append-only historical record of orders, inventory, financials, store performance. Never writes back to Odoo or Shopify. Native Anthropic integration via Vertex AI.</p>
+        </div>
+
+        <div id="n-pinecone" class="node node-pinecone">
+          <p class="node-title">Pinecone</p>
+          <p class="node-sub">Vector store. Document chunks embedded and indexed for semantic search. Retrieves relevant context before AI generates a response. Free tier covers WJ's current doc volume.</p>
+        </div>
+      </div>
+
+      <!-- GAP 2 (SVG arrows pass through here) -->
+      <div class="zone-gap"></div>
+
+      <!-- ZONE 3: CONSUMPTION -->
+      <div class="zone zone-consumption">
+        <div class="zone-header">AI & Consumption Layer - where value is delivered</div>
+
+        <div id="n-orch" class="node node-orch" style="margin-bottom: 0.4rem;">
+          <p class="node-title">AI Orchestration Layer</p>
+          <p class="node-sub">Routes each query to the right source. SQL against BigQuery for structured data questions. Vector search against Pinecone for document and context questions. Can combine both in one response. Implemented as Claude tool-use, LangChain, or LlamaIndex - code, not a paid service.</p>
+        </div>
+
+        <div class="orch-down">routes to ▼</div>
+
+        <div class="outputs">
+          <div class="node node-ai" style="padding: 0.65rem 0.85rem;">
+            <p class="node-title">CEO Dashboard</p>
+            <p class="node-sub">All stores in one view via Looker Studio connected to BigQuery. No manual reports.</p>
+          </div>
+          <div class="node node-ai" style="padding: 0.65rem 0.85rem;">
+            <p class="node-title">Structured Q&A</p>
+            <p class="node-sub">Natural language to SQL. "Top 5 SKUs last week across all stores?" Answered in seconds.</p>
+          </div>
+          <div class="node node-rag-out" style="padding: 0.65rem 0.85rem;">
+            <p class="node-title">Knowledge Q&A (RAG)</p>
+            <p class="node-sub">Questions that live in docs, not data. SOPs, contracts, briefs, historical context.</p>
+          </div>
+          <div class="node node-ai" style="padding: 0.65rem 0.85rem;">
+            <p class="node-title">Automated Reports</p>
+            <p class="node-sub">Scheduled BigQuery queries emailed weekly to CEO and store managers.</p>
+          </div>
+          <div class="node node-ai" style="padding: 0.65rem 0.85rem;">
+            <p class="node-title">AI Agents / Alerts</p>
+            <p class="node-sub">Reorder alerts, anomaly flags, commission processing via n8n or Make.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end .zones -->
+
+    <!-- RULES -->
+    <div class="rules">
+      <p class="rules-label">Working principles - tentative</p>
+      <span class="rule rule-g">✓ Odoo is inventory source of truth</span>
+      <span class="rule rule-g">✓ Odoo pushes inventory to Shopify</span>
+      <span class="rule rule-g">✓ Shopify pushes orders to Odoo</span>
+      <span class="rule rule-g">✓ ETL pulls from both independently</span>
+      <span class="rule rule-g">✓ AI reads from BigQuery only</span>
+      <span class="rule rule-g">✓ BigQuery is append-only, historical</span>
+      <span class="rule rule-r">✗ BigQuery never pushes to Odoo or Shopify</span>
+      <span class="rule rule-r">✗ AI never writes to production systems</span>
+      <span class="rule rule-r">✗ Never run analytics against Odoo directly</span>
+      <span class="rule rule-r">✗ No Supabase needed - no custom apps yet</span>
+    </div>
+
+  </div><!-- end .diagram-wrap -->
+
+  <footer>Warren James - Data Architecture - Tentative - Prepared by Reza</footer>
+
+</div>
+
+<script>
+(function() {
+  function drawConnections() {
+    const svg = document.getElementById('connections');
+    const wrap = document.querySelector('.diagram-wrap');
+    const wrapRect = wrap.getBoundingClientRect();
+
+    svg.setAttribute('width', wrap.offsetWidth);
+    svg.setAttribute('height', wrap.offsetHeight);
+    svg.innerHTML = '';
+
+    // Define arrowhead markers
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    const colors = {
+      etl: '#FB923C',
+      bq: '#34D399',
+      rag: '#FBBF24',
+    };
+    Object.entries(colors).forEach(([key, color]) => {
+      const marker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+      marker.setAttribute('id', 'arr-' + key);
+      marker.setAttribute('markerWidth', '8');
+      marker.setAttribute('markerHeight', '8');
+      marker.setAttribute('refX', '6');
+      marker.setAttribute('refY', '3');
+      marker.setAttribute('orient', 'auto');
+      const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      poly.setAttribute('points', '0 0, 8 3, 0 6');
+      poly.setAttribute('fill', color);
+      poly.setAttribute('opacity', '0.8');
+      marker.appendChild(poly);
+      defs.appendChild(marker);
+    });
+    svg.appendChild(defs);
+
+    function nodeEdge(id, side) {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      const x = side === 'right' ? r.right - wrapRect.left : r.left - wrapRect.left;
+      const y = r.top - wrapRect.top + r.height / 2;
+      return { x, y };
+    }
+
+    function drawCurve(fromId, toId, colorKey, label) {
+      const from = nodeEdge(fromId, 'right');
+      const to = nodeEdge(toId, 'left');
+      if (!from || !to) return;
+
+      const dx = to.x - from.x;
+      const c1x = from.x + dx * 0.45;
+      const c2x = from.x + dx * 0.55;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M ${from.x} ${from.y} C ${c1x} ${from.y}, ${c2x} ${to.y}, ${to.x} ${to.y}`);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', colors[colorKey]);
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('opacity', '0.55');
+      path.setAttribute('marker-end', 'url(#arr-' + colorKey + ')');
+      svg.appendChild(path);
+
+      if (label) {
+        const midX = (from.x + to.x) / 2;
+        const midY = (from.y + to.y) / 2 - 8;
+        const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        const txt = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        txt.setAttribute('x', midX);
+        txt.setAttribute('y', midY);
+        txt.setAttribute('fill', colors[colorKey]);
+        txt.setAttribute('font-size', '8.5');
+        txt.setAttribute('font-family', 'IBM Plex Mono, monospace');
+        txt.setAttribute('text-anchor', 'middle');
+        txt.setAttribute('letter-spacing', '0.06em');
+        txt.setAttribute('opacity', '0.85');
+        txt.textContent = label.toUpperCase();
+        svg.appendChild(txt);
+      }
+    }
+
+    // Operational sources -> BigQuery (via Airbyte ETL)
+    drawCurve('n-shopify', 'n-bq', 'etl', 'Airbyte ETL');
+    drawCurve('n-odoo', 'n-bq', 'etl', null);
+
+    // Document sources -> Pinecone (via embeddings)
+    drawCurve('n-docs', 'n-pinecone', 'rag', 'embeddings');
+
+    // BigQuery -> Orchestration (SQL)
+    drawCurve('n-bq', 'n-orch', 'bq', 'SQL');
+
+    // Pinecone -> Orchestration (vector search)
+    drawCurve('n-pinecone', 'n-orch', 'rag', 'vector search');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', drawConnections);
+  } else {
+    drawConnections();
+  }
+
+  window.addEventListener('resize', drawConnections);
+})();
+</script>
+
+</body>
+</html>
