@@ -491,6 +491,36 @@
     text-transform: uppercase;
     color: rgba(255,255,255,0.2);
   }
+
+  @media (max-width: 700px) {
+    .s { padding: 56px 20px; }
+    .s.tight { padding-top: 40px; padding-bottom: 40px; }
+    h1 { letter-spacing: -1.5px; }
+    h2 { letter-spacing: -0.8px; }
+    .phase-h { letter-spacing: -1px; }
+    footer { padding: 20px; }
+    /* Nav */
+    .nav-inner { padding: 0 12px; }
+    .nav-link { padding: 12px 8px; font-size: 9px; letter-spacing: 0.12em; }
+    /* Grids → single column */
+    .track-grid { grid-template-columns: 1fr; }
+    .track-card.full { grid-column: auto; }
+    .nl-grid { grid-template-columns: 1fr; }
+    .vision-grid { grid-template-columns: 1fr; }
+    .v-card.featured { grid-column: auto; }
+    /* Success bar */
+    .success-bar { flex-direction: column; }
+    .success-group { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .success-group:last-child { border-bottom: none; }
+    /* Success table → hide less important columns */
+    .success-table th:nth-child(3),
+    .success-table td:nth-child(3),
+    .success-table th:nth-child(4),
+    .success-table td:nth-child(4) { display: none; }
+    /* Bridge signals */
+    .bridge-signals { gap: 8px; }
+    .bridge-signal { font-size: 10px; }
+  }
 </style>
 </head>
 <body>

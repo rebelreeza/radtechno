@@ -630,7 +630,10 @@
     white-space: nowrap;
     padding-left: 20px;
     flex-shrink: 0;
+    cursor: pointer;
+    transition: color 0.15s;
   }
+  .nav-visitor:hover { color: rgba(255,255,255,0.65); }
 
 
   /* ─── SECTION FEEDBACK ─── */
@@ -889,12 +892,33 @@
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 700px) {
-    .s { padding: 64px 24px; }
+    .s { padding: 56px 20px; }
+    .s.tight { padding-top: 40px; padding-bottom: 40px; }
+    .inner { max-width: 100%; }
     .a-grid, .collab-grid, .ap-grid, .vision-grid, .docs-grid { grid-template-columns: 1fr; }
     .v-card.featured, .a-card.full { grid-column: auto; }
     h1 { letter-spacing: -1.5px; }
     h2 { letter-spacing: -0.8px; }
-    footer { padding: 20px 24px; }
+    footer { padding: 20px 20px; }
+    /* Nav */
+    .nav-inner { padding: 0 12px; }
+    .nav-link { padding: 12px 10px; font-size: 9px; }
+    .nav-visitor { padding-left: 8px; font-size: 9px; }
+    /* Questions */
+    .q-list li { flex-direction: column; gap: 8px; }
+    .q-num { min-width: auto; }
+    /* Gate */
+    .gate-box { width: 100%; padding: 0 8px; }
+    /* Section meta */
+    .section-meta { flex-direction: column; gap: 8px; }
+    /* Lead */
+    .lead { margin-bottom: 32px; }
+    /* Stack table already scrolls horizontally */
+    /* Feedback drawer */
+    .drawer { width: 100%; right: 0; left: 0; border-radius: 12px 12px 0 0; bottom: 0; }
+    /* Timeline */
+    .timeline { padding-left: 20px; }
+    .tl-dot { left: -24px; }
   }
 
   /* ── Entry gate */
@@ -1864,7 +1888,23 @@
   function setVisitorName(name) {
     window._wjVisitor = name;
     const el = document.getElementById('nav-visitor');
-    if (el) el.textContent = name;
+    if (el) {
+      el.textContent = name;
+      el.title = 'Click to change name';
+      el.onclick = () => {
+        sessionStorage.removeItem('wj_visitor_name');
+        window._wjVisitor = null;
+        el.textContent = '';
+        // Show name step of gate
+        const gate = document.getElementById('gate');
+        const app = document.getElementById('app');
+        const step2 = document.getElementById('gate-step2');
+        if (gate) { gate.classList.remove('hidden'); }
+        if (app) { app.style.display = 'none'; }
+        document.querySelectorAll('.gate-step').forEach(s => s.style.display = 'none');
+        if (step2) { step2.style.display = 'flex'; step2.querySelector('input') && step2.querySelector('input').focus(); }
+      };
+    }
   }
 
   // ── Q&A: save to localStorage + email submit
