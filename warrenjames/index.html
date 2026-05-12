@@ -388,7 +388,7 @@
     width: 100%;
     border: 1px solid var(--bd);
     border-radius: 3px;
-    padding: 10px 44px 10px 12px;
+    padding: 10px 12px 10px 38px;
     font-family: inherit;
     font-size: 13px;
     color: var(--black);
@@ -404,7 +404,7 @@
 
   .mic-btn {
     position: absolute;
-    right: 10px;
+    left: 10px;
     top: 10px;
     background: none;
     border: none;
@@ -415,6 +415,22 @@
     line-height: 1;
     transition: color 0.15s;
   }
+
+  /* ── Q submit */
+  .q-submit-row { margin-top: 32px; display: flex; justify-content: flex-end; }
+  .q-submit-btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 6px;
+    border: none;
+    background: var(--black);
+    color: var(--cream);
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .q-submit-btn:hover { opacity: 0.78; }
   .mic-btn:hover { color: var(--black); }
   .mic-btn.recording { color: #dc2626; animation: pulse 1s infinite; }
 
@@ -1277,7 +1293,7 @@
           <span>Not the intended state, the lived experience. Do people trust it enough to make decisions from it, or is it a system of record that nobody actually uses?</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
-            <button class="mic-btn" title="Click to speak">🎤</button>
+            <button class="mic-btn" title="Click to speak"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V23h2v-2.06A9 9 0 0 0 21 12v-2h-2z"/></svg></button>
           </div>
         </div>
       </li>
@@ -1288,7 +1304,7 @@
           <span>I have hypotheses from the outside. You'll know the answer immediately. That's where I'd want to focus first.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
-            <button class="mic-btn" title="Click to speak">🎤</button>
+            <button class="mic-btn" title="Click to speak"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V23h2v-2.06A9 9 0 0 0 21 12v-2h-2z"/></svg></button>
           </div>
         </div>
       </li>
@@ -1299,7 +1315,7 @@
           <span>This tells me where the acute gaps are versus the chronic ones, and which problems have already been quietly absorbed by other people.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
-            <button class="mic-btn" title="Click to speak">🎤</button>
+            <button class="mic-btn" title="Click to speak"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V23h2v-2.06A9 9 0 0 0 21 12v-2h-2z"/></svg></button>
           </div>
         </div>
       </li>
@@ -1310,7 +1326,7 @@
           <span>Some of the longer-term leverage (checkout extensibility, multi-store admin) requires it. Worth knowing early whether that's in the picture or not.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
-            <button class="mic-btn" title="Click to speak">🎤</button>
+            <button class="mic-btn" title="Click to speak"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V23h2v-2.06A9 9 0 0 0 21 12v-2h-2z"/></svg></button>
           </div>
         </div>
       </li>
@@ -1321,7 +1337,7 @@
           <span>Not the full roadmap, just the signal that would tell you the right person is in the seat. I want to design month one around that signal.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
-            <button class="mic-btn" title="Click to speak">🎤</button>
+            <button class="mic-btn" title="Click to speak"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V23h2v-2.06A9 9 0 0 0 21 12v-2h-2z"/></svg></button>
           </div>
         </div>
       </li>
@@ -1332,11 +1348,15 @@
           <span>Both roles have a legitimate stake in those areas. The cleaner we define the lines early, the less we'll need to negotiate them mid-execution.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
-            <button class="mic-btn" title="Click to speak">🎤</button>
+            <button class="mic-btn" title="Click to speak"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:block"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V23h2v-2.06A9 9 0 0 0 21 12v-2h-2z"/></svg></button>
           </div>
         </div>
       </li>
     </ul>
+
+    <div class="q-submit-row">
+      <button class="q-submit-btn" id="q-submit-btn">Email answers to Reza</button>
+    </div>
   </div>
 </section>
 
@@ -1810,6 +1830,44 @@
   function setVisitorName(name) {
     window._wjVisitor = name;
   }
+
+  // ── Q&A: save to localStorage + email submit
+  (function() {
+    const Q_KEY = 'wj_q_answers';
+    const QUESTIONS = [
+      'What does Odoo actually feel like to the team right now?',
+      'Where is the biggest operational pain point right now?',
+      'What is currently falling through the cracks on the technology side?',
+      'What is your instinct on Shopify Plus?',
+      'What would make you feel like this was unambiguously working at the 90-day mark?',
+      'How do you see the ownership lines between Tech and Brand?'
+    ];
+
+    function loadAnswers() { try { return JSON.parse(localStorage.getItem(Q_KEY) || '{}'); } catch { return {}; } }
+    function saveAnswers(d) { localStorage.setItem(Q_KEY, JSON.stringify(d)); }
+
+    const answers = loadAnswers();
+    const textareas = Array.from(document.querySelectorAll('.q-answer textarea'));
+
+    textareas.forEach((ta, i) => {
+      if (answers[i]) ta.value = answers[i];
+      ta.addEventListener('input', () => {
+        answers[i] = ta.value;
+        saveAnswers(answers);
+      });
+    });
+
+    document.getElementById('q-submit-btn').addEventListener('click', () => {
+      const visitor = window._wjVisitor || sessionStorage.getItem('wj_visitor_name') || 'Anonymous';
+      const lines = QUESTIONS.map((q, i) => {
+        const a = (answers[i] || '').trim();
+        return 'Q' + (i+1) + ': ' + q + '\n' + (a || '(no answer)');
+      }).join('\n\n');
+      const sub = encodeURIComponent('WJ Onboarding Brief - Answers from ' + visitor);
+      const bod = encodeURIComponent('Hey Reza,\n\nHere are my answers:\n\n' + lines + '\n');
+      window.location.href = 'mailto:rdawood@gmail.com?subject=' + sub + '&body=' + bod;
+    });
+  })();
 
 </script>
 </body>
