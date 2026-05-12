@@ -57,7 +57,29 @@
     font-family: 'IBM Plex Sans', sans-serif;
     font-weight: 300;
     padding: 2rem;
+    padding-top: 3.5rem;
   }
+
+  .site-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(8,12,20,0.92); backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 24px; height: 42px;
+  }
+  .site-nav a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35); text-decoration: none;
+    padding: 4px 10px; border-radius: 3px;
+    border: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .site-nav a:hover { color: rgba(255,255,255,0.7); }
+  .site-nav a.nav-home { color: rgba(255,255,255,0.25); margin-right: 8px; }
+  .site-nav a.nav-home:hover { color: rgba(255,255,255,0.6); }
+  .site-nav .nav-sep { color: var(--border); font-size: 10px; user-select: none; }
+  .site-nav a.active { color: #fff; border-color: rgba(255,255,255,0.2); }
 
   .page { max-width: 1280px; margin: 0 auto; }
 
@@ -334,6 +356,13 @@
 </style>
 </head>
 <body>
+<nav class="site-nav">
+  <a href="/warrenjames/#stack" class="nav-home">← Home</a>
+  <span class="nav-sep">|</span>
+  <a href="#diagram">Architecture</a>
+  <a href="#principles">Principles</a>
+</nav>
+
 <div class="page">
 
   <div class="hdr">
@@ -352,7 +381,7 @@
     <div class="legend-item"><span class="legend-dot" style="background:var(--c-ai)"></span> AI & Reporting</div>
   </div>
 
-  <div class="diagram-wrap">
+  <div class="diagram-wrap" id="diagram">
     <svg id="connections"></svg>
 
     <div class="zones">
@@ -475,7 +504,7 @@
 
   </div><!-- end .diagram-wrap -->
 
-  <div class="callouts">
+  <div class="callouts" id="principles">
     <div class="callout">
       <h3 style="color:var(--c-shopify);">Why Odoo pushes inventory to Shopify</h3>
       <p>Shopify knows what's available to sell. Odoo knows what's actually in the warehouse. The working assumption is that Odoo should be the authoritative source - when a PO is confirmed, it pushes updated quantities to Shopify. Whether that's actually how it's configured today is one of the first things to verify.</p>
@@ -607,6 +636,21 @@
   }
 
   window.addEventListener('resize', drawConnections);
+})();
+</script>
+
+<script>
+(function() {
+  const navLinks = document.querySelectorAll('.site-nav a[href^="#"]');
+  const sections = ['diagram','principles'].map(id => document.getElementById(id)).filter(Boolean);
+  function updateNav() {
+    const scrollY = window.scrollY + 60;
+    let active = sections[0];
+    for (const s of sections) { if (s.offsetTop <= scrollY) active = s; }
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + active.id));
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
 })();
 </script>
 
