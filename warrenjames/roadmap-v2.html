@@ -578,7 +578,7 @@
       <span class="phase-lbl">Phase 1</span>
       <span class="phase-timing">Days 1 – 30</span>
       <h2 class="phase-h">Orient and Listen</h2>
-      <p class="phase-thesis">The first 30 days are an audit, not a build sprint. Coming in with answers before understanding the problem is the biggest mistake this role can make. My output at the end of Phase 1 is a ranked list of what's actually broken, what the team has been working around, and where the highest-leverage problems are. One carefully chosen automation also ships in month one — not to impress, but to establish the pattern early.</p>
+      <p class="phase-thesis">The first 30 days are an audit, not a build sprint. Coming in with answers before understanding the problem is the biggest mistake this role can make. My output at the end of Phase 1 is a ranked list of what's actually broken, what the team has been working around, and where the highest-leverage problems are. One carefully chosen automation also ships in month one, not to impress, but to establish the pattern early.</p>
     </div>
 
     <div class="track-grid">
@@ -586,10 +586,10 @@
       <div class="track-card fade">
         <span class="tc-tag">ERP</span>
         <h3>Map the Real State of Odoo</h3>
-        <p>Not what it's supposed to do — what it actually does. Where do people stop trusting it? Where is someone maintaining a parallel spreadsheet?</p>
+        <p>Not what it's supposed to do, what it actually does. Where do people stop trusting it? Where is someone maintaining a parallel spreadsheet?</p>
         <ul>
-          <li>Sit with every team that touches Odoo — ops, finance, merch — and ask where they go when they can't trust it</li>
-          <li>Pull a sample of orders and trace them end-to-end through both Shopify and Odoo — find where states diverge</li>
+          <li>Sit with every team that touches Odoo, ops, finance, merch, and ask where they go when they can't trust it</li>
+          <li>Pull a sample of orders and trace them end-to-end through both Shopify and Odoo, find where states diverge</li>
           <li>Map every manual reconciliation that happens at month-end</li>
           <li>Document every Odoo workaround currently running in production</li>
         </ul>
@@ -599,9 +599,9 @@
       <div class="track-card fade">
         <span class="tc-tag">Shopify</span>
         <h3>Inventory the Shopify Reality</h3>
-        <p>~70 stores. Are they all on the same plan, under the same org, with consistent structure? The answer may not be yes — and I need to understand exactly what I've inherited.</p>
+        <p>~70 stores. Are they all on the same plan, under the same org, with consistent structure? The answer may not be yes, and I need to understand exactly what I've inherited.</p>
         <ul>
-          <li>Audit which stores are on Plus vs standard — document what each is actually using</li>
+          <li>Audit which stores are on Plus vs standard, document what each is actually using</li>
           <li>Map all active third-party apps across all stores and their cost</li>
           <li>Identify which stores share infrastructure vs. which are completely siloed</li>
           <li>Find out where Launchpad is used and how drops are currently coordinated</li>
@@ -613,12 +613,12 @@
       <div class="track-card fade">
         <span class="tc-tag">Listening</span>
         <h3>Structured Listening Sessions</h3>
-        <p>Pain points surface in conversation, not in documentation. Every team gets a dedicated session — not a survey, not a form, an actual conversation about what's making their job harder than it needs to be.</p>
+        <p>Pain points surface in conversation, not in documentation. Every team gets a dedicated session, not a survey, not a form, an actual conversation about what's making their job harder than it needs to be.</p>
         <ul>
-          <li>Shadow one person in each function for half a day — ops, finance, creative/merch, creator success</li>
+          <li>Shadow one person in each function for half a day, ops, finance, creative/merch, creator success</li>
           <li>Ask: "What do you do every Monday that you wish you didn't have to?" and "What falls through the cracks most often?"</li>
           <li>Map copy-paste chains: where does someone take data from system A and type it into system B?</li>
-          <li>Collect wishlists — what's working well and what isn't — and rank by time cost, frequency, and error rate</li>
+          <li>Collect wishlists, what's working well and what isn't, and rank by time cost, frequency, and error rate</li>
         </ul>
       </div>
 
@@ -627,10 +627,10 @@
         <h3>SaaS and Vendor Audit</h3>
         <p>A full picture of what's in the building before making any tooling decisions. There are likely consolidation and cost reduction opportunities waiting to be identified.</p>
         <ul>
-          <li>Pull all active subscriptions from billing — credit cards, corporate accounts</li>
+          <li>Pull all active subscriptions from billing, credit cards, corporate accounts</li>
           <li>Map who uses what and what they'd lose if it went away</li>
-          <li>Identify overlapping tools — multiple project managers, duplicate communication apps</li>
-          <li>Flag anything with no clear owner — that's a security risk</li>
+          <li>Identify overlapping tools, multiple project managers, duplicate communication apps</li>
+          <li>Flag anything with no clear owner, that's a security risk</li>
           <li>Note contract renewal dates coming up in the next 90 days</li>
         </ul>
         <div class="tc-note"><strong>Quick win:</strong> Canceling 2–3 unused subscriptions in week 2 is a visible signal that costs zero credibility and banks goodwill.</div>
@@ -639,12 +639,12 @@
       <div class="track-card full fade">
         <span class="tc-tag blue">Ships in Phase 1</span>
         <h3>The One Automation That Ships in Month 1</h3>
-        <p>One high-visibility, low-risk AI automation goes live in week 2 — not to impress, but to prove the pattern early. I'll pick the highest-signal handoff from the listening sessions and build it before anyone asks. The profile is consistent across candidates: Slack or Asana as the trigger, Claude as the reasoning layer, n8n as the orchestration engine. Builds in hours, runs indefinitely, teams feel it immediately.</p>
+        <p>One high-visibility, low-risk AI automation goes live in week 2, not to impress, but to prove the pattern early. I'll pick the highest-signal handoff from the listening sessions and build it before anyone asks. The profile is consistent across candidates: Slack or Asana as the trigger, Claude as the reasoning layer, n8n as the orchestration engine. Builds in hours, runs indefinitely, teams feel it immediately.</p>
         <ul>
-          <li>Most likely candidate: inbound ops request triage — messages currently handled manually get classified, routed, and ticketed automatically</li>
+          <li>Most likely candidate: inbound ops request triage, messages currently handled manually get classified, routed, and ticketed automatically</li>
           <li>Add memory so the agent references prior tickets and updates rather than duplicates</li>
-          <li>Document it so ops can modify routing rules themselves — this is the template for every automation that follows</li>
-          <li>Measure usage weekly — first data point toward AI embedded across all teams</li>
+          <li>Document it so ops can modify routing rules themselves, this is the template for every automation that follows</li>
+          <li>Measure usage weekly, first data point toward AI embedded across all teams</li>
         </ul>
       </div>
 
@@ -659,7 +659,7 @@
       <span class="phase-lbl">Phase 2</span>
       <span class="phase-timing">Months 2 – 3</span>
       <h2 class="phase-h">Stabilize</h2>
-      <p class="phase-thesis">The foundational work that later phases depend on. Odoo can't feel stable until the data going in is clean and the sync to Shopify is reliable. This is also when the data pipeline gets turned on — not to build dashboards yet, but to start the clock on accumulating clean, structured data that Phase 3 will surface.</p>
+      <p class="phase-thesis">The foundational work that later phases depend on. Odoo can't feel stable until the data going in is clean and the sync to Shopify is reliable. This is also when the data pipeline gets turned on, not to build dashboards yet, but to start the clock on accumulating clean, structured data that Phase 3 will surface.</p>
     </div>
 
     <div class="track-grid">
@@ -669,10 +669,10 @@
         <h3>Fix the Shopify ↔ Odoo Sync</h3>
         <p>Almost certainly the root cause of every "the numbers don't match" conversation. The fix isn't glamorous but it's the highest-leverage item in the roadmap.</p>
         <ul>
-          <li>Identify all failure modes in the current sync — silent failures, conflict resolution, rate limits</li>
+          <li>Identify all failure modes in the current sync, silent failures, conflict resolution, rate limits</li>
           <li>Add monitoring so failures are visible immediately instead of discovered days later</li>
           <li>Define the conflict resolution rule: when Shopify and Odoo disagree on inventory, which wins and why?</li>
-          <li>Test the sync under campaign load — what happens when ~70 stores get a surge simultaneously?</li>
+          <li>Test the sync under campaign load, what happens when ~70 stores get a surge simultaneously?</li>
           <li>Document it so anyone on the team can debug it without me</li>
         </ul>
         <div class="tc-note"><strong>Success signal:</strong> A measurable reduction in "the inventory numbers are wrong" conversations. That's when Phase 2 is working.</div>
@@ -684,9 +684,9 @@
         <p>Based on Phase 1 audit. These are the specific fields, records, or structures producing unreliable outputs. Fix the sources, not the outputs.</p>
         <ul>
           <li>Establish data entry standards: required fields, dropdown over free text, naming conventions</li>
-          <li>Deduplicate critical records — vendors, products, contacts — starting with the ones impacting finance</li>
+          <li>Deduplicate critical records, vendors, products, contacts, starting with the ones impacting finance</li>
           <li>Move any load-bearing spreadsheet data into Odoo with proper structure</li>
-          <li>Close the "notes field as structured data" problem — create proper metafields for recurring use cases</li>
+          <li>Close the "notes field as structured data" problem, create proper metafields for recurring use cases</li>
         </ul>
       </div>
 
@@ -696,21 +696,21 @@
         <p>From the Phase 1 pain map. Pick the handoffs that are most frequent, most error-prone, and most manual. Build with n8n. Measure before and after.</p>
         <ul>
           <li>Likely: new creator onboarding → database entry → Asana kickoff → Slack notification (eliminate the Google Sheet)</li>
-          <li>Likely: order anomaly detection — flag orders where Shopify and Odoo state diverges for more than X minutes</li>
-          <li>Likely: campaign launch checklist — when a drop is scheduled, auto-prep checklist across Asana, notify the creator team, confirm inventory is staged</li>
-          <li>Each automation gets a Slack alert on failure — it never silently breaks</li>
+          <li>Likely: order anomaly detection, flag orders where Shopify and Odoo state diverges for more than X minutes</li>
+          <li>Likely: campaign launch checklist, when a drop is scheduled, auto-prep checklist across Asana, notify the creator team, confirm inventory is staged</li>
+          <li>Each automation gets a Slack alert on failure, it never silently breaks</li>
         </ul>
       </div>
 
       <div class="track-card fade">
         <span class="tc-tag">Data</span>
         <h3>Start the Data Pipeline</h3>
-        <p>This isn't about building dashboards yet. It's about turning on the pipeline so clean data starts accumulating — because Phase 3 dashboards are only useful if the data flowing into them has been trustworthy for months.</p>
+        <p>This isn't about building dashboards yet. It's about turning on the pipeline so clean data starts accumulating, because Phase 3 dashboards are only useful if the data flowing into them has been trustworthy for months.</p>
         <ul>
-          <li>Set up BigQuery — begin syncing Shopify and Odoo via Fivetran or Airbyte</li>
-          <li>Define the 5 metrics leadership looks at every week — build those first, nothing else</li>
+          <li>Set up BigQuery, begin syncing Shopify and Odoo via Fivetran or Airbyte</li>
+          <li>Define the 5 metrics leadership looks at every week, build those first, nothing else</li>
           <li>Validate outputs against source systems before anyone sees them</li>
-          <li>No dashboards shipped in Phase 2 — only the pipeline. Dashboards come once there's confidence in what they show.</li>
+          <li>No dashboards shipped in Phase 2, only the pipeline. Dashboards come once there's confidence in what they show.</li>
         </ul>
         <div class="tc-note"><strong>Why this ordering matters:</strong> Two months of clean data need to flow through before campaign analytics mean anything. Start the clock now so Phase 3 has something real to work with.</div>
       </div>
@@ -726,7 +726,7 @@
       <span class="phase-lbl">Phase 3</span>
       <span class="phase-timing">Months 4 – 6</span>
       <h2 class="phase-h">Build: Automate, Surface Intelligence, Ship Dashboards</h2>
-      <p class="phase-thesis">The foundation is stable and the pipeline has been running for two months. Now I build what actually changes how the business operates — dashboards leadership can trust, a RAG layer that makes AI outputs grounded in what Warren James actually knows, non-obvious automations across every team, and a launch readiness system that makes drops less chaotic.</p>
+      <p class="phase-thesis">The foundation is stable and the pipeline has been running for two months. Now I build what actually changes how the business operates, dashboards leadership can trust, a RAG layer that makes AI outputs grounded in what Warren James actually knows, non-obvious automations across every team, and a launch readiness system that makes drops less chaotic.</p>
     </div>
 
     <div class="track-grid">
@@ -736,11 +736,11 @@
         <h3>Portfolio Intelligence Dashboard</h3>
         <p>Not 40 dashboards. One view that opens Monday morning and answers: how is the portfolio doing, where are the problems, and what needs a decision today.</p>
         <ul>
-          <li>Portfolio GMV vs. prior week, month, same period last year — across all stores</li>
+          <li>Portfolio GMV vs. prior week, month, same period last year, across all stores</li>
           <li>Top and bottom performing stores ranked by this week's sell-through rate</li>
           <li>Active campaigns: what's live, what's closing, what's pending</li>
           <li>Odoo health signal: sync status, anomalies flagged in the last 7 days</li>
-          <li>AI-generated weekly narrative: "The story of last week in 3 bullets" — synthesized automatically from the data</li>
+          <li>AI-generated weekly narrative: "The story of last week in 3 bullets", synthesized automatically from the data</li>
         </ul>
         <div class="tc-note"><strong>Why Phase 3, not earlier:</strong> This dashboard is only credible once the underlying data pipeline has been running and validated for 2+ months. Shipping it earlier means showing the CEO numbers that can't be trusted yet.</div>
       </div>
@@ -748,14 +748,14 @@
       <div class="track-card fade">
         <span class="tc-tag blue">AI / RAG</span>
         <h3>RAG Layer for AI Outputs</h3>
-        <p>Retrieval-Augmented Generation means AI doesn't answer from general knowledge — it answers from Warren James's own history. Campaign briefs, creator performance data, product records, what worked and what didn't — indexed and retrievable by any AI workflow.</p>
+        <p>Retrieval-Augmented Generation means AI doesn't answer from general knowledge, it answers from Warren James's own history. Campaign briefs, creator performance data, product records, what worked and what didn't, indexed and retrievable by any AI workflow.</p>
         <ul>
           <li>Index campaign history, creator briefs, and product data into a searchable vector store</li>
           <li>Wire the RAG layer into Phase 2 automations so outputs improve automatically as data accumulates</li>
           <li>Campaign brief generator: pull a creator's performance history, generate a tailored launch strategy grounded in what actually worked for similar stores</li>
           <li>Finance month-end assistant: flags discrepancies and drafts summaries from actual historical patterns, not generic logic</li>
         </ul>
-        <div class="tc-note"><strong>What RAG changes:</strong> Without it, AI outputs are generic. With it, they reflect the specific context of the creator, the store, and the campaign history — and get better the longer the system runs.</div>
+        <div class="tc-note"><strong>What RAG changes:</strong> Without it, AI outputs are generic. With it, they reflect the specific context of the creator, the store, and the campaign history, and get better the longer the system runs.</div>
       </div>
 
       <div class="track-card fade">
@@ -764,45 +764,45 @@
         <p>Drops at Warren James involve coordination across creator success, ops, merch, and Shopify. Right now that coordination is manual and prone to gaps. The launch readiness agent makes it systematic.</p>
         <ul>
           <li>When a drop is scheduled, automatically audit: inventory staged in Odoo, Launchpad configured, creator briefed, social content ready</li>
-          <li>Flag any missing step more than 48 hours before launch — not at T-minus 2 hours</li>
+          <li>Flag any missing step more than 48 hours before launch, not at T-minus 2 hours</li>
           <li>Post-launch: track sell-through velocity in the first 4 hours and alert if it's tracking below forecast</li>
-          <li>Encode each launch outcome into a structured record — feeds the campaign intelligence layer in Phase 4</li>
+          <li>Encode each launch outcome into a structured record, feeds the campaign intelligence layer in Phase 4</li>
         </ul>
       </div>
 
       <div class="track-card fade">
         <span class="tc-tag">AI / Automation</span>
         <h3>Non-Obvious Automations</h3>
-        <p>Beyond the Phase 2 quick wins, Phase 3 is about automations that require stable data and cross-system context to work — the ones that weren't possible before the foundation was solid.</p>
+        <p>Beyond the Phase 2 quick wins, Phase 3 is about automations that require stable data and cross-system context to work, the ones that weren't possible before the foundation was solid.</p>
         <ul>
-          <li>Cross-store audience profile builder: cluster stores by shared audience characteristics — age band, category affinity, price point, engagement pattern</li>
-          <li>Automated weekly store digest per creator — no one manually compiling reports</li>
+          <li>Cross-store audience profile builder: cluster stores by shared audience characteristics, age band, category affinity, price point, engagement pattern</li>
+          <li>Automated weekly store digest per creator, no one manually compiling reports</li>
           <li>Vendor lead time intelligence: flag when any vendor has historically caused inventory gaps during launches</li>
-          <li>Internal AI office hours: teach every team to build simple n8n workflows themselves — the goal is self-sufficiency, not dependence</li>
+          <li>Internal AI office hours: teach every team to build simple n8n workflows themselves, the goal is self-sufficiency, not dependence</li>
         </ul>
       </div>
 
       <div class="track-card fade">
         <span class="tc-tag">Shopify</span>
         <h3>Shopify Infrastructure Consolidation</h3>
-        <p>Based on Phase 1 findings. Remove the debt — redundant apps, inconsistent store structures, manual coordination at launch time.</p>
+        <p>Based on Phase 1 findings. Remove the debt, redundant apps, inconsistent store structures, manual coordination at launch time.</p>
         <ul>
-          <li>Standardize app stack across stores — one approved set, remove redundant installs</li>
+          <li>Standardize app stack across stores, one approved set, remove redundant installs</li>
           <li>Every coordinated creator drop uses Launchpad, not manual "everyone go live at 9am"</li>
-          <li>Shopify Flow for cross-store order tagging — automated campaign attribution starts here</li>
-          <li>Evaluate Shopify Plus consolidation ROI if stores are on split plans — present the math with a clear recommendation</li>
+          <li>Shopify Flow for cross-store order tagging, automated campaign attribution starts here</li>
+          <li>Evaluate Shopify Plus consolidation ROI if stores are on split plans, present the math with a clear recommendation</li>
         </ul>
       </div>
 
       <div class="track-card fade">
         <span class="tc-tag">Governance</span>
         <h3>Access Management and Offboarding</h3>
-        <p>~70 stores, a fast-growing company, and already a key tech departure on record. The offboarding risk is real — fix it before the next one.</p>
+        <p>~70 stores, a fast-growing company, and already a key tech departure on record. The offboarding risk is real, fix it before the next one.</p>
         <ul>
           <li>Audit current Shopify admin access across every store</li>
-          <li>Implement SSO where possible — Google Workspace as the identity layer</li>
+          <li>Implement SSO where possible, Google Workspace as the identity layer</li>
           <li>Offboarding checklist that covers all systems in under 30 minutes</li>
-          <li>Quarterly access review — 2-hour audit once per quarter, not a bureaucratic process</li>
+          <li>Quarterly access review, 2-hour audit once per quarter, not a bureaucratic process</li>
         </ul>
       </div>
 
@@ -812,7 +812,7 @@
     <div class="bridge fade">
       <span class="bridge-lbl">End of Phase 3 · Readiness check before Phase 4</span>
       <h3>Operations should feel materially different here</h3>
-      <p>By the end of month 6, the problems that defined day one should feel like the distant past. The Shopify-Odoo sync is reliable and monitored. Leadership has a dashboard they trust. Automations are running across every team. The data pipeline has been flowing for four months. The RAG layer is grounded in real history. Phase 4 only compounds what's already solid — it doesn't paper over what isn't.</p>
+      <p>By the end of month 6, the problems that defined day one should feel like the distant past. The Shopify-Odoo sync is reliable and monitored. Leadership has a dashboard they trust. Automations are running across every team. The data pipeline has been flowing for four months. The RAG layer is grounded in real history. Phase 4 only compounds what's already solid, it doesn't paper over what isn't.</p>
       <div class="bridge-signals">
         <span class="bridge-signal">Sync failures visible in minutes</span>
         <span class="bridge-signal">Portfolio dashboard live</span>
@@ -832,7 +832,7 @@
       <span class="phase-lbl">Phase 4</span>
       <span class="phase-timing">Months 7 – 9</span>
       <h2 class="phase-h">Compound: Where the Data Flywheel Kicks In</h2>
-      <p class="phase-thesis">By month 7, the foundation is solid, the workflows are running, and six months of tagged campaign data have accumulated. Phase 4 is where the system starts generating intelligence that compounds — each launch teaches the portfolio, purchasing power consolidates, and patterns that were invisible when stores operated in isolation become actionable. This phase only works because of what came before it.</p>
+      <p class="phase-thesis">By month 7, the foundation is solid, the workflows are running, and six months of tagged campaign data have accumulated. Phase 4 is where the system starts generating intelligence that compounds, each launch teaches the portfolio, purchasing power consolidates, and patterns that were invisible when stores operated in isolation become actionable. This phase only works because of what came before it.</p>
     </div>
 
     <div class="track-grid">
@@ -842,9 +842,9 @@
         <h3>Cross-Store Campaign Pattern Matching</h3>
         <p>The flagship intelligence use case. A successful campaign in Store A auto-generates a brief for the stores with the most similar audience profiles. Over time this becomes a proprietary playbook library that no competitor can replicate without the same data history.</p>
         <ul>
-          <li>Cross-store similarity engine — which stores share audience type, price band, category, engagement pattern?</li>
+          <li>Cross-store similarity engine, which stores share audience type, price band, category, engagement pattern?</li>
           <li>Post-campaign AI debrief: structured analysis of what drove success, encoded into the store's profile</li>
-          <li>Proactive playbook generation: "Store 12 just had a breakout drop — here are the 4 stores most likely to replicate it and why"</li>
+          <li>Proactive playbook generation: "Store 12 just had a breakout drop, here are the 4 stores most likely to replicate it and why"</li>
           <li>Inputs: BigQuery campaign data + social analytics from Instagram/TikTok API</li>
         </ul>
         <div class="tc-note"><strong>Why this only works now:</strong> This requires 6+ months of tagged campaign data and 2+ months of audience profiles before similarity matching produces signal rather than noise. Attempting it in month 2 would be guesswork.</div>
@@ -853,7 +853,7 @@
       <div class="track-card fade">
         <span class="tc-tag">AI / Automation</span>
         <h3>Predictive Drop Timing</h3>
-        <p>Patterns in campaign data reveal which days, times, and seasonal windows produce the highest sell-through for each store's audience type. The system stops being reactive — it recommends the highest-probability launch window based on months of actual performance data.</p>
+        <p>Patterns in campaign data reveal which days, times, and seasonal windows produce the highest sell-through for each store's audience type. The system stops being reactive, it recommends the highest-probability launch window based on months of actual performance data.</p>
         <ul>
           <li>Analyze sell-through velocity by day-of-week, time-of-day, and seasonal window per store cluster</li>
           <li>Surface timing recommendations as part of the launch readiness agent flow</li>
@@ -865,10 +865,10 @@
       <div class="track-card fade">
         <span class="tc-tag">ERP / Data</span>
         <h3>Purchasing Consolidation</h3>
-        <p>Fifteen stores buying from the same manufacturer appear as fifteen separate relationships — each negotiating independently, each blind to the others. With cross-store vendor data consolidated, Warren James sees its true aggregate spend per supplier and can act accordingly.</p>
+        <p>Fifteen stores buying from the same manufacturer appear as fifteen separate relationships, each negotiating independently, each blind to the others. With cross-store vendor data consolidated, Warren James sees its true aggregate spend per supplier and can act accordingly.</p>
         <ul>
-          <li>Map shared vendor relationships across all ~70 stores — total spend per vendor in Odoo</li>
-          <li>Identify top vendors by total WJ portfolio spend — present consolidated leverage case</li>
+          <li>Map shared vendor relationships across all ~70 stores, total spend per vendor in Odoo</li>
+          <li>Identify top vendors by total WJ portfolio spend, present consolidated leverage case</li>
           <li>Automate reorder alerts: when any store's stock for a shared SKU-category drops below threshold, flag it</li>
           <li>Lead time intelligence: which vendors deliver on time vs. which create inventory gaps during launches</li>
         </ul>
@@ -877,12 +877,12 @@
       <div class="track-card fade">
         <span class="tc-tag">Data</span>
         <h3>Proprietary Playbook Library</h3>
-        <p>Every successful launch that gets encoded into the system becomes a reusable asset for the whole portfolio. By month 9, the RAG layer is grounded in a growing library of documented wins — not generic best practices, but Warren James-specific patterns that accumulate over time.</p>
+        <p>Every successful launch that gets encoded into the system becomes a reusable asset for the whole portfolio. By month 9, the RAG layer is grounded in a growing library of documented wins, not generic best practices, but Warren James-specific patterns that accumulate over time.</p>
         <ul>
           <li>Structured post-campaign debriefs automatically populate the playbook after each launch</li>
           <li>Playbooks organized by store cluster, product category, campaign type, and seasonality</li>
           <li>New creator onboarding query: "What have our top-performing stores in this category done in their first 3 launches?"</li>
-          <li>This library is the moat — it compounds in value the longer the system runs and cannot be replicated without the same history</li>
+          <li>This library is the moat, it compounds in value the longer the system runs and cannot be replicated without the same history</li>
         </ul>
       </div>
 
@@ -950,7 +950,7 @@
         </div>
         <div class="nl-item">
           Shopify Plus evaluation
-          <div class="nl-why">Meaningful cost decision. Worth a structured evaluation after the store audit — not a default assumption.</div>
+          <div class="nl-why">Meaningful cost decision. Worth a structured evaluation after the store audit, not a default assumption.</div>
         </div>
         <div class="nl-item">
           Headless / Hydrogen storefronts
@@ -1012,7 +1012,7 @@
         <tr>
           <td style="color:var(--cream)">CEO has a technical partner</td>
           <td>Ongoing from Day 1</td>
-          <td>Weekly sync where I bring the architecture direction. No surprises — issues surface before they become problems.</td>
+          <td>Weekly sync where I bring the architecture direction. No surprises, issues surface before they become problems.</td>
           <td>Proactive communication, CEO dashboard, clear "here's what I'm building and why" cadence</td>
         </tr>
       </tbody>
@@ -1026,7 +1026,7 @@
     <div class="fade">
       <span class="lbl">Vision Horizon</span>
       <h2>Where This Leads</h2>
-      <p class="lead">The 6–9 month roadmap stabilizes the foundation and proves the pattern. Every use case below is impossible without clean data, a reliable sync layer, and AI workflows already embedded in how teams operate. The foundation isn't the goal — it's the prerequisite.</p>
+      <p class="lead">The 6–9 month roadmap stabilizes the foundation and proves the pattern. Every use case below is impossible without clean data, a reliable sync layer, and AI workflows already embedded in how teams operate. The foundation isn't the goal, it's the prerequisite.</p>
     </div>
 
     <div class="vision-grid">
@@ -1034,14 +1034,14 @@
       <div class="v-card featured fade">
         <span class="v-lbl">Campaign Intelligence · Flagship</span>
         <h3>Cross-Store Campaign Pattern Matching</h3>
-        <p>After every successful launch, an AI agent extracts the characteristics that drove performance — audience profile, product category, price band, scarcity mechanics, sell-through velocity — and encodes them as a store fingerprint. When Store A has a breakout drop, the system automatically identifies the stores with the most similar profiles and generates a tailored campaign brief for each. Over time this becomes a proprietary playbook library that no competitor can replicate without the same data history.</p>
+        <p>After every successful launch, an AI agent extracts the characteristics that drove performance, audience profile, product category, price band, scarcity mechanics, sell-through velocity, and encodes them as a store fingerprint. When Store A has a breakout drop, the system automatically identifies the stores with the most similar profiles and generates a tailored campaign brief for each. Over time this becomes a proprietary playbook library that no competitor can replicate without the same data history.</p>
         <div class="v-outcome">Every successful launch teaches the whole portfolio. One win becomes five.</div>
       </div>
 
       <div class="v-card fade">
         <span class="v-lbl">Creator Intelligence</span>
         <h3>New Creator Fit Predictor</h3>
-        <p>Signing a new creator is one of the most capital-intensive decisions Warren James makes. Today it's largely qualitative. With store fingerprint data, it becomes predictive — score any prospective creator against the audience profiles and product categories where WJ consistently wins.</p>
+        <p>Signing a new creator is one of the most capital-intensive decisions Warren James makes. Today it's largely qualitative. With store fingerprint data, it becomes predictive, score any prospective creator against the audience profiles and product categories where WJ consistently wins.</p>
         <div class="v-outcome">Data-driven creator acquisition. Ranked probability, not gut feel.</div>
       </div>
 
@@ -1062,21 +1062,21 @@
       <div class="v-card fade">
         <span class="v-lbl">Audience Intelligence</span>
         <h3>Cross-Store Buyer Identity Graph</h3>
-        <p>A customer who bought from Creator A's store and Creator B's store is a high-value repeat buyer across the WJ portfolio — but if each store is siloed they're invisible as such. Connecting buyer identities reveals the true lifetime value of the WJ audience and where cross-promotion is most likely to convert.</p>
+        <p>A customer who bought from Creator A's store and Creator B's store is a high-value repeat buyer across the WJ portfolio, but if each store is siloed they're invisible as such. Connecting buyer identities reveals the true lifetime value of the WJ audience and where cross-promotion is most likely to convert.</p>
         <div class="v-outcome">The WJ audience is worth more than the sum of ~70 individual stores.</div>
       </div>
 
       <div class="v-card fade">
         <span class="v-lbl">Ops Intelligence</span>
         <h3>Portfolio Vendor Leverage</h3>
-        <p>Fifteen stores buying from the same manufacturer appear as fifteen separate relationships — each negotiating independently. With cross-store vendor data consolidated, Warren James sees its true aggregate spend per supplier and can negotiate accordingly.</p>
+        <p>Fifteen stores buying from the same manufacturer appear as fifteen separate relationships, each negotiating independently. With cross-store vendor data consolidated, Warren James sees its true aggregate spend per supplier and can negotiate accordingly.</p>
         <div class="v-outcome">Buying power of a portfolio, not ~70 individual stores.</div>
       </div>
 
     </div>
 
     <div class="tc-note fade" style="margin-top:24px; padding: 18px 24px; border-radius:3px; background: rgba(0,0,0,0.05); font-size:13px; line-height:1.7; color:rgba(0,0,0,0.5)">
-      <strong style="color:var(--black)">Why none of this works without the foundation:</strong> Clean campaign tagging starts in Phase 3. Store fingerprints require 6+ months of tagged data. Cross-store buyer identity requires consistent customer records in Odoo. Vendor leverage requires unified spend data in BigQuery. The 6–9 month roadmap isn't a delay before the interesting work — it's what makes the interesting work possible.
+      <strong style="color:var(--black)">Why none of this works without the foundation:</strong> Clean campaign tagging starts in Phase 3. Store fingerprints require 6+ months of tagged data. Cross-store buyer identity requires consistent customer records in Odoo. Vendor leverage requires unified spend data in BigQuery. The 6–9 month roadmap isn't a delay before the interesting work, it's what makes the interesting work possible.
     </div>
   </div>
 </section>
