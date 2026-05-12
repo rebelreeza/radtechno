@@ -335,11 +335,18 @@
           <td>Exact phrase search across SOPs and contracts. Surprisingly effective for structured internal docs where terminology is consistent.</td>
         </tr>
         <tr>
-          <td>pgvector on existing Postgres <span class="badge badge-start">Start here</span></td>
+          <td>Pinecone Serverless <span class="badge badge-start">Start here</span></td>
+          <td><span class="cost-lo">$0–15/mo</span></td>
+          <td>Excellent</td>
+          <td>Hours</td>
+          <td>Managed, zero-ops, just an API key. Free tier covers WJ's current doc volume. Best fit given BigQuery is the warehouse — no Postgres instance to piggyback on.</td>
+        </tr>
+        <tr>
+          <td>pgvector on existing Postgres</td>
           <td><span class="cost-lo">$0–20/mo</span></td>
           <td>Good — true vector similarity search</td>
           <td>1–2 days</td>
-          <td>Best first RAG option. Runs as a Postgres extension — no new infrastructure if a Postgres instance already exists. Handles WJ's doc volume easily.</td>
+          <td>Good option only if a Postgres instance already exists for another reason (e.g., Odoo backend). Don't spin up Postgres just for this.</td>
         </tr>
         <tr>
           <td>Chroma (self-hosted)</td>
@@ -347,13 +354,6 @@
           <td>Good</td>
           <td>1–2 days</td>
           <td>Purpose-built vector DB. Simpler API than pgvector, good for rapid prototyping. Self-hosted = no vendor dependency.</td>
-        </tr>
-        <tr>
-          <td>Pinecone Serverless <span class="badge badge-scale">Scale option</span></td>
-          <td><span class="cost-lo">$0–15/mo</span></td>
-          <td>Excellent</td>
-          <td>Hours</td>
-          <td>Managed, zero-ops. Free tier covers WJ's current doc volume. Graduate here when pgvector starts feeling like overhead to manage.</td>
         </tr>
         <tr>
           <td>Weaviate Cloud</td>
@@ -526,7 +526,7 @@
         <div class="total-amount">$20–95/mo</div>
         <div class="total-sub">
           BigQuery free tier ($0–30)<br>
-          pgvector on existing Postgres ($0–20)<br>
+          Pinecone Serverless free tier ($0)<br>
           Airbyte self-hosted ETL ($20–40)<br>
           AI tokens (~$3–5)
         </div>
