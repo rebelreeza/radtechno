@@ -1,24 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <!-- Background -->
-  <rect width="64" height="64" rx="7" fill="#0c0c0c"/>
-
-  <!-- Outer ornamental frame -->
-  <rect x="4.5" y="4.5" width="55" height="55" rx="4" fill="none"
-        stroke="rgba(237,234,226,0.18)" stroke-width="0.75"/>
-
-  <!-- Top ornament: rule · diamond · rule -->
-  <line x1="11" y1="13" x2="27" y2="13" stroke="rgba(237,234,226,0.32)" stroke-width="0.75"/>
-  <polygon points="32,10.5 34,13 32,15.5 30,13" fill="rgba(237,234,226,0.5)"/>
-  <line x1="37" y1="13" x2="53" y2="13" stroke="rgba(237,234,226,0.32)" stroke-width="0.75"/>
-
-  <!-- The R -->
-  <text x="32" y="49"
+  <circle cx="32" cy="32" r="32" fill="#0c0c0c"/>
+  <text x="32" y="47"
         text-anchor="middle"
         font-family="Georgia, 'Times New Roman', serif"
-        font-size="43"
+        font-size="42"
         font-weight="400"
         fill="#edeae2">R</text>
-
-  <!-- Bottom ornament: thin rule -->
-  <line x1="20" y1="54.5" x2="44" y2="54.5" stroke="rgba(237,234,226,0.18)" stroke-width="0.75"/>
 </svg>
