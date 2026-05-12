@@ -621,11 +621,11 @@
     white-space: nowrap;
     flex-shrink: 0;
     transition: opacity 0.15s, border-color 0.15s;
-    opacity: 0.28;
+    opacity: 0.55;
     margin-top: -1px;
   }
-  .note-toggle:hover { opacity: 0.65; }
-  .note-toggle.has-content { opacity: 0.8; }
+  .note-toggle:hover { opacity: 0.9; }
+  .note-toggle.has-content { opacity: 1; }
   .dark .note-toggle { color: var(--cream); border: 1px solid rgba(255,255,255,0.3); }
   .cream .note-toggle { color: var(--black); border: 1px solid rgba(0,0,0,0.25); }
 
@@ -661,7 +661,7 @@
   .note-field textarea {
     width: 100%;
     border-radius: 3px;
-    padding: 10px 44px 10px 12px;
+    padding: 10px 12px 10px 38px;
     font-family: inherit;
     font-size: 13px;
     resize: none;
@@ -687,7 +687,7 @@
 
   .note-mic-btn {
     position: absolute;
-    right: 10px;
+    left: 10px;
     top: 10px;
     background: none;
     border: none;
@@ -1579,7 +1579,7 @@
         '</div>' +
         '<div class="note-field">' +
         '<textarea placeholder="Your thoughts on this section...">' + (d.note || '') + '</textarea>' +
-        '<button class="note-mic-btn" title="Click to speak">\uD83C\uDFA4</button>' +
+        '<button class="note-mic-btn" title="Click to speak"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"currentColor\" style=\"display:block\"><path d=\"M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z\"/><path d=\"M19 10v2a7 7 0 0 1-14 0v-2H3v2a9 9 0 0 0 8 8.94V23h2v-2.06A9 9 0 0 0 21 12v-2h-2z\"/></svg></button>' +
         '</div>';
       inner.appendChild(panel);
 
