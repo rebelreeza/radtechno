@@ -3,505 +3,391 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WJ VP of Technology - Memo to Saurabh</title>
+<title>WJ VP of Technology: Onboarding Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black: #0a0a0a;
-    --white: #ffffff;
-    --gray-1: #f4f4f4;
-    --gray-2: #e0e0e0;
-    --gray-3: #9e9e9e;
-    --gray-4: #555;
-    --gray-5: #333;
-    --accent: #1a1a1a;
+    --cream: #edeae2;
+    --black: #0c0c0c;
+    --blue: #6ea8fe;
+    --bd: rgba(0,0,0,0.1);
+    --bdd: rgba(255,255,255,0.1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: var(--white);
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    background: var(--cream);
     color: var(--black);
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Header */
-  header {
-    background: var(--black);
-    color: var(--white);
-    padding: 52px 72px 44px;
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9000;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ─── SECTION SYSTEM ─── */
+  .s {
+    width: 100%;
+    padding: 88px 56px;
+  }
+  .s.dark { background: var(--black); color: var(--cream); }
+  .s.cream { background: var(--cream); color: var(--black); }
+  .s.tight { padding-top: 56px; padding-bottom: 56px; }
+
+  .inner { max-width: 880px; margin: 0 auto; }
+
+  /* ─── LABELS ─── */
+  .lbl {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .dark .lbl { color: rgba(255,255,255,0.35); }
+  .cream .lbl { color: rgba(0,0,0,0.35); }
+
+  /* ─── TYPOGRAPHY ─── */
+  h1 {
+    font-size: clamp(40px, 6.5vw, 76px);
+    font-weight: 300;
+    letter-spacing: -2.5px;
+    line-height: 1.0;
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-size: clamp(26px, 3.5vw, 44px);
+    font-weight: 300;
+    letter-spacing: -1.2px;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.75;
+    max-width: 620px;
+    margin-bottom: 48px;
+  }
+  .dark .lead { color: rgba(255,255,255,0.5); }
+  .cream .lead { color: rgba(0,0,0,0.5); }
+
+  /* ─── SCROLL FADE ─── */
+  .fade {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade.in { opacity: 1; transform: none; }
+
+  /* ─── HEADER ─── */
+  header.s {
+    min-height: 56vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 80px;
+    padding-bottom: 88px;
   }
 
   .eyebrow {
     font-size: 10px;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: #666;
-    margin-bottom: 14px;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 36px;
   }
 
-  header h1 {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
-    margin-bottom: 14px;
+  header .subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.45);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-top: 4px;
+    font-weight: 300;
   }
 
-  .subtitle {
-    font-size: 15px;
-    color: #aaa;
-    max-width: 600px;
-    line-height: 1.5;
-  }
-
-  /* Main content */
-  main {
-    max-width: 820px;
-    margin: 0 auto;
-    padding: 56px 40px 80px;
-  }
-
-  /* Section */
-  .memo-section {
-    margin-bottom: 52px;
-  }
-
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gray-3);
-    margin-bottom: 10px;
-    font-weight: 600;
-  }
-
-  .memo-section h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 16px;
-    letter-spacing: -0.2px;
-  }
-
-  .memo-section p {
-    color: var(--gray-5);
-    margin-bottom: 14px;
-  }
-
-  /* Divider */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--gray-2);
-    margin: 0 0 52px;
-  }
-
-  /* Assessment cards */
-  .assessment-grid {
+  /* ─── ASSESSMENT CARDS ─── */
+  .a-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 4px;
   }
 
   .a-card {
-    border: 1px solid var(--gray-2);
-    border-radius: 6px;
-    padding: 20px 22px;
+    border: 1px solid var(--bd);
+    border-radius: 3px;
+    padding: 24px 26px;
+    transition: border-color 0.2s;
+  }
+  .a-card:hover { border-color: rgba(0,0,0,0.3); }
+  .a-card.full { grid-column: 1 / -1; }
+  .a-card.risk {
+    border-color: rgba(220,38,38,0.25);
+    background: rgba(220,38,38,0.035);
   }
 
-  .a-card.full {
-    grid-column: 1 / -1;
-  }
-
-  .a-card-label {
+  .a-card .clbl {
     font-size: 10px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--gray-3);
+    font-weight: 500;
+    color: rgba(0,0,0,0.3);
     margin-bottom: 8px;
-    font-weight: 600;
+    display: block;
   }
+  .a-card.risk .clbl { color: #dc2626; }
 
   .a-card h3 {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 600;
     margin-bottom: 8px;
+    letter-spacing: -0.2px;
   }
 
   .a-card p {
     font-size: 13px;
-    color: var(--gray-4);
+    color: rgba(0,0,0,0.5);
     margin: 0;
+    line-height: 1.65;
   }
 
-  .a-card.risk {
-    border-color: #fca5a5;
-    background: #fff5f5;
-  }
-
-  .a-card.risk .a-card-label { color: #dc2626; }
-
-  /* Plan timeline */
-  .timeline {
-    margin-top: 20px;
-    border-left: 2px solid var(--gray-2);
-    padding-left: 28px;
-  }
-
-  .tl-item {
-    position: relative;
-    margin-bottom: 32px;
-  }
-
-  .tl-item:last-child { margin-bottom: 0; }
-
-  .tl-dot {
-    position: absolute;
-    left: -35px;
-    top: 5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: var(--black);
-  }
-
-  .tl-timing {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gray-3);
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .tl-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .tl-desc {
-    font-size: 13px;
-    color: var(--gray-4);
-    margin-bottom: 10px;
-  }
-
-  .tl-bullets {
-    list-style: none;
-    padding: 0;
-  }
-
-  .tl-bullets li {
-    font-size: 13px;
-    color: var(--gray-5);
-    padding: 4px 0;
-    padding-left: 14px;
-    position: relative;
-  }
-
-  .tl-bullets li::before {
-    content: '-';
-    position: absolute;
-    left: 0;
-    color: var(--gray-3);
-  }
-
-  /* Vision cards */
-  .vision-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-    margin-top: 20px;
-  }
-
-  .v-card {
-    border: 1px solid var(--gray-2);
-    border-radius: 6px;
-    padding: 18px 20px;
-  }
-
-  .v-card.featured {
+  .a-group-lbl {
     grid-column: 1 / -1;
-    background: var(--black);
-    color: var(--white);
-    border-color: var(--black);
-  }
-
-  .v-label {
     font-size: 10px;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gray-3);
-    margin-bottom: 6px;
     font-weight: 600;
+    color: rgba(0,0,0,0.28);
+    padding: 28px 0 12px;
+    border-bottom: 1px solid var(--bd);
   }
+  .a-group-lbl.first { padding-top: 0; }
 
-  .v-card.featured .v-label { color: #555; }
-
-  .v-card h3 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .v-card p {
-    font-size: 13px;
-    color: var(--gray-4);
-    margin: 0;
-  }
-
-  .v-card.featured p { color: #aaa; }
-  .v-card.featured h3 { font-size: 16px; }
-
-  /* Questions */
-  .q-list {
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-    counter-reset: q;
-  }
-
-  .q-list li {
-    counter-increment: q;
-    display: flex;
-    gap: 16px;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--gray-2);
-  }
-
-  .q-list li:last-child { border-bottom: none; }
-
-  .q-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--gray-3);
-    min-width: 20px;
-    padding-top: 2px;
-  }
-
-  .q-body strong {
-    font-size: 14px;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .q-body span {
-    font-size: 13px;
-    color: var(--gray-4);
-  }
-
-  /* Collab section */
-  .collab-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 20px;
-  }
-
-  .collab-card {
-    background: var(--gray-1);
-    border-radius: 6px;
-    padding: 18px 20px;
-  }
-
-  .collab-card h3 {
-    font-size: 13px;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .collab-card p {
-    font-size: 13px;
-    color: var(--gray-4);
-    margin: 0;
-  }
-
-  /* Close */
-  .close-block {
-    background: var(--black);
-    color: var(--white);
-    border-radius: 8px;
-    padding: 36px 40px;
-    margin-top: 52px;
-  }
-
-  .close-block h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    letter-spacing: -0.2px;
-  }
-
-  .close-block p {
-    font-size: 14px;
-    color: #aaa;
-    margin-bottom: 0;
-    max-width: 600px;
-    line-height: 1.6;
-  }
-
-  /* Ideal state table */
-  .ideal-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin-top: 24px;
-  }
-
-  .ideal-table th {
-    text-align: left;
-    padding: 9px 12px;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gray-3);
-    font-weight: 600;
-    border-bottom: 2px solid var(--gray-2);
-  }
-
-  .ideal-table td {
-    padding: 12px;
-    vertical-align: top;
-    border-bottom: 1px solid var(--gray-2);
-  }
-
-  .ideal-table td:first-child {
-    font-weight: 600;
-    font-size: 12px;
-    color: var(--gray-5);
-    width: 150px;
-    white-space: nowrap;
-  }
-
-  .ideal-table td.ideal {
-    background: #f0fdf4;
-    color: #166534;
-    border-left: 3px solid #bbf7d0;
-  }
-
-  .ideal-table td.broken {
-    background: #fef2f2;
-    color: #991b1b;
-    border-left: 3px solid #fca5a5;
-  }
-
-  /* Supporting docs */
-  .docs-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-    margin-top: 20px;
-  }
-
-  .doc-link {
-    display: block;
-    border: 1px solid var(--gray-2);
-    border-radius: 6px;
-    padding: 18px 20px;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s;
-  }
-
-  .doc-link:hover { border-color: var(--black); }
-
-  .doc-link-label {
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gray-3);
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
-  .doc-link h3 {
-    font-size: 14px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-
-  .doc-link p {
-    font-size: 13px;
-    color: var(--gray-4);
-    margin: 0;
-  }
-
-  .doc-arrow {
-    float: right;
-    color: var(--gray-3);
-    font-size: 16px;
-    margin-top: -2px;
-  }
-
-  /* Stack table */
-  .stack-table {
-    margin-top: 20px;
-    border: 1px solid var(--gray-2);
-    border-radius: 8px;
+  /* ─── STACK TABLE ─── */
+  .stack-wrap {
+    border: 1px solid var(--bdd);
+    border-radius: 3px;
     overflow: hidden;
+    overflow-x: auto;
+    margin-top: 4px;
   }
+
+  .stack-table { min-width: 640px; width: 100%; }
 
   .stack-row {
     display: grid;
-    grid-template-columns: 120px 1fr 150px 1fr;
-    border-bottom: 1px solid var(--gray-2);
+    grid-template-columns: 110px 1fr 110px 160px 1fr;
+    border-bottom: 1px solid var(--bdd);
     align-items: start;
   }
-
   .stack-row:last-child { border-bottom: none; }
-  .stack-row.hdr { background: var(--gray-1); }
+  .stack-row.hdr { background: rgba(255,255,255,0.04); }
 
   .sc {
-    padding: 13px 15px;
-    border-right: 1px solid var(--gray-2);
+    padding: 14px 16px;
+    border-right: 1px solid var(--bdd);
     font-size: 13px;
+    color: rgba(255,255,255,0.7);
   }
-
   .sc:last-child { border-right: none; }
 
   .stack-row.hdr .sc {
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-weight: 500;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: var(--gray-3);
-    padding: 9px 15px;
+    color: rgba(255,255,255,0.3);
+    padding: 10px 16px;
   }
+  .stack-row.hdr .sc:last-child { padding: 10px 16px; }
 
-  .sc-tool strong { font-size: 13px; font-weight: 700; }
-  .sc-tool span { font-size: 11px; color: var(--gray-3); display: block; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
-  .sc-purpose { color: var(--gray-4); line-height: 1.5; font-size: 13px; }
-  .sc-users { font-size: 12px; color: var(--gray-4); line-height: 1.5; }
+  .sc-tool strong { font-size: 13px; font-weight: 600; color: var(--cream); display: block; }
+  .sc-tool em { font-style: normal; font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; display: block; }
+  .sc-purpose { color: rgba(255,255,255,0.5); line-height: 1.55; }
+  .sc-users { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5; }
 
-  .rx-group { display: flex; flex-wrap: wrap; gap: 5px; padding: 13px 15px; }
+  .rx-group { display: flex; flex-wrap: wrap; gap: 5px; padding: 14px 16px; border-right: 1px solid var(--bdd); }
 
   .rx-btn {
     font-family: inherit;
     font-size: 11px;
-    padding: 4px 10px;
-    border: 1px solid var(--gray-2);
+    padding: 4px 11px;
+    border: 1px solid rgba(255,255,255,0.16);
     border-radius: 20px;
-    background: var(--white);
-    color: var(--gray-4);
+    background: transparent;
+    color: rgba(255,255,255,0.45);
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.1s;
+    transition: all 0.15s;
+  }
+  .rx-btn:hover { border-color: rgba(255,255,255,0.5); color: var(--cream); }
+  .rx-btn.selected { background: var(--cream); color: var(--black); border-color: var(--cream); }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    border-left: 1px solid var(--bd);
+    padding-left: 36px;
+    margin-top: 4px;
   }
 
-  .rx-btn:hover { border-color: var(--gray-4); color: var(--black); }
-  .rx-btn.selected { background: var(--black); color: var(--white); border-color: var(--black); }
-
-  /* Answer fields */
-  .q-answer {
-    margin-top: 12px;
+  .tl-item {
     position: relative;
+    margin-bottom: 48px;
+  }
+  .tl-item:last-child { margin-bottom: 0; }
+
+  .tl-dot {
+    position: absolute;
+    left: -40px;
+    top: 8px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--black);
+    border: 2px solid rgba(0,0,0,0.2);
   }
 
+  .tl-timing {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.3);
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .tl-title {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.4px;
+    margin-bottom: 8px;
+  }
+
+  .tl-desc {
+    font-size: 13px;
+    color: rgba(0,0,0,0.45);
+    margin-bottom: 14px;
+    max-width: 560px;
+    line-height: 1.65;
+  }
+
+  .tl-bullets { list-style: none; padding: 0; }
+  .tl-bullets li {
+    font-size: 13px;
+    color: rgba(0,0,0,0.6);
+    padding: 4px 0 4px 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .tl-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: rgba(0,0,0,0.25);
+    font-size: 12px;
+    top: 5px;
+  }
+
+  /* ─── VISION CARDS ─── */
+  .vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .v-card {
+    border: 1px solid var(--bdd);
+    border-radius: 3px;
+    padding: 22px 24px;
+    transition: border-color 0.2s;
+  }
+  .v-card:hover { border-color: rgba(255,255,255,0.25); }
+  .v-card.featured {
+    grid-column: 1 / -1;
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.14);
+  }
+
+  .v-lbl {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 8px;
+    font-weight: 500;
+    display: block;
+  }
+  .v-card.featured .v-lbl { color: var(--blue); }
+
+  .v-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--cream); }
+  .v-card.featured h3 { font-size: 16px; }
+  .v-card p { font-size: 13px; color: rgba(255,255,255,0.48); margin: 0; line-height: 1.65; }
+  .v-card.featured p { color: rgba(255,255,255,0.58); }
+
+  /* ─── QUESTIONS ─── */
+  .q-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 4px;
+  }
+
+  .q-list li {
+    display: flex;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--bd);
+  }
+  .q-list li:last-child { border-bottom: none; }
+
+  .q-num {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.2);
+    min-width: 24px;
+    padding-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .q-body { flex: 1; }
+  .q-body strong {
+    font-size: 15px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: -0.15px;
+  }
+  .q-body > span {
+    font-size: 13px;
+    color: rgba(0,0,0,0.45);
+    line-height: 1.65;
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .q-answer { position: relative; }
   .q-answer textarea {
     width: 100%;
-    border: 1px solid var(--gray-2);
-    border-radius: 4px;
+    border: 1px solid var(--bd);
+    border-radius: 3px;
     padding: 10px 44px 10px 12px;
     font-family: inherit;
     font-size: 13px;
@@ -509,12 +395,12 @@
     resize: vertical;
     min-height: 72px;
     outline: none;
-    transition: border-color 0.15s;
-    background: var(--gray-1);
+    transition: border-color 0.15s, background 0.15s;
+    background: rgba(0,0,0,0.03);
+    line-height: 1.55;
   }
-
-  .q-answer textarea:focus { border-color: var(--black); background: var(--white); }
-  .q-answer textarea::placeholder { color: var(--gray-3); }
+  .q-answer textarea:focus { border-color: rgba(0,0,0,0.45); background: #fff; }
+  .q-answer textarea::placeholder { color: rgba(0,0,0,0.22); }
 
   .mic-btn {
     position: absolute;
@@ -524,311 +410,720 @@
     border: none;
     cursor: pointer;
     font-size: 15px;
-    color: var(--gray-3);
+    color: rgba(0,0,0,0.22);
     padding: 2px;
     line-height: 1;
     transition: color 0.15s;
   }
-
   .mic-btn:hover { color: var(--black); }
   .mic-btn.recording { color: #dc2626; animation: pulse 1s infinite; }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* ─── COLLAB CARDS (dark) ─── */
+  .collab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
   }
 
-  /* Footer */
-  footer {
-    text-align: center;
-    padding: 32px;
-    font-size: 11px;
-    color: var(--gray-3);
-    letter-spacing: 0.08em;
+  .collab-card {
+    border: 1px solid var(--bdd);
+    border-radius: 3px;
+    padding: 22px 24px;
+    transition: border-color 0.2s;
+  }
+  .collab-card:hover { border-color: rgba(255,255,255,0.25); }
+  .collab-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 7px; color: var(--cream); }
+  .collab-card p { font-size: 13px; color: rgba(255,255,255,0.48); margin: 0; line-height: 1.65; }
+
+  /* ─── APPROACH CARDS (cream) ─── */
+  .ap-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .ap-card {
+    border: 1px solid var(--bd);
+    border-radius: 3px;
+    padding: 22px 24px;
+    transition: border-color 0.2s;
+  }
+  .ap-card:hover { border-color: rgba(0,0,0,0.3); }
+  .ap-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 7px; }
+  .ap-card p { font-size: 13px; color: rgba(0,0,0,0.5); margin: 0; line-height: 1.65; }
+
+  /* ─── DOC LINKS ─── */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 4px;
+  }
+
+  .doc-link {
+    display: block;
+    border: 1px solid var(--bdd);
+    border-radius: 3px;
+    padding: 24px 24px 22px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s;
+  }
+  .doc-link:hover { border-color: rgba(255,255,255,0.3); }
+  .doc-link:hover .doc-arrow { transform: translateX(4px); color: var(--cream); }
+
+  .doc-arrow {
+    display: inline-block;
+    color: rgba(255,255,255,0.25);
+    font-size: 20px;
+    margin-bottom: 14px;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  .doc-link-lbl {
+    font-size: 10px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    border-top: 1px solid var(--gray-2);
+    color: rgba(255,255,255,0.3);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .doc-link h3 { font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 7px; }
+  .doc-link p { font-size: 13px; color: rgba(255,255,255,0.42); margin: 0; line-height: 1.6; }
+
+  /* ─── CLOSE ─── */
+  .close-inner {
+    text-align: center;
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .close-inner h2 {
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+  }
+  .close-inner p { font-size: 15px; line-height: 1.75; }
+  .dark .close-inner p { color: rgba(255,255,255,0.48); }
+
+  /* ─── PEER SECTION ─── */
+  .peer-section {
+    margin-top: 52px;
+    padding-top: 40px;
+    border-top: 1px solid var(--bdd);
+  }
+  .peer-section .lbl { margin-bottom: 16px; }
+  .peer-intro {
+    font-size: 15px;
+    color: rgba(255,255,255,0.5);
+    max-width: 640px;
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+  .peer-bullets { list-style: none; padding: 0; }
+  .peer-bullets li {
+    font-size: 13px;
+    color: rgba(255,255,255,0.48);
+    padding: 12px 0 12px 18px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    line-height: 1.65;
+  }
+  .peer-bullets li:last-child { border-bottom: none; }
+  .peer-bullets li::before {
+    content: '–';
+    position: absolute;
+    left: 0;
+    color: rgba(255,255,255,0.2);
+    top: 13px;
+  }
+  .peer-bullets strong { color: var(--cream); font-weight: 600; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 24px 56px;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ─── NAV ─── */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 8000;
+    background: rgba(12,12,12,0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    transform: translateY(-100%);
+    transition: transform 0.35s ease;
+  }
+  .site-nav.visible { transform: translateY(0); }
+  .nav-inner {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 56px;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-link {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    padding: 14px 14px;
+    white-space: nowrap;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .nav-link:hover { color: rgba(255,255,255,0.65); }
+  .nav-link.active { color: var(--cream); border-bottom-color: var(--cream); }
+
+
+  /* ─── SECTION FEEDBACK ─── */
+  .section-meta {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+  .section-meta .lbl { margin-bottom: 0; }
+
+  .note-toggle {
+    font-family: inherit;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 5px 13px;
+    border-radius: 20px;
+    cursor: pointer;
+    background: transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: opacity 0.15s, border-color 0.15s;
+    opacity: 0.28;
+    margin-top: -1px;
+  }
+  .note-toggle:hover { opacity: 0.65; }
+  .note-toggle.has-content { opacity: 0.8; }
+  .dark .note-toggle { color: var(--cream); border: 1px solid rgba(255,255,255,0.3); }
+  .cream .note-toggle { color: var(--black); border: 1px solid rgba(0,0,0,0.25); }
+
+  .note-panel {
+    display: none;
+    padding-top: 20px;
+    margin-top: 36px;
+    border-top: 1px solid;
+  }
+  .note-panel.open { display: block; }
+  .dark .note-panel { border-color: rgba(255,255,255,0.08); }
+  .cream .note-panel { border-color: rgba(0,0,0,0.08); }
+
+  .note-reactions { display: flex; gap: 6px; margin-bottom: 12px; }
+
+  .note-rx {
+    font-size: 20px;
+    padding: 6px 9px;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    line-height: 1;
+    transition: transform 0.12s, border-color 0.12s, background 0.12s;
+    border: 1px solid transparent;
+  }
+  .dark .note-rx { border-color: rgba(255,255,255,0.1); }
+  .cream .note-rx { border-color: rgba(0,0,0,0.09); }
+  .note-rx:hover { transform: scale(1.18); }
+  .dark .note-rx.selected { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.4); }
+  .cream .note-rx.selected { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.32); }
+
+  .note-field { position: relative; }
+  .note-field textarea {
+    width: 100%;
+    border-radius: 3px;
+    padding: 10px 44px 10px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    resize: none;
+    min-height: 64px;
+    outline: none;
+    line-height: 1.55;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .dark .note-field textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--cream);
+  }
+  .dark .note-field textarea:focus { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.07); }
+  .dark .note-field textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .cream .note-field textarea {
+    background: rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.1);
+    color: var(--black);
+  }
+  .cream .note-field textarea:focus { border-color: rgba(0,0,0,0.35); background: #fff; }
+  .cream .note-field textarea::placeholder { color: rgba(0,0,0,0.22); }
+
+  .note-mic-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px;
+    line-height: 1;
+    transition: opacity 0.15s;
+  }
+  .dark .note-mic-btn { color: rgba(255,255,255,0.25); }
+  .dark .note-mic-btn:hover { color: rgba(255,255,255,0.7); }
+  .cream .note-mic-btn { color: rgba(0,0,0,0.22); }
+  .cream .note-mic-btn:hover { color: var(--black); }
+  .note-mic-btn.recording { color: #dc2626 !important; animation: pulse 1s infinite; }
+
+  /* ─── FEEDBACK DRAWER ─── */
+  .feedback-drawer {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 7000;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .drawer-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--black);
+    color: var(--cream);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 24px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    transition: border-color 0.15s;
+  }
+  .drawer-pill:hover { border-color: rgba(255,255,255,0.45); }
+  .drawer-count {
+    background: var(--blue);
+    color: var(--black);
+    border-radius: 10px;
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: 700;
+    display: none;
+  }
+  .drawer-count.show { display: inline; }
+  .drawer-body {
+    display: none;
+    background: var(--black);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    width: 100%;
+  }
+  .drawer-body.open { display: block; }
+  .drawer-list { max-height: 360px; overflow-y: auto; padding: 16px 20px; }
+  .drawer-empty {
+    font-size: 13px;
+    color: rgba(255,255,255,0.28);
+    text-align: center;
+    padding: 24px 0;
+    line-height: 1.6;
+  }
+  .drawer-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .drawer-item:last-child { border-bottom: none; }
+  .drawer-item-name {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    margin-bottom: 5px;
+  }
+  .drawer-item-content { font-size: 13px; color: rgba(255,255,255,0.72); line-height: 1.55; }
+  .drawer-footer {
+    padding: 14px 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 8px;
+  }
+  .drawer-btn {
+    flex: 1;
+    font-family: inherit;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.15s;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: var(--cream);
+  }
+  .drawer-btn:hover { border-color: rgba(255,255,255,0.55); }
+  .drawer-btn.primary { background: var(--cream); color: var(--black); border-color: var(--cream); }
+  .drawer-btn.primary:hover { background: #fff; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 700px) {
+    .s { padding: 64px 24px; }
+    .a-grid, .collab-grid, .ap-grid, .vision-grid, .docs-grid { grid-template-columns: 1fr; }
+    .v-card.featured, .a-card.full { grid-column: auto; }
+    h1 { letter-spacing: -1.5px; }
+    h2 { letter-spacing: -0.8px; }
+    footer { padding: 20px 24px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="eyebrow">Warren James - VP of Technology · Onboarding Brief</div>
-  <h1>Getting Started</h1>
-  <div class="subtitle">Assumptions I'm walking in with, where I'm focusing first, and what I need from you to move fast. Use the fields throughout to correct me or add context - the faster I have your input, the faster we're moving.</div>
+<nav class="site-nav" id="site-nav">
+  <div class="nav-inner">
+    <a class="nav-link" href="#hypotheses">Assessment</a>
+    <a class="nav-link" href="#stack">Stack</a>
+    <a class="nav-link" href="#plan">90 Days</a>
+    <a class="nav-link" href="#vision">Vision</a>
+    <a class="nav-link" href="#questions">Questions</a>
+    <a class="nav-link" href="#together">Together</a>
+    <a class="nav-link" href="#approach">Approach</a>
+    <a class="nav-link" href="#gaps">Gaps</a>
+    <a class="nav-link" href="#docs">Docs</a>
+  </div>
+</nav>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="s dark">
+  <div class="inner">
+    <div class="eyebrow fade">Warren James &nbsp;·&nbsp; VP of Technology</div>
+    <h1 class="fade">Getting<br>Started</h1>
+    <p class="subtitle fade">A structured first pass at the business: my outside-in read, a proposed 90-day focus, and the questions I'd normally spend our first few meetings working through. React to what's off, fill in the gaps, and we skip a lot of early back-and-forth. It's also meant to give you a concrete sense of how I approach a new problem.</p>
+  </div>
 </header>
 
-<main>
+<!-- ══════════════════ GOING-IN ASSUMPTIONS ══════════════════ -->
+<section class="s cream" id="hypotheses">
+  <div class="inner">
+    <span class="lbl fade">Initial Assessment</span>
+    <h2 class="fade">My Read From the Outside</h2>
+    <p class="lead fade">What the outside view suggests before I've had eyes on the actual systems. Both where the risk lives and where the real leverage is.</p>
 
-  <!-- CURRENT STATE -->
-  <div class="memo-section">
-    <div class="section-label">Going-In Assumptions</div>
-    <h2>What I'm Walking In With</h2>
-    <p>These are my working assumptions before I've had eyes on the systems. Flag anything that's off - a corrected assumption in week one is better than a wrong one in week four.</p>
+    <div class="a-grid">
 
-    <div class="assessment-grid">
-      <div class="a-card">
-        <div class="a-card-label">Odoo</div>
+      <div class="a-group-lbl first fade">Where the Risk Lives</div>
+
+      <div class="a-card fade">
+        <span class="clbl">Odoo</span>
         <h3>Functional but not trusted</h3>
-        <p>The system is running, but the team is probably maintaining parallel spreadsheets for anything important. The Shopify connector is often where trust breaks down in setups like this - silent sync failures that go unnoticed until the numbers don't match.</p>
+        <p>The system is running, but the team is probably maintaining parallel spreadsheets for anything important. The Shopify connector is often where trust breaks down in setups like this: silent sync failures that go unnoticed until the numbers don't match.</p>
       </div>
-
-      <div class="a-card">
-        <div class="a-card-label">Shopify</div>
-        <h3>70 stores, unknown consistency</h3>
+      <div class="a-card fade">
+        <span class="clbl">Shopify</span>
+        <h3>~70 stores, unknown consistency</h3>
         <p>Each store likely has its own app stack, its own structure, and its own workarounds. There's probably significant overlap in paid tooling and significant variation in how drops are coordinated. The full picture doesn't exist anywhere yet.</p>
       </div>
-
-      <div class="a-card">
-        <div class="a-card-label">Knowledge</div>
+      <div class="a-card fade">
+        <span class="clbl">Knowledge</span>
         <h3>Concentrated risk</h3>
-        <p>The decisions made during the Odoo implementation - which fields map where, why certain things were configured a certain way - are likely not well documented. Whether that was an implementation partner, an internal resource, or some combination, the reasoning behind key configuration choices rarely survives the handoff.</p>
+        <p>The reasoning behind key Odoo configuration choices rarely survives the handoff. Whether that was an implementation partner, an internal resource, or some combination, the institutional knowledge around why things were set up a certain way is probably thinner than it looks.</p>
+      </div>
+      <div class="a-card fade">
+        <span class="clbl">Coordination</span>
+        <h3>Running on people, not systems</h3>
+        <p>Cross-functional coordination across Brand, Ops, and Tech is probably happening through Slack threads and individual heroics rather than structured workflows. That works until it doesn't, and at ~70 stores the surface area for things to fall through is large.</p>
       </div>
 
-      <div class="a-card">
-        <div class="a-card-label">Automation</div>
-        <h3>High potential, low current baseline</h3>
-        <p>The team is probably doing manually what could be automated - request triage, order routing, campaign coordination across stores. That's not a criticism - it's where some of the earliest leverage likely lives, and the tooling to address it is relatively lightweight.</p>
+      <div class="a-group-lbl fade">Where the Leverage Is</div>
+
+      <div class="a-card fade">
+        <span class="clbl">Portfolio Scale</span>
+        <h3>A data asset most creator businesses don't have</h3>
+        <p>~70 stores means more launch data, audience behavioral patterns, and sell-through velocity across product categories than most creator commerce companies will ever accumulate. That data doesn't have a system capturing it yet, but the raw material is real and compounding with every drop.</p>
+      </div>
+      <div class="a-card fade">
+        <span class="clbl">Business Model</span>
+        <h3>The underlying business is clearly working</h3>
+        <p>The operational friction is real, but the commercial model is proven. Creators are staying, stores are launching, and WJ has scaled to 80+ people. The infrastructure needs to catch up to a business that's already succeeding, which is a much better problem than trying to fix both at once.</p>
+      </div>
+      <div class="a-card fade">
+        <span class="clbl">Automation Opportunity</span>
+        <h3>Unusually high upside from relatively lightweight tooling</h3>
+        <p>Most of the coordination friction here is manual handling of things that are fundamentally automatable. The gap between current baseline and what AI-assisted workflows could deliver is larger than at most companies this size. Early wins should come fast.</p>
       </div>
 
-      <div class="a-card risk full">
-        <div class="a-card-label">The Real Risk</div>
+      <div class="a-card risk full fade">
+        <span class="clbl">The Real Risk</span>
         <h3>Speed of the business outpacing the infrastructure holding it together</h3>
-        <p>Creators move at the speed of social media. A drop that goes viral on a Tuesday needs the ops infrastructure to handle it by Wednesday. Right now, the reliability of that infrastructure is unclear - and at 70 stores, a systemic failure isn't a one-store problem.</p>
+        <p>Creators move at the speed of social media. A drop that goes viral on a Tuesday needs the ops infrastructure to handle it by Wednesday. Right now, the reliability of that infrastructure is unclear. At ~70 stores, a systemic failure isn't a one-store problem.</p>
       </div>
-    </div>
 
-  </div>
-
-  <hr class="divider">
-
-  <!-- STACK -->
-  <div class="memo-section">
-    <div class="section-label">Current Stack</div>
-    <h2>What We're Working With</h2>
-    <p>My assumptions on how each tool is being used and who's touching it. Mark your honest take on each - this directly shapes where I focus first.</p>
-
-    <div class="stack-table">
-      <div class="stack-row hdr">
-        <div class="sc">Tool</div>
-        <div class="sc">Assumed use</div>
-        <div class="sc">Who's using it</div>
-        <div class="sc">Your take</div>
-      </div>
-      <div class="stack-row">
-        <div class="sc sc-tool"><strong>Odoo</strong><span>ERP</span></div>
-        <div class="sc sc-purpose">Inventory, order flow, purchasing, and accounting. The operational system of record - or supposed to be.</div>
-        <div class="sc sc-users">Ops, Finance, Merch</div>
-        <div class="rx-group">
-          <button class="rx-btn">Essential</button>
-          <button class="rx-btn">Works well</button>
-          <button class="rx-btn">Underused</button>
-          <button class="rx-btn">Has potential</button>
-          <button class="rx-btn">Replace</button>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="sc sc-tool"><strong>Shopify</strong><span>~70 stores</span></div>
-        <div class="sc sc-purpose">Creator storefronts - product listings, checkout, fulfillment, and drop coordination. Each store likely has its own app stack.</div>
-        <div class="sc sc-users">Ops, Creator team</div>
-        <div class="rx-group">
-          <button class="rx-btn">Essential</button>
-          <button class="rx-btn">Works well</button>
-          <button class="rx-btn">Underused</button>
-          <button class="rx-btn">Has potential</button>
-          <button class="rx-btn">Replace</button>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="sc sc-tool"><strong>Airtable</strong><span>Ops & data</span></div>
-        <div class="sc sc-purpose">Internal ops workflows and lightweight data management. Likely bridging gaps between systems that don't talk to each other yet.</div>
-        <div class="sc sc-users">Ops, possibly all teams</div>
-        <div class="rx-group">
-          <button class="rx-btn">Essential</button>
-          <button class="rx-btn">Works well</button>
-          <button class="rx-btn">Underused</button>
-          <button class="rx-btn">Has potential</button>
-          <button class="rx-btn">Replace</button>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="sc sc-tool"><strong>PipeDrive</strong><span>CRM</span></div>
-        <div class="sc sc-purpose">Creator pipeline and partnership management. Should be coordinating cleanly with Asana but my guess is that handoff is manual today.</div>
-        <div class="sc sc-users">Partnerships, Sales</div>
-        <div class="rx-group">
-          <button class="rx-btn">Essential</button>
-          <button class="rx-btn">Works well</button>
-          <button class="rx-btn">Underused</button>
-          <button class="rx-btn">Has potential</button>
-          <button class="rx-btn">Replace</button>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="sc sc-tool"><strong>Asana</strong><span>Project mgmt</span></div>
-        <div class="sc sc-purpose">Task and project coordination across teams. A natural target for AI-assisted routing and status automation once the foundation is stable.</div>
-        <div class="sc sc-users">All teams</div>
-        <div class="rx-group">
-          <button class="rx-btn">Essential</button>
-          <button class="rx-btn">Works well</button>
-          <button class="rx-btn">Underused</button>
-          <button class="rx-btn">Has potential</button>
-          <button class="rx-btn">Replace</button>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="sc sc-tool"><strong>Make / Zapier</strong><span>Automation</span></div>
-        <div class="sc sc-purpose">Low-code automation between systems. Likely powering some existing workflows - I'll audit what's running, what's broken, and what should be rebuilt properly.</div>
-        <div class="sc sc-users">Ops, whoever set it up</div>
-        <div class="rx-group">
-          <button class="rx-btn">Essential</button>
-          <button class="rx-btn">Works well</button>
-          <button class="rx-btn">Underused</button>
-          <button class="rx-btn">Has potential</button>
-          <button class="rx-btn">Replace</button>
-        </div>
-      </div>
-      <div class="stack-row">
-        <div class="sc sc-tool"><strong>Hardware</strong><span>Device fleet</span></div>
-        <div class="sc sc-purpose">Company devices, software licenses, and access controls. My assumption is there's no single inventory view today and upgrade processes are ad hoc.</div>
-        <div class="sc sc-users">All employees</div>
-        <div class="rx-group">
-          <button class="rx-btn">Well managed</button>
-          <button class="rx-btn">Mostly fine</button>
-          <button class="rx-btn">Needs work</button>
-          <button class="rx-btn">No process</button>
-        </div>
-      </div>
     </div>
   </div>
+</section>
 
-  <hr class="divider">
+<!-- ══════════════════ CURRENT STACK ══════════════════ -->
+<section class="s dark" id="stack">
+  <div class="inner">
+    <span class="lbl fade">Current Stack</span>
+    <h2 class="fade">What We're Working With</h2>
+    <p class="lead fade">My assumptions on how each tool is being used and who's touching it. Mark your honest take on each. This directly shapes where I focus first.</p>
 
-  <!-- PLAN -->
-  <div class="memo-section">
-    <div class="section-label">First 90 Days</div>
-    <h2>Where I'm Focusing</h2>
-    <p>Stabilize the foundation fast, build leverage into it, then compound. The sequencing is intentional - later phases depend on earlier ones being solid.</p>
+    <div class="stack-wrap fade">
+      <div class="stack-table">
+        <div class="stack-row hdr">
+          <div class="sc">Tool</div>
+          <div class="sc">Assumed use</div>
+          <div class="sc">Who's using it</div>
+          <div class="sc">Your take</div>
+          <div class="sc">My POV</div>
+        </div>
+        <div class="stack-row">
+          <div class="sc sc-tool"><strong>Odoo</strong><em>ERP</em></div>
+          <div class="sc sc-purpose">Inventory, order flow, purchasing, and accounting. The operational system of record, or supposed to be.</div>
+          <div class="sc sc-users">Ops, Finance, Merch</div>
+          <div class="rx-group">
+            <button class="rx-btn">Essential</button>
+            <button class="rx-btn">Works well</button>
+            <button class="rx-btn">Underused</button>
+            <button class="rx-btn">Has potential</button>
+            <button class="rx-btn">Replace</button>
+          </div>
+          <div class="sc sc-purpose">Open-source and modular is the right call at this scale. NetSuite costs 3-5x more, locks you into Oracle's rigid data model, and charges per-user per-module for everything. Odoo gives you comparable coverage with real flexibility and no licensing trap. The tradeoff: flexible systems are easier to misconfigure, which is why implementation quality and the connector are where I'd focus.</div>
+        </div>
+        <div class="stack-row">
+          <div class="sc sc-tool"><strong>Shopify</strong><em>~70 stores</em></div>
+          <div class="sc sc-purpose">Creator storefronts: product listings, checkout, fulfillment, and drop coordination. Each store likely has its own app stack.</div>
+          <div class="sc sc-users">Ops, Creator team</div>
+          <div class="rx-group">
+            <button class="rx-btn">Essential</button>
+            <button class="rx-btn">Works well</button>
+            <button class="rx-btn">Underused</button>
+            <button class="rx-btn">Has potential</button>
+            <button class="rx-btn">Replace</button>
+          </div>
+          <div class="sc sc-purpose">Right call for DTC. Nothing comes close for creator storefronts. The challenge isn't the platform, it's managing 70 instances of it. How locked-in each creator is to their store setup is worth understanding early.</div>
+        </div>
+        <div class="stack-row">
+          <div class="sc sc-tool"><strong>Airtable</strong><em>Ops &amp; data</em></div>
+          <div class="sc sc-purpose">Internal ops workflows and lightweight data management. Likely bridging gaps between systems that don't talk to each other yet.</div>
+          <div class="sc sc-users">Ops, possibly all teams</div>
+          <div class="rx-group">
+            <button class="rx-btn">Essential</button>
+            <button class="rx-btn">Works well</button>
+            <button class="rx-btn">Underused</button>
+            <button class="rx-btn">Has potential</button>
+            <button class="rx-btn">Replace</button>
+          </div>
+          <div class="sc sc-purpose">Great bridge tool, fast and flexible. The risk is it becomes a shadow system of record, holding logic or data that should live upstream. Worth auditing what's actually in here and why.</div>
+        </div>
+        <div class="stack-row">
+          <div class="sc sc-tool"><strong>PipeDrive</strong><em>CRM</em></div>
+          <div class="sc sc-purpose">Creator pipeline and partnership management. Should be coordinating cleanly with Asana but my guess is that handoff is manual today.</div>
+          <div class="sc sc-users">Partnerships, Sales</div>
+          <div class="rx-group">
+            <button class="rx-btn">Essential</button>
+            <button class="rx-btn">Works well</button>
+            <button class="rx-btn">Underused</button>
+            <button class="rx-btn">Has potential</button>
+            <button class="rx-btn">Replace</button>
+          </div>
+          <div class="sc sc-purpose">Solid for a linear sales funnel. Creator partnerships are longer-cycle and more relational than a typical deal. Worth pressure-testing whether this is the right fit as the roster scales.</div>
+        </div>
+        <div class="stack-row">
+          <div class="sc sc-tool"><strong>Asana</strong><em>Project mgmt</em></div>
+          <div class="sc sc-purpose">Task and project coordination across teams. A natural target for AI-assisted routing and status automation once the foundation is stable.</div>
+          <div class="sc sc-users">All teams</div>
+          <div class="rx-group">
+            <button class="rx-btn">Essential</button>
+            <button class="rx-btn">Works well</button>
+            <button class="rx-btn">Underused</button>
+            <button class="rx-btn">Has potential</button>
+            <button class="rx-btn">Replace</button>
+          </div>
+          <div class="sc sc-purpose">Good tool, strong integrations. Only works if adoption is real. Active users vs. license count will tell a lot. Worth pulling that data early.</div>
+        </div>
+        <div class="stack-row">
+          <div class="sc sc-tool"><strong>Make / Zapier</strong><em>Automation</em></div>
+          <div class="sc sc-purpose">Low-code automation between systems. Likely powering some existing workflows. I'll audit what's running, what's broken, and what should be rebuilt properly.</div>
+          <div class="sc sc-users">Ops, whoever set it up</div>
+          <div class="rx-group">
+            <button class="rx-btn">Essential</button>
+            <button class="rx-btn">Works well</button>
+            <button class="rx-btn">Underused</button>
+            <button class="rx-btn">Has potential</button>
+            <button class="rx-btn">Replace</button>
+          </div>
+          <div class="sc sc-purpose">Love the speed, wary of the debt. Ad hoc automation accumulates silently: flows with no owner, no documentation, no alerting when they break. First move is an audit of what's actually running.</div>
+        </div>
+        <div class="stack-row">
+          <div class="sc sc-tool"><strong>Hardware</strong><em>Device fleet</em></div>
+          <div class="sc sc-purpose">Company devices, software licenses, and access controls. My assumption is there's no single inventory view today and upgrade processes are ad hoc.</div>
+          <div class="sc sc-users">All employees</div>
+          <div class="rx-group">
+            <button class="rx-btn">Well managed</button>
+            <button class="rx-btn">Mostly fine</button>
+            <button class="rx-btn">Needs work</button>
+            <button class="rx-btn">No process</button>
+          </div>
+          <div class="sc sc-purpose">Less about the tooling, more about the process. Is there an MDM? What happens when someone leaves? Those two questions surface most of the risk.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ FIRST 90 DAYS ══════════════════ -->
+<section class="s cream" id="plan">
+  <div class="inner">
+    <span class="lbl fade">First 90 Days</span>
+    <h2 class="fade">Where I'm Focusing</h2>
+    <p class="lead fade">Stabilize the foundation fast, build leverage into it, then compound. The sequencing is intentional. Later phases depend on earlier ones being solid.</p>
 
     <div class="timeline">
-
-      <div class="tl-item">
+      <div class="tl-item fade">
         <div class="tl-dot"></div>
-        <div class="tl-timing">Days 1 - 30 · Phase 1</div>
-        <div class="tl-title">Orient - Understand before acting</div>
-        <div class="tl-desc">The output of month one is a ranked list of what's actually broken - not a change log. I won't fix anything that isn't causing live operational damage.</div>
+        <span class="tl-timing">Days 1 – 30 · Phase 1</span>
+        <div class="tl-title">Orient: Understand before acting</div>
+        <p class="tl-desc">The output of month one is a ranked list of what's actually broken, not a change log. I won't fix anything that isn't causing live operational damage.</p>
         <ul class="tl-bullets">
-          <li>Sit with ops, finance, and merch - ask "where do you go when you can't trust Odoo?"</li>
-          <li>Pull a sample of orders and trace them end-to-end through Shopify and Odoo - find where states diverge</li>
+          <li>Structured listening sessions with every team: ops, finance, merch, creative, partnerships. Not just systems questions: what's pulling you away from the thing you're actually here to do? What's broken that everyone's learned to live with? What's working that should be protected? If you had one thing fixed tomorrow, what is it?</li>
+          <li>Sit with ops, finance, and merch specifically on Odoo. Ask "where do you go when you can't trust it?" and map every workaround in use</li>
+          <li>Pull a sample of orders and trace them end-to-end through Shopify and Odoo to find where states diverge</li>
           <li>Map every manual reconciliation happening at month-end</li>
           <li>Full Shopify audit: plan types, app overlap, store structure consistency, sync behavior</li>
-          <li>SaaS and vendor audit - most companies this size carry $15-40K/month in redundant tooling</li>
-          <li>Ship one high-visibility AI automation early to prove the pattern - not to impress, to establish the template</li>
+          <li>SaaS and vendor audit. Most companies this size carry $15–40K/month in redundant tooling</li>
+          <li>Ship one high-visibility AI automation early to prove the pattern, not to impress, to establish the template</li>
         </ul>
       </div>
-
-      <div class="tl-item">
+      <div class="tl-item fade">
         <div class="tl-dot"></div>
-        <div class="tl-timing">Months 2 - 3 · Phase 2</div>
-        <div class="tl-title">Stabilize - Make Odoo trustworthy</div>
-        <div class="tl-desc">This is the unglamorous work that makes everything else possible. The goal: a week goes by with no "the inventory numbers are wrong" conversation.</div>
+        <span class="tl-timing">Months 2 – 3 · Phase 2</span>
+        <div class="tl-title">Stabilize: Make Odoo trustworthy</div>
+        <p class="tl-desc">This is the unglamorous work that makes everything else possible. The goal: a week goes by with no "the inventory numbers are wrong" conversation.</p>
         <ul class="tl-bullets">
-          <li>Fix the Shopify sync - monitoring, alerting, and conflict resolution documented</li>
+          <li>Fix the Shopify sync: monitoring, alerting, and conflict resolution documented</li>
           <li>Clean the data sources that are producing unreliable reports (not the reports themselves)</li>
           <li>Automate the 3 most painful manual handoffs identified in Phase 1</li>
-          <li>Stand up the data pipeline to BigQuery - so Phase 3 has clean data to work with</li>
+          <li>Stand up the data pipeline to BigQuery so Phase 3 has clean data to work with</li>
         </ul>
       </div>
-
-      <div class="tl-item">
+      <div class="tl-item fade">
         <div class="tl-dot"></div>
-        <div class="tl-timing">Months 4 - 6 · Phase 3</div>
-        <div class="tl-title">Leverage - Build on a stable base</div>
-        <div class="tl-desc">With a reliable foundation, shift from fixing to building. AI workflows embedded in how teams actually operate, not just demos.</div>
+        <span class="tl-timing">Months 4 – 6 · Phase 3</span>
+        <div class="tl-title">Leverage: Build on a stable base</div>
+        <p class="tl-desc">With a reliable foundation, shift from fixing to building. AI workflows embedded in how teams actually operate, not just demos.</p>
         <ul class="tl-bullets">
-          <li>AI embedded in every team's workflow - ops triage, creative briefs, inventory forecasting</li>
-          <li>Campaign tracking discipline across all 70 stores - UTM tagging, Shopify Flow, consistent attribution</li>
-          <li>Creator store "fingerprints" - encode what makes each store's audience unique as structured data</li>
-          <li>Shopify store consolidation where it makes sense - fewer redundant apps, consistent drop infrastructure</li>
+          <li>AI embedded in every team's workflow: ops triage, creative briefs, inventory forecasting</li>
+          <li>Campaign tracking discipline across all ~70 stores: UTM tagging, Shopify Flow, consistent attribution</li>
+          <li>Creator store "fingerprints": encode what makes each store's audience unique as structured data</li>
+          <li>Shopify store consolidation where it makes sense: fewer redundant apps, consistent drop infrastructure</li>
         </ul>
       </div>
-
-      <div class="tl-item">
+      <div class="tl-item fade">
         <div class="tl-dot"></div>
-        <div class="tl-timing">Months 7 - 9 · Phase 4</div>
-        <div class="tl-title">Compound - Build competitive advantage</div>
-        <div class="tl-desc">The things in this phase require clean data and working infrastructure underneath them - which is why the earlier phases have to come first.</div>
+        <span class="tl-timing">Months 7 – 9 · Phase 4</span>
+        <div class="tl-title">Compound: Build competitive advantage</div>
+        <p class="tl-desc">The things in this phase require clean data and working infrastructure underneath them, which is why the earlier phases have to come first.</p>
         <ul class="tl-bullets">
-          <li>Cross-store campaign intelligence - when Store A has a breakout drop, automatically identify which other stores have the most similar audience profile and generate tailored briefs</li>
-          <li>Purchasing leverage - 15 stores buying from the same manufacturer should negotiate as one buyer</li>
+          <li>Cross-store campaign intelligence. When Store A has a breakout drop, automatically identify which other stores have the most similar audience profile and generate tailored briefs</li>
+          <li>Purchasing leverage: 15 stores buying from the same manufacturer should negotiate as one buyer</li>
           <li>Internal AI tools built on top of clean data and the workflow patterns established in Phase 3</li>
         </ul>
       </div>
-
     </div>
   </div>
+</section>
 
-  <hr class="divider">
+<!-- ══════════════════ BIGGER PICTURE ══════════════════ -->
+<section class="s dark" id="vision">
+  <div class="inner">
+    <span class="lbl fade">Bigger Picture</span>
+    <h2 class="fade">Where This Leads</h2>
+    <p class="lead fade">The 6–9 month work is about stabilizing the foundation. But the reason to build it carefully is what it unlocks. These are the outcomes that justify the investment. None of them are possible without clean data and reliable infrastructure underneath.</p>
 
-  <!-- BIGGER PICTURE -->
-  <div class="memo-section">
-    <div class="section-label">Bigger Picture</div>
-    <h2>Where This Leads</h2>
-    <p>The 6-9 month work is about stabilizing the foundation. But the reason to build it carefully is what it unlocks. These are the outcomes that justify the investment - none of them are possible without clean data and reliable infrastructure underneath.</p>
-
-    <div class="vision-row">
-      <div class="v-card featured">
-        <div class="v-label">Flagship Opportunity</div>
+    <div class="vision-grid">
+      <div class="v-card featured fade">
+        <span class="v-lbl">Flagship Opportunity</span>
         <h3>Cross-Store Campaign Pattern Matching</h3>
-        <p>WJ manages ~70 creator stores - more launch data than any individual creator will accumulate on their own. After every successful drop, leverage agentic AI to extract what drove performance: audience trust index, product category, price band, scarcity mechanics, sell-through velocity. When Store A has a breakout launch, the system could identify the 4-5 stores with the most similar fingerprint and generate tailored campaign briefs for each. Over time this could become a proprietary playbook library that compounds with every new launch - the kind of institutional intelligence that's hard to replicate without the same data history.</p>
+        <p>WJ manages ~70 creator stores, more launch data than any individual creator will accumulate on their own. After every successful drop, leverage agentic AI to extract what drove performance: audience trust index, product category, price band, scarcity mechanics, sell-through velocity. When Store A has a breakout launch, the system could identify the 4–5 stores with the most similar fingerprint and generate tailored campaign briefs for each. Over time this could become a proprietary playbook library that compounds with every new launch, the kind of institutional intelligence that's hard to replicate without the same data history.</p>
       </div>
-
-      <div class="v-card">
-        <div class="v-label">New Revenue Line</div>
+      <div class="v-card fade">
+        <span class="v-lbl">New Revenue Line</span>
         <h3>Creator-Owned Apps</h3>
-        <p>Hank Green's Focus Friend hit #1 on the App Store in 2025 with a tiny team - the distribution came entirely from his audience, not paid acquisition. WJ's creator roster has the same distribution potential, and most creators have no product or tech expertise to act on it. That gap could be a material opportunity enabled by a tech org with app-building capability and product judgment.</p>
+        <p>Hank Green's Focus Friend hit #1 on the App Store in 2025 with a tiny team. The distribution came entirely from his audience, not paid acquisition. WJ's creator roster has the same distribution potential, and most creators have no product or tech expertise to act on it. That gap could be a material opportunity enabled by a tech org with app-building capability and product judgment.</p>
       </div>
-
-      <div class="v-card">
-        <div class="v-label">Operations</div>
+      <div class="v-card fade">
+        <span class="v-lbl">Operations</span>
         <h3>Launch Command Center</h3>
-        <p>Coordinating a drop across inventory, fulfillment, Shopify, and creator comms is typically a manual high-stress event. With the right automation layer, that could look more like a pre-staged, orchestrated workflow - inventory positioned ahead of time, Launchpad queued, notifications handled automatically.</p>
+        <p>Coordinating a drop across inventory, fulfillment, Shopify, and creator comms is typically a manual high-stress event. With the right automation layer, that could look more like a pre-staged, orchestrated workflow: inventory positioned ahead of time, Launchpad queued, notifications handled automatically.</p>
       </div>
-
-      <div class="v-card">
-        <div class="v-label">Finance</div>
+      <div class="v-card fade">
+        <span class="v-lbl">Finance</span>
         <h3>Real-Time Portfolio View</h3>
-        <p>With clean Odoo data flowing into BigQuery, a live portfolio view across all 70 stores - revenue, inventory, margin - becomes achievable without anyone manually pulling and reconciling exports.</p>
+        <p>With clean Odoo data flowing into BigQuery, a live portfolio view across all ~70 stores (revenue, inventory, margin) becomes achievable without anyone manually pulling and reconciling exports.</p>
       </div>
-
     </div>
   </div>
+</section>
 
-  <hr class="divider">
-
-  <!-- OPEN QUESTIONS -->
-  <div class="memo-section">
-    <div class="section-label">Help Me Move Fast</div>
-    <h2>What I Need From You</h2>
-    <p>These are the things I can't learn from the outside. Your answers in the first week save me a month of wrong assumptions. Type or use the mic.</p>
-
-    <p style="font-size:12px; color:var(--gray-3); margin-top:8px;">Type your thoughts or click 🎤 to answer by voice.</p>
+<!-- ══════════════════ OPEN QUESTIONS ══════════════════ -->
+<section class="s cream" id="questions">
+  <div class="inner">
+    <span class="lbl fade">Help Me Move Fast</span>
+    <h2 class="fade">What I Need From You</h2>
+    <p class="lead fade">These are the things I can't learn from the outside. Your answers in the first week save me a month of wrong assumptions. Type or use the mic.</p>
 
     <ul class="q-list">
-      <li>
+      <li class="fade">
         <div class="q-num">01</div>
         <div class="q-body">
           <strong>What does Odoo actually feel like to the team right now?</strong>
-          <span>Not the intended state - the lived experience. Do people trust it enough to make decisions from it, or is it a system of record that nobody actually uses?</span>
+          <span>Not the intended state, the lived experience. Do people trust it enough to make decisions from it, or is it a system of record that nobody actually uses?</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
             <button class="mic-btn" title="Click to speak">🎤</button>
           </div>
         </div>
       </li>
-      <li>
+      <li class="fade">
         <div class="q-num">02</div>
         <div class="q-body">
-          <strong>Where is the biggest operational pain point right now - the one that costs the most time or creates the most internal friction?</strong>
+          <strong>Where is the biggest operational pain point right now, the one that costs the most time or creates the most internal friction?</strong>
           <span>I have hypotheses from the outside. You'll know the answer immediately. That's where I'd want to focus first.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
@@ -836,21 +1131,21 @@
           </div>
         </div>
       </li>
-      <li>
+      <li class="fade">
         <div class="q-num">03</div>
         <div class="q-body">
-          <strong>What's currently falling through the cracks on the technology side - things that are owned in name only or not owned at all?</strong>
-          <span>This tells me where the acute gaps are versus the chronic ones - and which problems have already been quietly absorbed by other people.</span>
+          <strong>What's currently falling through the cracks on the technology side: things that are owned in name only or not owned at all?</strong>
+          <span>This tells me where the acute gaps are versus the chronic ones, and which problems have already been quietly absorbed by other people.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
             <button class="mic-btn" title="Click to speak">🎤</button>
           </div>
         </div>
       </li>
-      <li>
+      <li class="fade">
         <div class="q-num">04</div>
         <div class="q-body">
-          <strong>What's your instinct on Shopify Plus - is that a conversation worth having, or is the cost a non-starter?</strong>
+          <strong>What's your instinct on Shopify Plus. Is that a conversation worth having, or is the cost a non-starter?</strong>
           <span>Some of the longer-term leverage (checkout extensibility, multi-store admin) requires it. Worth knowing early whether that's in the picture or not.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
@@ -858,11 +1153,22 @@
           </div>
         </div>
       </li>
-      <li>
+      <li class="fade">
         <div class="q-num">05</div>
         <div class="q-body">
           <strong>What would make you feel like this was unambiguously working at the 90-day mark?</strong>
-          <span>Not the full roadmap - just the signal that would tell you the right person is in the seat. I want to design month one around that signal.</span>
+          <span>Not the full roadmap, just the signal that would tell you the right person is in the seat. I want to design month one around that signal.</span>
+          <div class="q-answer">
+            <textarea placeholder="Your answer..."></textarea>
+            <button class="mic-btn" title="Click to speak">🎤</button>
+          </div>
+        </div>
+      </li>
+      <li class="fade">
+        <div class="q-num">06</div>
+        <div class="q-body">
+          <strong>How do you see the ownership lines between Tech and Brand, particularly on Shopify, data, and launch operations?</strong>
+          <span>Both roles have a legitimate stake in those areas. The cleaner we define the lines early, the less we'll need to negotiate them mid-execution.</span>
           <div class="q-answer">
             <textarea placeholder="Your answer..."></textarea>
             <button class="mic-btn" title="Click to speak">🎤</button>
@@ -871,104 +1177,205 @@
       </li>
     </ul>
   </div>
+</section>
 
-  <hr class="divider">
-
-  <!-- HOW WE WORK -->
-  <div class="memo-section">
-    <div class="section-label">Working Together</div>
-    <h2>How We'll Work</h2>
+<!-- ══════════════════ WORKING TOGETHER ══════════════════ -->
+<section class="s dark" id="together">
+  <div class="inner">
+    <span class="lbl fade">Working Together</span>
+    <h2 class="fade">How We'll Work</h2>
+    <p class="lead fade"> </p>
 
     <div class="collab-grid">
-      <div class="collab-card">
-        <h3>Weekly sync - short by default</h3>
+      <div class="collab-card fade">
+        <h3>Weekly sync, short by default</h3>
         <p>30 minutes, structured: what shipped, what's blocked, what's coming. I'll send a brief ahead of time so we're not using the meeting to catch up.</p>
       </div>
-      <div class="collab-card">
+      <div class="collab-card fade">
         <h3>Decisions to you, not recommendations</h3>
-        <p>When I need a call from you, I'll bring a clear recommendation with the tradeoffs laid out - not a list of options. Your time is for deciding, not deliberating.</p>
+        <p>When I need a call from you, I'll bring a clear recommendation with the tradeoffs laid out, not a list of options. Your time is for deciding, not deliberating.</p>
       </div>
-      <div class="collab-card">
+      <div class="collab-card fade">
         <h3>No surprises</h3>
-        <p>If something breaks or I find something unexpected, you hear it from me first - before it surfaces in a meeting or from a team member. Early signal, not managed perception.</p>
+        <p>If something breaks or I find something unexpected, you hear it from me first, before it surfaces in a meeting or from a team member. Early signal, not managed perception.</p>
       </div>
-      <div class="collab-card">
+      <div class="collab-card fade">
         <h3>You're a technical partner in this</h3>
-        <p>I'll keep you close enough to the technology that you can have an informed opinion - not buried in it, but not kept at arm's length either. That makes the whole thing go faster.</p>
+        <p>I'll keep you close enough to the technology that you can have an informed opinion, not buried in it or kept at arm's length. That makes the whole thing go faster.</p>
+      </div>
+    </div>
+
+    <div class="peer-section fade">
+      <span class="lbl">VP of Brands Partnership</span>
+      <p class="peer-intro">The VP of Brands role is tackling the same set of problems from the brand side: make launches less heroic, build repeatable playbooks, give the organization better visibility, reduce cross-functional friction. These two roles have to be coordinated from the start, not running in parallel and hoping things align.</p>
+      <ul class="peer-bullets">
+        <li><strong>Launch readiness:</strong> Brand is focused on better launch planning; Tech is building the infrastructure that makes each drop pre-staged instead of improvised. The process and the system need to be designed together or one will undermine the other.</li>
+        <li><strong>Campaign data:</strong> The attribution discipline planned for Phase 3 (UTM tagging, Shopify Flow, consistent tracking across ~70 stores) directly serves Brand's need to understand what's actually driving sell-through. Brand should define the questions; Tech builds the pipeline to answer them.</li>
+        <li><strong>Portfolio visibility:</strong> Brand needs to run creator accounts like a GM and wants a live view of revenue, inventory, and margin across the portfolio. The cross-store dashboard should be built to answer their actual questions, not ones I guessed at.</li>
+        <li><strong>Playbook operationalization:</strong> Brand wants repeatable playbooks. Tech can encode those into systems: Shopify flows, Asana templates, automated handoffs. The process has to come first or the system won't match how Brand actually works.</li>
+      </ul>
+      <p style="font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.7; margin-top: 20px; max-width: 640px;">A few places where lines could get unclear: who owns Shopify platform decisions vs. store-level business outcomes, who defines what the data products should answer vs. who builds them, and who leads process design vs. system implementation. Worth getting ahead of that before both roles are moving fast in the same space.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ THE APPROACH ══════════════════ -->
+<section class="s cream" id="approach">
+  <div class="inner">
+    <span class="lbl fade">The Approach</span>
+    <h2 class="fade">How I Think About This Work</h2>
+    <p class="lead fade">Technical execution is table stakes. What makes the difference here is combining strategic judgment, cross-functional leadership, and hands-on delivery, all at the same time, not in sequence.</p>
+
+    <div class="ap-grid">
+      <div class="ap-card fade">
+        <h3>Strategic product thinking</h3>
+        <p>I've led product from zero to shipped across multiple domains, not just feature delivery but the harder work of deciding what to build, what to buy, what to kill, and what sequencing actually makes business sense. That judgment is what keeps a tech roadmap from becoming a list of interesting projects.</p>
+      </div>
+      <div class="ap-card fade">
+        <h3>Cross-functional leadership</h3>
+        <p>Tech decisions at WJ touch ops, finance, creative, and creator relationships simultaneously. I'm comfortable owning the room in those conversations, not as the person who explains the tech, but as a peer who understands the tradeoffs each function is navigating and can drive alignment across them.</p>
+      </div>
+      <div class="ap-card fade">
+        <h3>Vendor accountability and negotiation</h3>
+        <p>ERP implementations, Shopify connectors, SaaS contracts: these relationships have real commercial leverage that often goes unused. I know how to hold vendors to commitments, escalate when support is falling short, and negotiate from an informed position rather than just accepting the default.</p>
+      </div>
+      <div class="ap-card fade">
+        <h3>I'm a doer</h3>
+        <p>I don't hand off and wait. When something needs to move fast, I'll be in the configuration, in the code, or in the vendor call myself. The strategic thinking and the rolling-up-sleeves are not separate modes. They run in parallel, which is what this stage of WJ needs.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <hr class="divider">
-
-  <!-- WHAT I BRING -->
-  <div class="memo-section">
-    <div class="section-label">The Approach</div>
-    <h2>How I Think About This Work</h2>
-    <p>Technical execution is table stakes. What makes the difference here is combining strategic judgment, cross-functional leadership, and hands-on delivery - all at the same time, not in sequence.</p>
+<!-- ══════════════════ HONEST GAPS ══════════════════ -->
+<section class="s dark" id="gaps">
+  <div class="inner">
+    <span class="lbl fade">Honest Gaps</span>
+    <h2 class="fade">What I Don't Know Yet</h2>
+    <p class="lead fade">Transparency up front is more useful than confidence that turns out to be wrong. These are the areas where I'm starting from scratch and will need context, patience, or both.</p>
 
     <div class="collab-grid">
-      <div class="collab-card">
-        <h3>Strategic product thinking</h3>
-        <p>I've led product from zero to shipped across multiple domains - not just feature delivery but the harder work of deciding what to build, what to buy, what to kill, and what sequencing actually makes business sense. That judgment is what keeps a tech roadmap from becoming a list of interesting projects.</p>
+      <div class="collab-card fade">
+        <h3>Creator commerce is a new domain</h3>
+        <p>I know how to build systems that make creator businesses run. I don't yet know WJ's specific creator relationships, what makes each one tick, or the commercial dynamics of how these deals are structured. That context will build, but not before day one.</p>
       </div>
-      <div class="collab-card">
-        <h3>Cross-functional leadership</h3>
-        <p>Tech decisions at WJ touch ops, finance, creative, and creator relationships simultaneously. I'm comfortable owning the room in those conversations - not as the person who explains the tech, but as a peer who understands the tradeoffs each function is navigating and can drive alignment across them.</p>
+      <div class="collab-card fade">
+        <h3>Everything here is inference</h3>
+        <p>I haven't seen the real state of Odoo, how the Shopify stores are actually configured, or what's genuinely living in Airtable. Some of what's in this document will turn out to be wrong. Phase 1 is largely about finding out where before it causes problems.</p>
       </div>
-      <div class="collab-card">
-        <h3>Vendor accountability and negotiation</h3>
-        <p>ERP implementations, Shopify connectors, SaaS contracts - these relationships have real commercial leverage that often goes unused. I know how to hold vendors to commitments, escalate when support is falling short, and negotiate from an informed position rather than just accepting the default.</p>
+      <div class="collab-card fade">
+        <h3>No read on the people yet</h3>
+        <p>I don't know who the strong operators are, where the institutional knowledge lives, or what the internal dynamics look like. Getting that right takes real time and I won't shortcut it.</p>
       </div>
-      <div class="collab-card">
-        <h3>I'm a doer</h3>
-        <p>I don't hand off and wait. When something needs to move fast, I'll be in the configuration, in the code, or in the vendor call myself. The strategic thinking and the rolling-up-sleeves are not separate modes - they run in parallel, which is what this stage of WJ needs.</p>
+      <div class="collab-card fade">
+        <h3>WJ's commercial model is still opaque</h3>
+        <p>The economics of how a creator partnership works at WJ: margin structure, deal terms, what a healthy relationship looks like for both sides, is something I need to learn from the inside. My instincts will sharpen once I understand where the money actually comes and goes.</p>
       </div>
     </div>
   </div>
+</section>
 
-  <hr class="divider">
-
-  <!-- SUPPORTING DOCS -->
-  <div class="memo-section">
-    <div class="section-label">Supporting Detail</div>
-    <h2>Dive Deeper</h2>
-    <p>These documents expand on the thinking above - the full execution plan, an ERP diagnostic framework, and a survey of AI opportunities across the business.</p>
+<!-- ══════════════════ SUPPORTING DOCS ══════════════════ -->
+<section class="s dark" id="docs">
+  <div class="inner">
+    <span class="lbl fade">Supporting Detail</span>
+    <h2 class="fade">Dive Deeper</h2>
+    <p class="lead fade">These documents expand on the thinking above: the full execution plan, an ERP diagnostic framework, and a survey of AI opportunities across the business.</p>
 
     <div class="docs-grid">
-      <a class="doc-link" href="/warrenjames/roadmap.html">
+      <a class="doc-link fade" href="/warrenjames/roadmap.html">
         <span class="doc-arrow">→</span>
-        <div class="doc-link-label">Full Plan</div>
+        <span class="doc-link-lbl">Full Plan</span>
         <h3>6-9 Month Execution Roadmap</h3>
         <p>Phase-by-phase breakdown with specific deliverables, decision rules, and success criteria across ERP, Shopify, automation, and data.</p>
       </a>
-      <a class="doc-link" href="/warrenjames/erp.html">
+      <a class="doc-link fade" href="/warrenjames/erp.html">
         <span class="doc-arrow">→</span>
-        <div class="doc-link-label">ERP Framework</div>
-        <h3>What Good Looks Like - ERP</h3>
+        <span class="doc-link-lbl">ERP Framework</span>
+        <h3>What Good Looks Like: ERP</h3>
         <p>Ideal state vs. broken state across eight areas, common failure modes, how the accounting layer works in a DTC context, and the diagnostic questions that reveal actual system health.</p>
       </a>
-      <a class="doc-link" href="/warrenjames/ai-use-cases.html">
+      <a class="doc-link fade" href="/warrenjames/ai-use-cases.html">
         <span class="doc-arrow">→</span>
-        <div class="doc-link-label">Strategic Vision</div>
+        <span class="doc-link-lbl">Strategic Vision</span>
         <h3>AI Opportunities Across the Business</h3>
-        <p>A survey of where AI can drive measurable business outcomes at WJ - from campaign intelligence and creator onboarding to inventory forecasting and vendor negotiation.</p>
+        <p>A survey of where AI can drive measurable business outcomes at WJ, from campaign intelligence and creator onboarding to inventory forecasting and vendor negotiation.</p>
       </a>
     </div>
   </div>
+</section>
 
-  <!-- CLOSE -->
-  <div class="close-block">
-    <h2>Let's Go</h2>
-    <p>Some of what's in here will be wrong - that's expected. The point is to start with a real perspective and sharpen it fast with your input. Use the fields above, push back on anything that doesn't land right, and I'll have a revised version back to you within 48 hours of our first conversation.</p>
+<!-- ══════════════════ CLOSE ══════════════════ -->
+<section class="s dark tight">
+  <div class="inner">
+    <div class="close-inner fade">
+      <h2>Let's Go</h2>
+      <p>Some of what's in here will be wrong. That's expected. The point is to start with a real perspective and sharpen it fast with your input. Use the fields above, push back on anything that doesn't land right, and I'll have a revised version back to you within 48 hours of our first conversation.</p>
+    </div>
   </div>
+</section>
 
-</main>
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology
+</footer>
 
-<footer>Prepared by Reza Dawood &nbsp;·&nbsp; Warren James VP of Technology</footer>
+<div class="feedback-drawer" id="feedback-drawer">
+  <div class="drawer-body" id="drawer-body">
+    <div class="drawer-list" id="drawer-list"></div>
+    <div class="drawer-footer">
+      <button class="drawer-btn" id="copy-notes">Copy all</button>
+      <button class="drawer-btn primary" id="email-notes">Email to Reza</button>
+    </div>
+  </div>
+  <button class="drawer-pill" id="drawer-pill">
+    <span>My Notes</span>
+    <span class="drawer-count" id="drawer-count"></span>
+  </button>
+</div>
+
 
 <script>
-  // Reaction buttons - mutually exclusive per row
+  // ── Nav show/hide + active section
+  const nav = document.getElementById('site-nav');
+  const headerEl = document.querySelector('header');
+  const sections = Array.from(document.querySelectorAll('section[id]'));
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function updateNav() {
+    const scrolled = window.scrollY > headerEl.offsetHeight - 80;
+    nav.classList.toggle('visible', scrolled);
+
+    let current = sections[0]?.id || '';
+    sections.forEach(sec => {
+      if (sec.getBoundingClientRect().top < window.innerHeight * 0.45) {
+        current = sec.id;
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // ── Scroll fade-in
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 0.07 + 's';
+    observer.observe(el);
+  });
+
+  // ── Reaction buttons (mutually exclusive per row)
   document.querySelectorAll('.rx-group').forEach(group => {
     group.querySelectorAll('.rx-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -978,56 +1385,218 @@
     });
   });
 
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  let activeRecognition = null;
+  // ── Speech-to-text
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let activeRec = null;
   let activeBtn = null;
 
   document.querySelectorAll('.mic-btn').forEach(btn => {
-    if (!SpeechRecognition) { btn.style.display = 'none'; return; }
+    if (!SR) { btn.style.display = 'none'; return; }
 
     btn.addEventListener('click', () => {
-      // Stop any active session
-      if (activeRecognition) {
-        activeRecognition.stop();
-        activeRecognition = null;
+      if (activeRec) {
+        activeRec.stop();
+        activeRec = null;
         if (activeBtn) { activeBtn.classList.remove('recording'); activeBtn.title = 'Click to speak'; }
         if (activeBtn === btn) { activeBtn = null; return; }
       }
 
-      const textarea = btn.previousElementSibling;
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = 'en-US';
+      const ta = btn.previousElementSibling;
+      const rec = new SR();
+      rec.continuous = true;
+      rec.interimResults = true;
+      rec.lang = 'en-US';
+      const base = ta.value.trimEnd();
 
-      const baseText = textarea.value.trimEnd();
-
-      recognition.onresult = (event) => {
-        const transcript = Array.from(event.results).map(r => r[0].transcript).join('');
-        textarea.value = baseText ? baseText + ' ' + transcript : transcript;
+      rec.onresult = ev => {
+        const t = Array.from(ev.results).map(r => r[0].transcript).join('');
+        ta.value = base ? base + ' ' + t : t;
       };
-
-      recognition.onerror = () => {
+      rec.onerror = rec.onend = () => {
         btn.classList.remove('recording');
         btn.title = 'Click to speak';
-        activeRecognition = null;
+        activeRec = null;
         activeBtn = null;
       };
 
-      recognition.onend = () => {
-        btn.classList.remove('recording');
-        btn.title = 'Click to speak';
-        activeRecognition = null;
-        activeBtn = null;
-      };
-
-      recognition.start();
-      activeRecognition = recognition;
+      rec.start();
+      activeRec = rec;
       activeBtn = btn;
       btn.classList.add('recording');
-      btn.title = 'Recording... click to stop';
+      btn.title = 'Recording… click to stop';
     });
   });
+
+  // ── Section feedback system
+  (function() {
+    const SECTIONS = {
+      hypotheses: 'Initial Assessment',
+      stack: 'Current Stack',
+      plan: 'First 90 Days',
+      vision: 'Bigger Picture',
+      questions: 'Questions',
+      together: 'Working Together',
+      approach: 'The Approach',
+      gaps: 'Honest Gaps',
+      docs: 'Dive Deeper'
+    };
+    const REACTIONS = [
+      { emoji: '\uD83D\uDCAF', label: 'Hell yes' },
+      { emoji: '\uD83D\uDC4D', label: 'Good' },
+      { emoji: '\uD83E\uDD14', label: 'Hmm' },
+      { emoji: '\u2753', label: 'Question' },
+      { emoji: '\uD83D\uDD25', label: 'Love it' }
+    ];
+    const KEY = 'wj_brief_feedback';
+    const REZA = 'rdawood@gmail.com';
+
+    function load() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { return {}; } }
+    function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+
+    let fb = load();
+    let activeRecN = null, activeBtnN = null;
+
+    function setupNoteMic(btn, ta, id) {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) { btn.style.display = 'none'; return; }
+      btn.addEventListener('click', () => {
+        if (activeRecN) {
+          activeRecN.stop(); activeRecN = null;
+          if (activeBtnN) { activeBtnN.classList.remove('recording'); activeBtnN.title = 'Click to speak'; }
+          if (activeBtnN === btn) { activeBtnN = null; return; }
+        }
+        const rec = new SR();
+        rec.continuous = true; rec.interimResults = true; rec.lang = 'en-US';
+        const base = ta.value.trimEnd();
+        rec.onresult = ev => {
+          const t = Array.from(ev.results).map(r => r[0].transcript).join('');
+          ta.value = base ? base + ' ' + t : t;
+          if (!fb[id]) fb[id] = {};
+          fb[id].note = ta.value; save(fb); updateDrawer();
+        };
+        rec.onerror = rec.onend = () => {
+          btn.classList.remove('recording'); btn.title = 'Click to speak';
+          activeRecN = null; activeBtnN = null;
+        };
+        rec.start(); activeRecN = rec; activeBtnN = btn;
+        btn.classList.add('recording'); btn.title = 'Recording... click to stop';
+      });
+    }
+
+    Object.entries(SECTIONS).forEach(([id, name]) => {
+      const sec = document.getElementById(id);
+      if (!sec) return;
+      const inner = sec.querySelector('.inner');
+      const lbl = inner.querySelector('.lbl');
+
+      const meta = document.createElement('div');
+      meta.className = 'section-meta';
+      lbl.parentNode.insertBefore(meta, lbl);
+      meta.appendChild(lbl);
+
+      const toggle = document.createElement('button');
+      toggle.className = 'note-toggle';
+      meta.appendChild(toggle);
+
+      const panel = document.createElement('div');
+      panel.className = 'note-panel';
+      const d = fb[id] || {};
+      panel.innerHTML =
+        '<div class="note-reactions">' +
+        REACTIONS.map(r =>
+          '<button class="note-rx' + (d.reaction === r.emoji ? ' selected' : '') +
+          '" data-r="' + r.emoji + '" title="' + r.label + '">' + r.emoji + '</button>'
+        ).join('') +
+        '</div>' +
+        '<div class="note-field">' +
+        '<textarea placeholder="Your thoughts on this section...">' + (d.note || '') + '</textarea>' +
+        '<button class="note-mic-btn" title="Click to speak">\uD83C\uDFA4</button>' +
+        '</div>';
+      inner.appendChild(panel);
+
+      function refreshToggle() {
+        const dd = fb[id] || {};
+        const has = dd.reaction || dd.note;
+        toggle.classList.toggle('has-content', !!has);
+        toggle.textContent = has ? (dd.reaction ? dd.reaction + ' Note added' : 'Note added') : '+ Leave a note';
+      }
+      refreshToggle();
+
+      toggle.addEventListener('click', () => {
+        panel.classList.toggle('open');
+        if (panel.classList.contains('open')) panel.querySelector('textarea').focus();
+      });
+
+      panel.querySelectorAll('.note-rx').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const r = btn.dataset.r;
+          if (!fb[id]) fb[id] = {};
+          fb[id].reaction = fb[id].reaction === r ? null : r;
+          panel.querySelectorAll('.note-rx').forEach(b => b.classList.remove('selected'));
+          if (fb[id].reaction) btn.classList.add('selected');
+          save(fb); refreshToggle(); updateDrawer();
+        });
+      });
+
+      const ta = panel.querySelector('textarea');
+      ta.addEventListener('input', () => {
+        if (!fb[id]) fb[id] = {};
+        fb[id].note = ta.value; save(fb); refreshToggle(); updateDrawer();
+      });
+
+      setupNoteMic(panel.querySelector('.note-mic-btn'), ta, id);
+    });
+
+    const pill = document.getElementById('drawer-pill');
+    const body = document.getElementById('drawer-body');
+    const list = document.getElementById('drawer-list');
+    const cnt  = document.getElementById('drawer-count');
+
+    pill.addEventListener('click', () => body.classList.toggle('open'));
+
+    function compile() {
+      return Object.entries(SECTIONS)
+        .filter(([id]) => fb[id]?.reaction || fb[id]?.note)
+        .map(([id, name]) => {
+          const d = fb[id];
+          return name + ':\n' + [d.reaction, d.note].filter(Boolean).join('  ');
+        }).join('\n\n');
+    }
+
+    function updateDrawer() {
+      const entries = Object.entries(SECTIONS).filter(([id]) => fb[id]?.reaction || fb[id]?.note);
+      cnt.textContent = entries.length;
+      cnt.classList.toggle('show', entries.length > 0);
+      if (!entries.length) {
+        list.innerHTML = '<p class="drawer-empty">No notes yet.<br>React or comment on any section above.</p>';
+        return;
+      }
+      list.innerHTML = entries.map(([id, name]) => {
+        const d = fb[id];
+        const parts = [d.reaction, d.note ? d.note.replace(/</g,'&lt;') : ''].filter(Boolean);
+        return '<div class="drawer-item"><div class="drawer-item-name">' + name +
+          '</div><div class="drawer-item-content">' + parts.join(' &nbsp; ') + '</div></div>';
+      }).join('');
+    }
+    updateDrawer();
+
+    document.getElementById('copy-notes').addEventListener('click', function() {
+      const txt = compile();
+      if (!txt) return;
+      navigator.clipboard.writeText(txt).then(() => {
+        this.textContent = 'Copied!';
+        setTimeout(() => { this.textContent = 'Copy all'; }, 2000);
+      });
+    });
+
+    document.getElementById('email-notes').addEventListener('click', () => {
+      const txt = compile();
+      if (!txt) return;
+      const sub = encodeURIComponent('WJ Onboarding Brief - My Notes');
+      const bod = encodeURIComponent('Hey Reza,\n\nHere are my notes from the brief:\n\n' + txt + '\n');
+      window.location.href = 'mailto:' + REZA + '?subject=' + sub + '&body=' + bod;
+    });
+  })();
 </script>
 </body>
 </html>
