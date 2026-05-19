@@ -66,7 +66,7 @@
     padding: 2.5rem 2rem;
   }
 
-  .page { max-width: 940px; margin: 0 auto; }
+  .page { max-width: 1160px; margin: 0 auto; }
 
   /* HEADER */
   .hdr {
@@ -119,46 +119,82 @@
     line-height: 1.7;
   }
 
-  /* STICKY NAV */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(6,8,15,0.96);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border);
-    padding: 0.7rem 0;
-    margin: 0 -2rem 2.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-  .nav-links {
+  /* LAYOUT */
+  .layout {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
+    gap: 2.5rem;
+    align-items: flex-start;
+    max-width: 1160px;
+    margin: 0 auto;
   }
-  .nav-links a {
+
+  /* LEFT RAIL */
+  .left-rail {
+    width: 176px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    padding-bottom: 2rem;
+  }
+  .left-rail::-webkit-scrollbar { display: none; }
+
+  .rail-home {
+    display: inline-flex; align-items: center; gap: 5px;
     font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 3px;
-    border: 1px solid rgba(255,255,255,0.18);
-    color: rgba(255,255,255,0.5);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: all 0.15s;
-    white-space: nowrap;
+    font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.25); text-decoration: none;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s;
   }
-  .nav-links a:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
-  .nav-links a.active { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
-  .nav-links a.nav-home { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.55); margin-right: 4px; }
-  .nav-links a.nav-home:hover { color: var(--gold); border-color: var(--gold-border); background: var(--gold-bg); }
-  .nav-sep { width: 1px; height: 14px; background: rgba(255,255,255,0.12); margin: 0 4px; align-self: center; flex-shrink: 0; }
+  .rail-home:hover { color: rgba(255,255,255,0.6); }
+
+  .rail-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.52rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.18);
+    margin-bottom: 0.6rem;
+  }
+
+  .rail-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .rail-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.03em;
+    color: rgba(255,255,255,0.28);
+    text-decoration: none;
+    padding: 0.3rem 0.55rem;
+    border-radius: 3px;
+    border-left: 2px solid transparent;
+    line-height: 1.45;
+    transition: all 0.15s;
+    display: flex;
+    gap: 0.4rem;
+    align-items: baseline;
+  }
+  .rail-link:hover { color: rgba(255,255,255,0.65); border-left-color: rgba(255,255,255,0.2); }
+  .rail-link.active { color: var(--gold); border-left-color: var(--gold); background: var(--gold-bg); }
+
+  .rail-num {
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+
+  /* MAIN CONTENT */
+  .main-content { flex: 1; min-width: 0; }
 
   /* CATEGORY SECTION */
   .cat-section {
     margin-bottom: 3rem;
-    scroll-margin-top: 70px;
+    scroll-margin-top: 2rem;
   }
 
   .cat-hdr {
@@ -454,28 +490,33 @@
 
   <!-- HEADER -->
   <div class="hdr">
-    <a class="breadcrumb" href="/warrenjames/#vision">← Home</a>
     <p class="eyebrow">Strategic AI Vision · Warren James · Reza Dawood</p>
     <h1>AI That Moves the<br><em>Business Forward</em></h1>
     <p class="hdr-sub">Not efficiency. Not automation. Genuine competitive advantage.</p>
     <p class="hdr-desc">These use cases go beyond saving time on existing tasks. Each one creates a capability Warren James doesn't have today  -  and that competitors can't easily replicate without the same data foundation.</p>
   </div>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="nav-links">
-      <a class="nav-home" href="/warrenjames/#vision">Home</a>
-      <span class="nav-sep"></span>
-      <a href="#s1">01 · Campaign Intelligence</a>
-      <a href="#s2">02 · Audience Intelligence</a>
-      <a href="#s3">03 · Creator Intelligence</a>
-      <a href="#s4">04 · Product Intelligence</a>
-      <a href="#s5">05 · Revenue Intelligence</a>
-      <a href="#s6">06 · Creator Growth</a>
-      <a href="#s7">07 · Risk & Anomaly</a>
-      <a href="#s8">08 · Deal Pipeline</a>
-    </div>
-  </nav>
+  <!-- LAYOUT: LEFT RAIL + MAIN -->
+  <div class="layout">
+
+    <!-- LEFT RAIL -->
+    <aside class="left-rail">
+      <a class="rail-home" href="/warrenjames/#vision">← Home</a>
+      <div class="rail-label">Categories</div>
+      <nav class="rail-links">
+        <a class="rail-link" href="#s1"><span class="rail-num">01</span>Campaign Intelligence</a>
+        <a class="rail-link" href="#s2"><span class="rail-num">02</span>Deal Pipeline</a>
+        <a class="rail-link" href="#s3"><span class="rail-num">03</span>Audience Intelligence</a>
+        <a class="rail-link" href="#s4"><span class="rail-num">04</span>Creator Intelligence</a>
+        <a class="rail-link" href="#s5"><span class="rail-num">05</span>Product Intelligence</a>
+        <a class="rail-link" href="#s6"><span class="rail-num">06</span>Revenue Intelligence</a>
+        <a class="rail-link" href="#s7"><span class="rail-num">07</span>Risk & Anomaly</a>
+        <a class="rail-link" href="#s8"><span class="rail-num">08</span>Creator Growth</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
 
   <!-- ══════════════════════════════════════════ -->
   <!-- CATEGORY 1: CAMPAIGN INTELLIGENCE -->
@@ -574,13 +615,70 @@
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- CATEGORY 2: AUDIENCE INTELLIGENCE -->
+  <!-- CATEGORY 2: DEAL PIPELINE & CREATOR ACQUISITION -->
   <!-- ══════════════════════════════════════════ -->
   <div class="cat-section" id="s2">
+    <div class="cat-hdr cc8-hdr">
+      <div class="cat-icon">🎯</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 02</p>
+        <p class="cat-title">Deal Pipeline & Creator Acquisition</p>
+      </div>
+      <p class="cat-desc">Find the right creators before competitors do. Give sales the intelligence to close with confidence.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-33</p>
+        <p class="uc-title">Creator Lead Discovery</p>
+        <p class="uc-what">AI continuously scans social platforms to surface creators who match WJ's ideal acquisition profile — not just follower count, but genre fit, audience psychographics, engagement quality, content style, and estimated price sensitivity of their community. Cross-referenced against existing WJ stores to identify whitespace: creators whose audience complements the portfolio without cannibalizing it. Delivers a ranked weekly shortlist, not a raw dump.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Sales pipeline is no longer built on who someone met at an event or who DMed first. It's built on who actually fits — before the conversation starts.</p>
+        <div class="uc-tags"><span class="uc-tag">Social signals</span><span class="uc-tag">Audience fit</span><span class="uc-tag">Portfolio gap analysis</span></div>
+      </div>
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-34</p>
+        <p class="uc-title">Lead Scoring & Roster Fit Ranking</p>
+        <p class="uc-what">For every lead in the CRM — whether discovered by AI or entered manually — AI scores their likelihood of success as a WJ creator. Score is grounded in portfolio data: audience similarity to high-performing existing stores, sell-through analogue match, pricing tier viability, category whitespace, and audience size relative to WJ's sweet spot. Syncs back to HubSpot so the sales team always works from a ranked, up-to-date list rather than gut feel.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"These 8 leads score above 80. These 3 are borderline — here's why. These 12 are low fit — don't spend time here." Sales energy goes where it converts.</p>
+        <div class="uc-tags"><span class="uc-tag">HubSpot sync</span><span class="uc-tag">Portfolio matching</span><span class="uc-tag">Prioritization</span></div>
+      </div>
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-35</p>
+        <p class="uc-title">Pitch Intelligence Brief</p>
+        <p class="uc-what">Before a sales conversation, AI generates a tailored pitch brief for each creator lead: which existing WJ stores their audience most resembles, projected first-drop performance based on those analogues, the specific content angle and channel mix that has worked for similar audiences, and a narrative for why WJ is the right home for their community. Gives the sales person something specific to say — not a generic deck.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Stores 7 and 14 have your audience. Their last three drops cleared in under 48 hours at this price point. Here's what we'd do for your first launch." That's a different conversation than 'we think you'd be a great fit.'</p>
+        <div class="uc-tags"><span class="uc-tag">LLM synthesis</span><span class="uc-tag">Analogue matching</span><span class="uc-tag">Sales enablement</span></div>
+      </div>
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-36</p>
+        <p class="uc-title">Pipeline Velocity Monitor</p>
+        <p class="uc-what">AI tracks deal stage movement across HubSpot and flags deals going cold, surfaces re-engagement moments — a creator just crossed a follower milestone, posted something relevant to WJ's category, or a competitor signed someone from the same niche — and suggests a specific re-engagement angle for each. Keeps the pipeline from quietly dying between touchpoints.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Deals don't stall silently. Every cold lead has a reason to re-engage, and the right moment to do it surfaces automatically rather than when someone remembers to check.</p>
+        <div class="uc-tags"><span class="uc-tag">HubSpot</span><span class="uc-tag">Signal monitoring</span><span class="uc-tag">Re-engagement</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 3: AUDIENCE INTELLIGENCE -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s3">
     <div class="cat-hdr cc1-hdr">
       <div class="cat-icon">👥</div>
       <div class="cat-title-wrap">
-        <p class="cat-num">Category 02</p>
+        <p class="cat-num">Category 03</p>
         <p class="cat-title">Audience Intelligence</p>
       </div>
       <p class="cat-desc">Understand who is actually buying  -  not just who follows. Surface patterns invisible to the naked eye.</p>
@@ -631,13 +729,13 @@
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- CATEGORY 3: CREATOR INTELLIGENCE -->
+  <!-- CATEGORY 4: CREATOR INTELLIGENCE -->
   <!-- ══════════════════════════════════════════ -->
-  <div class="cat-section" id="s3">
+  <div class="cat-section" id="s4">
     <div class="cat-hdr cc3-hdr">
       <div class="cat-icon">✦</div>
       <div class="cat-title-wrap">
-        <p class="cat-num">Category 03</p>
+        <p class="cat-num">Category 04</p>
         <p class="cat-title">Creator Intelligence</p>
       </div>
       <p class="cat-desc">Help creators succeed more by understanding them more deeply than they understand themselves.</p>
@@ -688,13 +786,13 @@
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- CATEGORY 4: PRODUCT INTELLIGENCE -->
+  <!-- CATEGORY 5: PRODUCT INTELLIGENCE -->
   <!-- ══════════════════════════════════════════ -->
-  <div class="cat-section" id="s4">
+  <div class="cat-section" id="s5">
     <div class="cat-hdr cc4-hdr">
       <div class="cat-icon">◈</div>
       <div class="cat-title-wrap">
-        <p class="cat-num">Category 04</p>
+        <p class="cat-num">Category 05</p>
         <p class="cat-title">Product Intelligence</p>
       </div>
       <p class="cat-desc">Make every product decision smarter. From what to make to how to price it to when to reorder.</p>
@@ -745,13 +843,13 @@
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- CATEGORY 5: REVENUE INTELLIGENCE -->
+  <!-- CATEGORY 6: REVENUE INTELLIGENCE -->
   <!-- ══════════════════════════════════════════ -->
-  <div class="cat-section" id="s5">
+  <div class="cat-section" id="s6">
     <div class="cat-hdr cc5-hdr">
       <div class="cat-icon">◎</div>
       <div class="cat-title-wrap">
-        <p class="cat-num">Category 05</p>
+        <p class="cat-num">Category 06</p>
         <p class="cat-title">Revenue Intelligence</p>
       </div>
       <p class="cat-desc">Find revenue hiding in the existing business. Not new products  -  smarter use of what already exists.</p>
@@ -806,73 +904,6 @@
         <p class="uc-outcome-label">Business outcome</p>
         <p class="uc-outcome">Leadership looks at one number. It's right. The question shifts from "where did this data come from?" to "what are we doing about it?"</p>
         <div class="uc-tags"><span class="uc-tag">Odoo + BigQuery</span><span class="uc-tag">Portfolio-wide</span><span class="uc-tag">Finance</span></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════ -->
-  <!-- CATEGORY 6: CREATOR GROWTH -->
-  <!-- ══════════════════════════════════════════ -->
-  <div class="cat-section" id="s6">
-    <div class="cat-hdr cc6-hdr">
-      <div class="cat-icon">↑</div>
-      <div class="cat-title-wrap">
-        <p class="cat-num">Category 06</p>
-        <p class="cat-title">Creator Growth Tools</p>
-      </div>
-      <p class="cat-desc">Give creators capabilities they couldn't have without Warren James. Make the partnership irreplaceable.</p>
-    </div>
-    <div class="uc-grid">
-
-      <div class="uc-card cc6">
-        <p class="uc-num">UC-21</p>
-        <p class="uc-title">Creator Commerce Coach</p>
-        <p class="uc-what">An AI interface  -  potentially a Slack bot or lightweight web app  -  that each creator can query in plain language about their own store. "Why did my last drop underperform?" "What should I charge for this new ring?" "When should I do my next launch?" Answers drawn from their actual BigQuery data, not generic advice.</p>
-        <div class="uc-divider"></div>
-        <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">Creators who understand their own data make better decisions. Better decisions mean better stores. Better stores mean Warren James retains talent longer and those stores generate more revenue.</p>
-        <div class="uc-tags"><span class="uc-tag">Creator-facing</span><span class="uc-tag">Claude API</span><span class="uc-tag">Retention tool</span></div>
-      </div>
-
-      <div class="uc-card cc6">
-        <p class="uc-num">UC-22</p>
-        <p class="uc-title">Content Performance ↔ Commerce Correlator</p>
-        <p class="uc-what">Joins a creator's social content performance data (views, saves, shares per post) with the commerce data from the 48 hours after each post. Identifies which content formats, topics, aesthetics, and captions correlate with the highest conversion  -  specific to that creator's audience. Not general social media advice  -  their personal conversion playbook.</p>
-        <div class="uc-divider"></div>
-        <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">"Your Reels with product in use in the first 2 seconds convert 3× better than flat lays for your audience. Here's why, and here's what to do more of."</p>
-        <div class="uc-tags"><span class="uc-tag">Social API</span><span class="uc-tag">Commerce data join</span></div>
-      </div>
-
-      <div class="uc-card cc6">
-        <p class="uc-num">UC-23</p>
-        <p class="uc-title">Launch Readiness Scorer</p>
-        <p class="uc-what">Before a creator launches a new collection, AI scores launch readiness across five dimensions: inventory sufficiency, audience warmth (engagement trend in the 2 weeks prior), product-market fit based on comparable launches, timing relative to creator's audience calendar, and operational readiness in Shopify and Odoo. Flags gaps before they become launch-day failures.</p>
-        <div class="uc-divider"></div>
-        <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">Launches fail for predictable reasons. A pre-launch checklist powered by real data catches 80% of them before they happen.</p>
-        <div class="uc-tags"><span class="uc-tag">Pre-launch</span><span class="uc-tag">Multi-signal</span></div>
-      </div>
-
-      <div class="uc-card cc6">
-        <p class="uc-num">UC-24</p>
-        <p class="uc-title">Audience Growth Advisor</p>
-        <p class="uc-what">When a store's audience saturation signals appear (UC-06), AI goes further  -  analyzing which adjacent content categories, platforms, and creator collaboration types have historically grown audiences with similar demographic profiles across the WJ portfolio, and generates a specific growth recommendation for that creator.</p>
-        <div class="uc-divider"></div>
-        <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">Warren James becomes a strategic growth partner to its creators, not just a merchandise operator. That deepens the relationship and reduces churn.</p>
-        <div class="uc-tags"><span class="uc-tag">Strategic advisory</span><span class="uc-tag">Retention</span></div>
-      </div>
-
-      <div class="uc-card cc6">
-        <p class="uc-num">UC-31</p>
-        <p class="uc-title">Creator-Owned Apps</p>
-        <p class="uc-what">WJ's creator roster has the same distribution potential as creators who've already launched breakout apps — Hank Green's Focus Friend hit #1 on the App Store in 2025 with a tiny team, driven entirely by audience trust rather than paid acquisition. Most creators have no product or tech capability to act on this. A tech org with app-building capability and product judgment could close that gap: identifying which creators have the audience profile and engagement density that makes an app viable, and building alongside them.</p>
-        <div class="uc-divider"></div>
-        <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">A new revenue line that compounds WJ's value to creators beyond merchandise — and creates a category of relationship no other commerce operator can offer.</p>
-        <div class="uc-tags"><span class="uc-tag">New revenue line</span><span class="uc-tag">Product development</span><span class="uc-tag">Creator partnership</span><span class="uc-tag" style="opacity:0.5;font-style:italic;">Long horizon</span></div>
       </div>
 
     </div>
@@ -936,57 +967,67 @@
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- CATEGORY 8: DEAL PIPELINE & CREATOR ACQUISITION -->
+  <!-- CATEGORY 8: CREATOR GROWTH -->
   <!-- ══════════════════════════════════════════ -->
   <div class="cat-section" id="s8">
-    <div class="cat-hdr cc8-hdr">
-      <div class="cat-icon">🎯</div>
+    <div class="cat-hdr cc6-hdr">
+      <div class="cat-icon">↑</div>
       <div class="cat-title-wrap">
         <p class="cat-num">Category 08</p>
-        <p class="cat-title">Deal Pipeline & Creator Acquisition</p>
+        <p class="cat-title">Creator Growth Tools<span style="font-size:11px;opacity:0.4;font-weight:400;letter-spacing:0.05em;margin-left:10px;">· longer horizon</span></p>
       </div>
-      <p class="cat-desc">Find the right creators before competitors do. Give sales the intelligence to close with confidence.</p>
+      <p class="cat-desc">Give creators capabilities they couldn't have without Warren James. Make the partnership irreplaceable.</p>
     </div>
     <div class="uc-grid">
 
-      <div class="uc-card cc8">
-        <p class="uc-num">UC-33</p>
-        <p class="uc-title">Creator Lead Discovery</p>
-        <p class="uc-what">AI continuously scans social platforms to surface creators who match WJ's ideal acquisition profile — not just follower count, but genre fit, audience psychographics, engagement quality, content style, and estimated price sensitivity of their community. Cross-referenced against existing WJ stores to identify whitespace: creators whose audience complements the portfolio without cannibalizing it. Delivers a ranked weekly shortlist, not a raw dump.</p>
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-21</p>
+        <p class="uc-title">Creator Commerce Coach</p>
+        <p class="uc-what">An AI interface  -  potentially a Slack bot or lightweight web app  -  that each creator can query in plain language about their own store. "Why did my last drop underperform?" "What should I charge for this new ring?" "When should I do my next launch?" Answers drawn from their actual BigQuery data, not generic advice.</p>
         <div class="uc-divider"></div>
         <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">Sales pipeline is no longer built on who someone met at an event or who DMed first. It's built on who actually fits — before the conversation starts.</p>
-        <div class="uc-tags"><span class="uc-tag">Social signals</span><span class="uc-tag">Audience fit</span><span class="uc-tag">Portfolio gap analysis</span></div>
+        <p class="uc-outcome">Creators who understand their own data make better decisions. Better decisions mean better stores. Better stores mean Warren James retains talent longer and those stores generate more revenue.</p>
+        <div class="uc-tags"><span class="uc-tag">Creator-facing</span><span class="uc-tag">Claude API</span><span class="uc-tag">Retention tool</span></div>
       </div>
 
-      <div class="uc-card cc8">
-        <p class="uc-num">UC-34</p>
-        <p class="uc-title">Lead Scoring & Roster Fit Ranking</p>
-        <p class="uc-what">For every lead in the CRM — whether discovered by AI or entered manually — AI scores their likelihood of success as a WJ creator. Score is grounded in portfolio data: audience similarity to high-performing existing stores, sell-through analogue match, pricing tier viability, category whitespace, and audience size relative to WJ's sweet spot. Syncs back to HubSpot so the sales team always works from a ranked, up-to-date list rather than gut feel.</p>
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-22</p>
+        <p class="uc-title">Content Performance ↔ Commerce Correlator</p>
+        <p class="uc-what">Joins a creator's social content performance data (views, saves, shares per post) with the commerce data from the 48 hours after each post. Identifies which content formats, topics, aesthetics, and captions correlate with the highest conversion  -  specific to that creator's audience. Not general social media advice  -  their personal conversion playbook.</p>
         <div class="uc-divider"></div>
         <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">"These 8 leads score above 80. These 3 are borderline — here's why. These 12 are low fit — don't spend time here." Sales energy goes where it converts.</p>
-        <div class="uc-tags"><span class="uc-tag">HubSpot sync</span><span class="uc-tag">Portfolio matching</span><span class="uc-tag">Prioritization</span></div>
+        <p class="uc-outcome">"Your Reels with product in use in the first 2 seconds convert 3× better than flat lays for your audience. Here's why, and here's what to do more of."</p>
+        <div class="uc-tags"><span class="uc-tag">Social API</span><span class="uc-tag">Commerce data join</span></div>
       </div>
 
-      <div class="uc-card cc8">
-        <p class="uc-num">UC-35</p>
-        <p class="uc-title">Pitch Intelligence Brief</p>
-        <p class="uc-what">Before a sales conversation, AI generates a tailored pitch brief for each creator lead: which existing WJ stores their audience most resembles, projected first-drop performance based on those analogues, the specific content angle and channel mix that has worked for similar audiences, and a narrative for why WJ is the right home for their community. Gives the sales person something specific to say — not a generic deck.</p>
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-23</p>
+        <p class="uc-title">Launch Readiness Scorer</p>
+        <p class="uc-what">Before a creator launches a new collection, AI scores launch readiness across five dimensions: inventory sufficiency, audience warmth (engagement trend in the 2 weeks prior), product-market fit based on comparable launches, timing relative to creator's audience calendar, and operational readiness in Shopify and Odoo. Flags gaps before they become launch-day failures.</p>
         <div class="uc-divider"></div>
         <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">"Stores 7 and 14 have your audience. Their last three drops cleared in under 48 hours at this price point. Here's what we'd do for your first launch." That's a different conversation than 'we think you'd be a great fit.'</p>
-        <div class="uc-tags"><span class="uc-tag">LLM synthesis</span><span class="uc-tag">Analogue matching</span><span class="uc-tag">Sales enablement</span></div>
+        <p class="uc-outcome">Launches fail for predictable reasons. A pre-launch checklist powered by real data catches 80% of them before they happen.</p>
+        <div class="uc-tags"><span class="uc-tag">Pre-launch</span><span class="uc-tag">Multi-signal</span></div>
       </div>
 
-      <div class="uc-card cc8">
-        <p class="uc-num">UC-36</p>
-        <p class="uc-title">Pipeline Velocity Monitor</p>
-        <p class="uc-what">AI tracks deal stage movement across HubSpot and flags deals going cold, surfaces re-engagement moments — a creator just crossed a follower milestone, posted something relevant to WJ's category, or a competitor signed someone from the same niche — and suggests a specific re-engagement angle for each. Keeps the pipeline from quietly dying between touchpoints.</p>
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-24</p>
+        <p class="uc-title">Audience Growth Advisor</p>
+        <p class="uc-what">When a store's audience saturation signals appear (UC-06), AI goes further  -  analyzing which adjacent content categories, platforms, and creator collaboration types have historically grown audiences with similar demographic profiles across the WJ portfolio, and generates a specific growth recommendation for that creator.</p>
         <div class="uc-divider"></div>
         <p class="uc-outcome-label">Business outcome</p>
-        <p class="uc-outcome">Deals don't stall silently. Every cold lead has a reason to re-engage, and the right moment to do it surfaces automatically rather than when someone remembers to check.</p>
-        <div class="uc-tags"><span class="uc-tag">HubSpot</span><span class="uc-tag">Signal monitoring</span><span class="uc-tag">Re-engagement</span></div>
+        <p class="uc-outcome">Warren James becomes a strategic growth partner to its creators, not just a merchandise operator. That deepens the relationship and reduces churn.</p>
+        <div class="uc-tags"><span class="uc-tag">Strategic advisory</span><span class="uc-tag">Retention</span></div>
+      </div>
+
+      <div class="uc-card cc6">
+        <p class="uc-num">UC-31</p>
+        <p class="uc-title">Creator-Owned Apps</p>
+        <p class="uc-what">WJ's creator roster has the same distribution potential as creators who've already launched breakout apps — Hank Green's Focus Friend hit #1 on the App Store in 2025 with a tiny team, driven entirely by audience trust rather than paid acquisition. Most creators have no product or tech capability to act on this. A tech org with app-building capability and product judgment could close that gap: identifying which creators have the audience profile and engagement density that makes an app viable, and building alongside them.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">A new revenue line that compounds WJ's value to creators beyond merchandise — and creates a category of relationship no other commerce operator can offer.</p>
+        <div class="uc-tags"><span class="uc-tag">New revenue line</span><span class="uc-tag">Product development</span><span class="uc-tag">Creator partnership</span><span class="uc-tag" style="opacity:0.5;font-style:italic;">Long horizon</span></div>
       </div>
 
     </div>
@@ -1000,12 +1041,15 @@
 
   <footer>WARREN JAMES · STRATEGIC AI USE CASES · 33 APPLICATIONS ACROSS 8 CATEGORIES · PREPARED BY REZA</footer>
 
+    </div><!-- /main-content -->
+  </div><!-- /layout -->
+
 </div>
 <script>
   (function() {
-    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const railLinks = document.querySelectorAll('.rail-link[href^="#"]');
     const sections = Array.from(document.querySelectorAll('.cat-section[id]'));
-    const offset = 90;
+    const offset = 60;
 
     function update() {
       const scrollY = window.scrollY + offset;
@@ -1013,7 +1057,7 @@
       for (const s of sections) {
         if (s.offsetTop <= scrollY) active = s;
       }
-      navLinks.forEach(a => {
+      railLinks.forEach(a => {
         a.classList.toggle('active', a.getAttribute('href') === '#' + active.id);
       });
     }
