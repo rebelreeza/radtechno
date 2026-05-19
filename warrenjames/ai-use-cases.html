@@ -48,6 +48,10 @@
     --c7: #FCD34D; /* amber  -  risk & ops */
     --c7-bg: rgba(252,211,77,0.07);
     --c7-border: rgba(252,211,77,0.22);
+
+    --c8: #34D399; /* emerald  -  deal pipeline */
+    --c8-bg: rgba(52,211,153,0.07);
+    --c8-border: rgba(52,211,153,0.22);
   }
 
   * { margin:0; padding:0; box-sizing:border-box; }
@@ -399,6 +403,13 @@
   .cat-hdr.cc7-hdr .cat-num { color: var(--c7); }
   .cat-hdr.cc7-hdr .cat-icon { background: var(--c7-bg); border: 1px solid var(--c7-border); }
 
+  .cc8 { background: var(--c8-bg); border: 1px solid var(--c8-border); }
+  .cc8 .uc-num { color: var(--c8); }
+  .cc8 .uc-tag { background: var(--c8-bg); color: var(--c8); border: 1px solid var(--c8-border); }
+  .cc8::before { background: var(--c8); }
+  .cat-hdr.cc8-hdr .cat-num { color: var(--c8); }
+  .cat-hdr.cc8-hdr .cat-icon { background: var(--c8-bg); border: 1px solid var(--c8-border); }
+
   /* CLOSING */
   .closing {
     background: var(--gold-bg);
@@ -462,6 +473,7 @@
       <a href="#s5">05 · Revenue Intelligence</a>
       <a href="#s6">06 · Creator Growth</a>
       <a href="#s7">07 · Risk & Anomaly</a>
+      <a href="#s8">08 · Deal Pipeline</a>
     </div>
   </nav>
 
@@ -506,6 +518,16 @@
             <li><span class="uc-step-n">06</span>Output delivered to ops team as a structured recommendation with confidence score and reasoning.</li>
           </ul>
         </div>
+      </div>
+
+      <div class="uc-card cc2">
+        <p class="uc-num">UC-32</p>
+        <p class="uc-title">New Creator Launch Brief</p>
+        <p class="uc-what">When a creator signs with WJ, their first drop is the highest-stakes moment in the relationship — and the one with the least data to work from. This agent profiles the incoming creator's audience using social signals: genre, community psychographics, size, engagement rate, estimated price sensitivity. It then finds the 3–5 existing WJ stores with the most similar audience fingerprint and synthesizes their launch history into a first-drop brief — recommended window length, price tier, scarcity mechanic, merch category mix, channel priority, content angle — grounded in what actually converted for communities like theirs, not a generic template.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Based on audience overlap with Stores 7, 14, and 23: recommend a 72-hour window, £35–55 tier, TikTok-first, lifestyle content angle. These stores cleared 86–91% in similar windows. Here's the brief." Every new creator gets the benefit of 70 stores' worth of launch experience from day one.</p>
+        <div class="uc-tags"><span class="uc-tag">Portfolio intelligence</span><span class="uc-tag">Social profiling</span><span class="uc-tag">First launch</span><span class="uc-tag">Claude API</span></div>
       </div>
 
       <div class="uc-card cc2">
@@ -913,13 +935,70 @@
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════ -->
+  <!-- CATEGORY 8: DEAL PIPELINE & CREATOR ACQUISITION -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="cat-section" id="s8">
+    <div class="cat-hdr cc8-hdr">
+      <div class="cat-icon">🎯</div>
+      <div class="cat-title-wrap">
+        <p class="cat-num">Category 08</p>
+        <p class="cat-title">Deal Pipeline & Creator Acquisition</p>
+      </div>
+      <p class="cat-desc">Find the right creators before competitors do. Give sales the intelligence to close with confidence.</p>
+    </div>
+    <div class="uc-grid">
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-33</p>
+        <p class="uc-title">Creator Lead Discovery</p>
+        <p class="uc-what">AI continuously scans social platforms to surface creators who match WJ's ideal acquisition profile — not just follower count, but genre fit, audience psychographics, engagement quality, content style, and estimated price sensitivity of their community. Cross-referenced against existing WJ stores to identify whitespace: creators whose audience complements the portfolio without cannibalizing it. Delivers a ranked weekly shortlist, not a raw dump.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Sales pipeline is no longer built on who someone met at an event or who DMed first. It's built on who actually fits — before the conversation starts.</p>
+        <div class="uc-tags"><span class="uc-tag">Social signals</span><span class="uc-tag">Audience fit</span><span class="uc-tag">Portfolio gap analysis</span></div>
+      </div>
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-34</p>
+        <p class="uc-title">Lead Scoring & Roster Fit Ranking</p>
+        <p class="uc-what">For every lead in the CRM — whether discovered by AI or entered manually — AI scores their likelihood of success as a WJ creator. Score is grounded in portfolio data: audience similarity to high-performing existing stores, sell-through analogue match, pricing tier viability, category whitespace, and audience size relative to WJ's sweet spot. Syncs back to HubSpot so the sales team always works from a ranked, up-to-date list rather than gut feel.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"These 8 leads score above 80. These 3 are borderline — here's why. These 12 are low fit — don't spend time here." Sales energy goes where it converts.</p>
+        <div class="uc-tags"><span class="uc-tag">HubSpot sync</span><span class="uc-tag">Portfolio matching</span><span class="uc-tag">Prioritization</span></div>
+      </div>
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-35</p>
+        <p class="uc-title">Pitch Intelligence Brief</p>
+        <p class="uc-what">Before a sales conversation, AI generates a tailored pitch brief for each creator lead: which existing WJ stores their audience most resembles, projected first-drop performance based on those analogues, the specific content angle and channel mix that has worked for similar audiences, and a narrative for why WJ is the right home for their community. Gives the sales person something specific to say — not a generic deck.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">"Stores 7 and 14 have your audience. Their last three drops cleared in under 48 hours at this price point. Here's what we'd do for your first launch." That's a different conversation than 'we think you'd be a great fit.'</p>
+        <div class="uc-tags"><span class="uc-tag">LLM synthesis</span><span class="uc-tag">Analogue matching</span><span class="uc-tag">Sales enablement</span></div>
+      </div>
+
+      <div class="uc-card cc8">
+        <p class="uc-num">UC-36</p>
+        <p class="uc-title">Pipeline Velocity Monitor</p>
+        <p class="uc-what">AI tracks deal stage movement across HubSpot and flags deals going cold, surfaces re-engagement moments — a creator just crossed a follower milestone, posted something relevant to WJ's category, or a competitor signed someone from the same niche — and suggests a specific re-engagement angle for each. Keeps the pipeline from quietly dying between touchpoints.</p>
+        <div class="uc-divider"></div>
+        <p class="uc-outcome-label">Business outcome</p>
+        <p class="uc-outcome">Deals don't stall silently. Every cold lead has a reason to re-engage, and the right moment to do it surfaces automatically rather than when someone remembers to check.</p>
+        <div class="uc-tags"><span class="uc-tag">HubSpot</span><span class="uc-tag">Signal monitoring</span><span class="uc-tag">Re-engagement</span></div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- CLOSING -->
   <div class="closing">
     <h3>The Compounding Advantage</h3>
     <p>None of these use cases work without the data foundation  -  the BigQuery warehouse, the campaign tagging, the UTM discipline, the unified customer identity layer. <strong>That's why building the foundation isn't an IT project. It's a competitive strategy.</strong> Every month of clean data collected is a month of competitive advantage that compounds. A competitor starting this in two years starts two years behind.</p>
   </div>
 
-  <footer>WARREN JAMES · STRATEGIC AI USE CASES · 28 APPLICATIONS ACROSS 7 CATEGORIES · PREPARED BY REZA</footer>
+  <footer>WARREN JAMES · STRATEGIC AI USE CASES · 33 APPLICATIONS ACROSS 8 CATEGORIES · PREPARED BY REZA</footer>
 
 </div>
 <script>
